@@ -10,12 +10,12 @@ public class Character : MonoBehaviour {
 	public List<GameObject> shots;
 	public List<ShotType> equipedShotTypes;
 	public int equipedShot = 0;
-	private int power = 0;
+	public int power = 0;
 
 	// Use this for initialization
 	void Start () {
-		gameObject.AddComponent <ShotWide>();
 		gameObject.AddComponent <ShotStraight>();
+		gameObject.AddComponent <ShotWide>();
 		equipedShotTypes.AddRange(GetComponents<ShotType>());
 	}
 	
@@ -28,6 +28,12 @@ public class Character : MonoBehaviour {
 			Fire ();
 		if (Input.GetMouseButtonUp (1))
 			equipedShot ^= 1;
+
+		////debug
+		if (Input.GetKeyDown("o"))
+			++power;
+		if (Input.GetKeyDown("l"))
+			--power;
 	}
 
 	void Move(){
