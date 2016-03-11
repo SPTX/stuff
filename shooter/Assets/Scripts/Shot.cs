@@ -12,7 +12,7 @@ public class Shot : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		transform.Translate (transform.right * 35f * Time.deltaTime);
+		transform.Translate (transform.right * 50f * Time.deltaTime);
 		if (transform.position.x < -10)
 			Destroy (gameObject);
 		else if (transform.position.x > 10)
