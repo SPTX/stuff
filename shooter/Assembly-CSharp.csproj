@@ -47,7 +47,7 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\Character.cs" />
      <Compile Include="Assets\Scripts\GameCamera.cs" />
-     <Compile Include="Assets\Scripts\Scroller.cs" />
+     <Compile Include="Assets\Scripts\MapManager.cs" />
      <Compile Include="Assets\Scripts\Shot.cs" />
      <Compile Include="Assets\Scripts\ShotStraight.cs" />
      <Compile Include="Assets\Scripts\ShotType.cs" />

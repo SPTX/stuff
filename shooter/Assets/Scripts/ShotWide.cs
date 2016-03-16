@@ -16,7 +16,7 @@ public class ShotWide : ShotType {
 	
 	}
 
-	override public GameObject Fire(Vector3 shotOrigin, int power, string element = ""){
+	override public GameObject Fire(Vector3 shotOrigin, int power, string element = "Fire"){
 
 		Shot = "Shot" + element;
 		

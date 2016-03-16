@@ -4,7 +4,6 @@ using System.Collections.Generic;
 
 public class Character : MonoBehaviour {
 
-	private float firerate = 0.02f;
 	private float refire = 0;
 	private int maxBullets = 5;
 	public List<GameObject> shots;
@@ -22,6 +21,8 @@ public class Character : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
+		if (Time.timeScale == 0)
+			return;
 		Move ();
 		ClearShots ();
 		if (Input.GetMouseButton (0))
@@ -63,7 +64,7 @@ public class Character : MonoBehaviour {
 		if (refire <= 0 && shots.Count < maxBullets) {
 
 			shots.Add(equipedShotTypes[equipedShot].Fire (transform.position + Vector3.right * 0.4f, power));
-				refire = firerate;
+			refire = equipedShotTypes[equipedShot].firerate;
 		} else
 			refire = refire - Time.deltaTime;
 	}

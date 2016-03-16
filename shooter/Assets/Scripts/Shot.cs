@@ -3,7 +3,8 @@ using System.Collections;
 
 public class Shot : MonoBehaviour {
 
-	private float life = 2.0f;
+	protected float life = 2.0f;
+	protected float speed = 40f;
 
 	// Use this for initialization
 	void Start () {
@@ -12,7 +13,7 @@ public class Shot : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		transform.Translate (transform.right * 50f * Time.deltaTime);
+		transform.Translate (transform.right * speed * Time.deltaTime);
 		if (transform.position.x < -10)
 			Destroy (gameObject);
 		else if (transform.position.x > 10)
