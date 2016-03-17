@@ -5,17 +5,24 @@ using System.Collections.Generic;
 public class Character : MonoBehaviour {
 
 	private float refire = 0;
-	private int maxBullets = 5;
 	public List<GameObject> shots;
 	public List<ShotType> equipedShotTypes;
 	public int equipedShot = 0;
 	public int power = 0;
 
+	private float magicRingMaxSize = 2;
+	private float magicRingMinSize = 0.4f;
+	private float magicRingSize;
+
+	private float SuckRingSize = 30;
+
 	// Use this for initialization
 	void Start () {
+		magicRingSize = magicRingMinSize;
 		gameObject.AddComponent <ShotStraight>();
 		gameObject.AddComponent <ShotWide>();
 		equipedShotTypes.AddRange(GetComponents<ShotType>());
+		MapManager.PlayerCharacter = this;
 	}
 	
 	// Update is called once per frame
@@ -61,7 +68,7 @@ public class Character : MonoBehaviour {
 	}
 
 	void Fire(){
-		if (refire <= 0 && shots.Count < maxBullets) {
+		if (refire <= 0 && shots.Count < equipedShotTypes[equipedShot].maxBullets) {
 
 			shots.Add(equipedShotTypes[equipedShot].Fire (transform.position + Vector3.right * 0.4f, power));
 			refire = equipedShotTypes[equipedShot].firerate;

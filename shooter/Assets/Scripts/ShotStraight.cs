@@ -3,8 +3,6 @@ using System.Collections;
 
 public class ShotStraight : ShotType {
 
-	private string Shot;
-
 	// Use this for initialization
 	void Start () {
 	
@@ -15,28 +13,26 @@ public class ShotStraight : ShotType {
 	
 	}
 
-	override public GameObject Fire(Vector3 shotOrigin, int power, string element = "Fire"){
+	override public GameObject Fire(Vector3 shotOrigin, int power){
 
-		Shot = "Shot" + element;
+		ShotElem = "Shot" + element;
 
-		Instantiate (Resources.Load (Shot), shotOrigin, Quaternion.identity);
-		Instantiate (Resources.Load (Shot), shotOrigin, Quaternion.identity);
 		if (power > 0)
 		{
-			Instantiate (Resources.Load (Shot), shotOrigin + Vector3.up * 0.2f, Quaternion.identity);
-			Instantiate (Resources.Load (Shot), shotOrigin - Vector3.up * 0.2f, Quaternion.identity);
+			Instantiate (Resources.Load (ShotElem), shotOrigin + Vector3.up * 0.2f, Quaternion.identity);
+			Instantiate (Resources.Load (ShotElem), shotOrigin - Vector3.up * 0.2f, Quaternion.identity);
 		}
 		if (power > 1)
 		{
-			Instantiate (Resources.Load (Shot), shotOrigin + Vector3.up * 0.4f,  Quaternion.identity);
-			Instantiate (Resources.Load (Shot), shotOrigin - Vector3.up * 0.4f,  Quaternion.identity);
+			Instantiate (Resources.Load (ShotElem), shotOrigin + Vector3.up * 0.4f,  Quaternion.identity);
+			Instantiate (Resources.Load (ShotElem), shotOrigin - Vector3.up * 0.4f,  Quaternion.identity);
 		}
 		///lovemax only
 		if (power > 2)
 		{
-			Instantiate (Resources.Load (Shot), shotOrigin + Vector3.up * 0.6f,  Quaternion.identity);
-			Instantiate (Resources.Load (Shot), shotOrigin - Vector3.up * 0.6f,  Quaternion.identity);
+			Instantiate (Resources.Load (ShotElem), shotOrigin + Vector3.up * 0.6f,  Quaternion.identity);
+			Instantiate (Resources.Load (ShotElem), shotOrigin - Vector3.up * 0.6f,  Quaternion.identity);
 		}
-		return (GameObject)Instantiate (Resources.Load (Shot), shotOrigin, transform.rotation);
+		return (GameObject)Instantiate (Resources.Load (ShotElem), shotOrigin, transform.rotation);
 	}
 }

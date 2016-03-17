@@ -3,6 +3,8 @@ using System.Collections;
 
 public class MapManager : MonoBehaviour {
 
+	public static Character PlayerCharacter;
+
 	// Use this for initialization
 	void Start () {
 		Cursor.lockState = CursorLockMode.Locked;
