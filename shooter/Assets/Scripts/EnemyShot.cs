@@ -3,9 +3,10 @@ using System.Collections;
 
 public class EnemyShot : Shot {
 
-	protected float launchTime = 1;
+	protected float launchTime = 0.5f;
 	protected float speedFinal = 14;
-	protected float accel = 1f;
+	protected float accelInit = 1f;
+	protected float accel = 0.4f;
 	// Use this for initialization
 	void Start () {
 		speed = 0;
@@ -19,7 +20,7 @@ public class EnemyShot : Shot {
 			return;
 		}
 		if (speed < speedFinal)
-			speed += (accel += 0.25f) * Time.deltaTime;
+			speed += (accelInit += accel) * Time.deltaTime;
 		base.Update ();
 	}
 }

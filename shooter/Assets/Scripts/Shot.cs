@@ -5,11 +5,12 @@ public class Shot : MonoBehaviour {
 
 	protected float life = 30;
 	protected float speed = 40f;
+	protected Vector3 initialDimension;
 	public string element;
 
 	// Use this for initialization
 	void Start () {
-	
+		initialDimension = transform.localScale;
 	}
 	
 	// Update is called once per frame
@@ -23,6 +24,7 @@ public class Shot : MonoBehaviour {
 			Destroy (gameObject);
 		else if (transform.position.y > 6)
 			Destroy (gameObject);
+
 		if ((life = life - Time.deltaTime) < 0)
 			Destroy (gameObject);
 	}
