@@ -13,6 +13,8 @@ public class MapManager : MonoBehaviour {
 		Cursor.lockState = CursorLockMode.Locked;
 		Cursor.visible = false;
 		Manager = this;
+
+//		Time.timeScale = 0.1f;
 	}
 	
 	// Update is called once per frame

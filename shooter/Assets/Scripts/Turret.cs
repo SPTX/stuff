@@ -16,15 +16,12 @@ public class Turret : MonoBehaviour {
 	void Update () {
 		LookAtPlayer ();
 
-
-
-		if (refire <= 0) {
-			Instantiate (Resources.Load ("ShotEnemy"), transform.position, transform.localRotation);
-			refire = firerate;
-		}
-		else
+		if (refire > 0)
 			refire = refire - Time.deltaTime;
 
+		//debug
+		if (Input.GetKeyDown (KeyCode.P))
+			Shoot ();
 	}
 
 	void LookAtPlayer(){
@@ -34,5 +31,13 @@ public class Turret : MonoBehaviour {
 		rotation.x = rotation.y = 0;
 		transform.rotation = rotation;
 		transform.RotateAround (transform.position, transform.up, 180f);
+	}
+
+	void Shoot()
+	{
+		if (refire <= 0) {
+			Instantiate (Resources.Load ("ShotEnemy"), transform.position, transform.localRotation);
+			refire = firerate;
+		}
 	}
 }

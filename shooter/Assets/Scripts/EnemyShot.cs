@@ -26,7 +26,7 @@ public class EnemyShot : Shot {
 	}
 
 	void OnTriggerEnter2D(Collider2D other){
-		Destroy (gameObject);
+		//Destroy (gameObject);
 	}
 
 }

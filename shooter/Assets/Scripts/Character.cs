@@ -8,7 +8,7 @@ public class Character : DamagingEntity {
 	private float invincibilityTime = 0.5f;
 
 	private float refire = 0;
-	public List<GameObject> shots;
+	public List<GameObject> activeShots;
 	public List<ShotType> equipedShotTypes;
 	public int equipedShot = 0;
 	public int power = 0;
@@ -69,16 +69,16 @@ public class Character : DamagingEntity {
 	}
 
 	void ClearShots(){
-		for (int i = 0; i < shots.Count; ++i) {
-			if (shots[i] == null)
-				shots.RemoveAt(i);
+		for (int i = 0; i < activeShots.Count; ++i) {
+			if (activeShots[i] == null)
+				activeShots.RemoveAt(i);
 		}
 	}
 
 	void Fire(){
-		if (refire <= 0 && shots.Count < equipedShotTypes[equipedShot].maxBullets) {
+		if (refire <= 0 && activeShots.Count < equipedShotTypes[equipedShot].maxBullets) {
 
-			shots.Add(equipedShotTypes[equipedShot].Fire (transform.position + Vector3.right * 0.4f, power));
+			activeShots.Add(equipedShotTypes[equipedShot].Fire (transform.position + Vector3.right * 0.4f, power));
 			refire = equipedShotTypes[equipedShot].firerate;
 		} else
 			refire = refire - Time.deltaTime;
