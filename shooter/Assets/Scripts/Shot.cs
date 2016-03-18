@@ -1,16 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Shot : MonoBehaviour {
+public class Shot : DamagingEntity {
 
 	protected float life = 30;
 	protected float speed = 40f;
-	protected Vector3 initialDimension;
 	public string element;
 
 	// Use this for initialization
 	void Start () {
-		initialDimension = transform.localScale;
+		damage = MapManager.PlayerCharacter.equipedShotTypes[MapManager.PlayerCharacter.equipedShot].damage;
 	}
 	
 	// Update is called once per frame
@@ -27,5 +26,11 @@ public class Shot : MonoBehaviour {
 
 		if ((life = life - Time.deltaTime) < 0)
 			Destroy (gameObject);
+	}
+
+	void OnTriggerEnter2D(Collider2D other)
+	{
+		other.GetComponent<Enemy> ().TakeDamage (damage, element);
+		Destroy (gameObject);
 	}
 }

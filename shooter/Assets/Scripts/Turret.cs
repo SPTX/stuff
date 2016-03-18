@@ -6,6 +6,8 @@ public class Turret : MonoBehaviour {
 	protected float firerate = 0.5f;
 	protected float refire = 0;
 
+//	protected 
+
 	// Use this for initialization
 	void Start () {
 	}
@@ -13,12 +15,16 @@ public class Turret : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		LookAtPlayer ();
+
+
+
 		if (refire <= 0) {
 			Instantiate (Resources.Load ("ShotEnemy"), transform.position, transform.localRotation);
 			refire = firerate;
 		}
 		else
 			refire = refire - Time.deltaTime;
+
 	}
 
 	void LookAtPlayer(){

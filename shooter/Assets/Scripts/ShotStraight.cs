@@ -4,8 +4,8 @@ using System.Collections;
 public class ShotStraight : ShotType {
 
 	// Use this for initialization
-	void Start () {
-	
+	new void Start () {
+		base.Start ();
 	}
 	
 	// Update is called once per frame
@@ -19,19 +19,19 @@ public class ShotStraight : ShotType {
 
 		if (power > 0)
 		{
-			Instantiate (Resources.Load (ShotElem), shotOrigin + Vector3.up * 0.2f, Quaternion.identity);
-			Instantiate (Resources.Load (ShotElem), shotOrigin - Vector3.up * 0.2f, Quaternion.identity);
+			Instantiate (Resources.Load (ShotElem), shotOrigin + Vector3.up * 0.1f, Quaternion.identity);
+			Instantiate (Resources.Load (ShotElem), shotOrigin - Vector3.up * 0.1f, Quaternion.identity);
 		}
 		if (power > 1)
 		{
-			Instantiate (Resources.Load (ShotElem), shotOrigin + Vector3.up * 0.4f,  Quaternion.identity);
-			Instantiate (Resources.Load (ShotElem), shotOrigin - Vector3.up * 0.4f,  Quaternion.identity);
+			Instantiate (Resources.Load (ShotElem), shotOrigin + Vector3.up * 0.2f,  Quaternion.identity);
+			Instantiate (Resources.Load (ShotElem), shotOrigin - Vector3.up * 0.2f,  Quaternion.identity);
 		}
 		///lovemax only
 		if (power > 2)
 		{
-			Instantiate (Resources.Load (ShotElem), shotOrigin + Vector3.up * 0.6f,  Quaternion.identity);
-			Instantiate (Resources.Load (ShotElem), shotOrigin - Vector3.up * 0.6f,  Quaternion.identity);
+			Instantiate (Resources.Load (ShotElem), shotOrigin + Vector3.up * 0.3f,  Quaternion.identity);
+			Instantiate (Resources.Load (ShotElem), shotOrigin - Vector3.up * 0.3f,  Quaternion.identity);
 		}
 		return (GameObject)Instantiate (Resources.Load (ShotElem), shotOrigin, transform.rotation);
 	}

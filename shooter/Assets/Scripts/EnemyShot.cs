@@ -7,6 +7,7 @@ public class EnemyShot : Shot {
 	protected float speedFinal = 14;
 	protected float accelInit = 1f;
 	protected float accel = 0.4f;
+
 	// Use this for initialization
 	void Start () {
 		speed = 0;
@@ -23,4 +24,9 @@ public class EnemyShot : Shot {
 			speed += (accelInit += accel) * Time.deltaTime;
 		base.Update ();
 	}
+
+	void OnTriggerEnter2D(Collider2D other){
+		Destroy (gameObject);
+	}
+
 }

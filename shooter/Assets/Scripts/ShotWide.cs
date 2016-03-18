@@ -3,10 +3,11 @@ using System.Collections;
 
 public class ShotWide : ShotType {
 
-	private float shotAngle = 5f;
+	private float shotAngle = 6f;
 
 	// Use this for initialization
-	void Start () {
+	new void Start () {
+		base.Start ();
 		damage = 40;
 	}
 	
@@ -30,14 +31,14 @@ public class ShotWide : ShotType {
 		}
 		if (power > 1)
 		{
-			Instantiate (Resources.Load (ShotElem), shotOrigin + Vector3.up * 0.35f, transform.rotation);
-			Instantiate (Resources.Load (ShotElem), shotOrigin - Vector3.up * 0.35f, transform.rotation);
+			Instantiate (Resources.Load (ShotElem), shotOrigin + Vector3.up * 0.2f, transform.rotation);
+			Instantiate (Resources.Load (ShotElem), shotOrigin - Vector3.up * 0.2f, transform.rotation);
 		}
 		///lovemax only
 		if (power > 2)
 		{
-			Instantiate (Resources.Load (ShotElem), shotOrigin + Vector3.up * 0.6f, Quaternion.Euler(0, 0, shotAngle + 4f));
-			Instantiate (Resources.Load (ShotElem), shotOrigin - Vector3.up * 0.6f, Quaternion.Euler(0, 0, -shotAngle - 4f));
+			Instantiate (Resources.Load (ShotElem), shotOrigin + Vector3.up * 0.5f, Quaternion.Euler(0, 0, shotAngle + 6f));
+			Instantiate (Resources.Load (ShotElem), shotOrigin - Vector3.up * 0.5f, Quaternion.Euler(0, 0, -shotAngle - 6f));
 		}
 		return (GameObject)Instantiate (Resources.Load (ShotElem), shotOrigin, transform.rotation);
 	}

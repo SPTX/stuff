@@ -2,7 +2,10 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class Character : MonoBehaviour {
+public class Character : DamagingEntity {
+
+	private float invincibility = 0;
+	private float invincibilityTime = 0.5f;
 
 	private float refire = 0;
 	public List<GameObject> shots;
@@ -32,10 +35,15 @@ public class Character : MonoBehaviour {
 			return;
 		Move ();
 		ClearShots ();
+		if (invincibility > 0)
+			invincibility -= Time.deltaTime;
 		if (Input.GetMouseButton (0))
 			Fire ();
-		if (Input.GetMouseButtonUp (1))
+		if (Input.GetMouseButtonUp (1)) {
 			equipedShot ^= 1;
+			MapManager.Manager.PlayerHealthBar.size =
+				(equipedShotTypes[equipedShot].health * 100f / equipedShotTypes[equipedShot].healthMax) / 100f;
+		}
 
 		////debug
 		if (Input.GetKeyDown("o"))
@@ -76,4 +84,13 @@ public class Character : MonoBehaviour {
 			refire = refire - Time.deltaTime;
 	}
 
+	void OnTriggerStay2D(Collider2D other)
+	{
+		if (invincibility <= 0) {
+			equipedShotTypes[equipedShot].health -= other.GetComponent<DamagingEntity>().damage;
+			invincibility = invincibilityTime;
+			MapManager.Manager.PlayerHealthBar.size =
+				(equipedShotTypes[equipedShot].health * 100f / equipedShotTypes[equipedShot].healthMax) / 100f;
+		}
+	}	
 }

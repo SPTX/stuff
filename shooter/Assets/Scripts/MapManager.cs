@@ -1,14 +1,18 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class MapManager : MonoBehaviour {
 
 	public static Character PlayerCharacter;
+	public static MapManager Manager;
+	public Scrollbar PlayerHealthBar;
 
 	// Use this for initialization
 	void Start () {
 		Cursor.lockState = CursorLockMode.Locked;
 		Cursor.visible = false;
+		Manager = this;
 	}
 	
 	// Update is called once per frame

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Enemy : MonoBehaviour {
+public class Enemy : DamagingEntity {
 
 	protected int health = 300;
 	public string element = "Fire";
@@ -13,5 +13,10 @@ public class Enemy : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 	
+	}
+
+	public void TakeDamage(int DamageTaken, string DamageElement)
+	{
+		
 	}
 }
