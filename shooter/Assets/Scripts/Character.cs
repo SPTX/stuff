@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -18,6 +19,9 @@ public class Character : DamagingEntity {
 	private float magicRingSize;
 
 	private float SuckRingSize = 30;
+
+
+	public Image healthBar;
 
 	// Use this for initialization
 	void Start () {
@@ -91,6 +95,12 @@ public class Character : DamagingEntity {
 			invincibility = invincibilityTime;
 			MapManager.Manager.PlayerHealthBar.size =
 				(equipedShotTypes[equipedShot].health * 100f / equipedShotTypes[equipedShot].healthMax) / 100f;
+
+			healthBar.transform.localScale = new Vector3((equipedShotTypes[equipedShot].health * 100f / equipedShotTypes[equipedShot].healthMax) / 100f, 1, 1);
+			Vector3 newpos = healthBar.transform.localPosition;
+			Debug.Log (newpos);
+			newpos.x *= 2;
+			healthBar.transform.localPosition = newpos;
 		}
 	}	
 }

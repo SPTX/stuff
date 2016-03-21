@@ -8,6 +8,7 @@ public class Enemy : DamagingEntity {
 	public int HealthMax = 200;
 	protected Vector3 initialBarPos;
 	public Image healthBar;
+	public Canvas can;
 
 	public string element = "Fire";
 
@@ -19,50 +20,39 @@ public class Enemy : DamagingEntity {
 	
 	// Update is called once per frame
 	void Update () {
-	if (Input.GetKeyDown (KeyCode.End)) {
-			Debug.Log("local pos = " +  healthBar.rectTransform.localPosition);
-			Debug.Log("pos = " +  healthBar.transform.localPosition);
-
-		}
 	}
 
 	public void TakeDamage(int DamageTaken, string DamageElement)
 	{
-		if (DamageElement == "Fire") {
-			if (element == "Water")
-				health -= DamageTaken / 2;
-			else if (element == "Wind")
-				health -= DamageTaken * 2;
-
-		} else if (DamageElement == "Water") {
-			if (element == "Wind")
-				health -= DamageTaken / 2;
-			else if (element == "Fire")
-				health -= DamageTaken * 2;
-
-		} else if (DamageElement == "Wind") {
-			if (element == "Fire")
-				health -= DamageTaken / 2;
-			else if (element == "Water")
-				health -= DamageTaken * 2;
-
-		} else if (DamageElement == "Light") {
-			if (element == "Dark")
-				health -= DamageTaken * 2;
-
-		} else if (DamageElement == "Dark") {
-			if (element == "Light")
-				health -= DamageTaken * 2;
-		}
+		if (DamageElement == "Wind" && element == "Water" ||
+			DamageElement == "Water" && element == "fire" || 
+			DamageElement == "Fire" && element == "Wind" ||
+			DamageElement == "Light" && element == "Dark" || 
+			DamageElement == "Dark" && element == "Light")
+			health -= DamageTaken * 2;
+		else if (DamageElement == "Water" && element == "Wind" ||
+			DamageElement == "Fire" && element == "Water" || 
+			DamageElement == "Wind" && element == "Fire" ||
+			DamageElement == "Dark" && element == "Light" || 
+			DamageElement == "Light" && element == "Dark")
+			health -= DamageTaken / 2;
+		else
+			health -= DamageTaken;
 
 		if (health <= 0)
-			Destroy (gameObject);
+			Die();
 		else {
 //			GetComponentInChildren<Canvas>().enabled = true;
+			can.gameObject.SetActive(true);
 			healthBar.transform.localScale = new Vector3((health * 100 / HealthMax) / 100f, 1, 1);
 			Vector3 newpos = healthBar.transform.localPosition;
 			newpos.x = healthBar.transform.localScale.x / 2 - 0.5f;
 			healthBar.transform.localPosition = newpos;
 		}
+	}
+
+	void Die(){
+		//Spawn explosin effect or whatever
+		Destroy (gameObject);
 	}
 }
