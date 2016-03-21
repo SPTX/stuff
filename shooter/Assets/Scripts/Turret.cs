@@ -6,18 +6,27 @@ public class Turret : MonoBehaviour {
 	protected float firerate = 0.5f;
 	protected float refire = 0;
 
-//	protected 
+	public bool follow = true;
+
+	private Vector3 originalSize;
+	
+	//	protected 
 
 	// Use this for initialization
 	void Start () {
+		originalSize = transform.localScale;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		LookAtPlayer ();
+		if (follow)
+			LookAtPlayer ();
 
 		if (refire > 0)
 			refire = refire - Time.deltaTime;
+
+		if (transform.localScale.x < originalSize.x)
+			transform.localScale *= 1.2f;
 
 		//debug
 		if (Input.GetKeyDown (KeyCode.P))
@@ -39,5 +48,10 @@ public class Turret : MonoBehaviour {
 			Instantiate (Resources.Load ("ShotEnemy"), transform.position, transform.localRotation);
 			refire = firerate;
 		}
+	}
+
+	public void HitEffect()
+	{
+		transform.localScale = originalSize / 1.5f;
 	}
 }

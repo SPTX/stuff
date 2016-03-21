@@ -9,8 +9,7 @@ public class Enemy : DamagingEntity {
 	protected Vector3 initialBarPos;
 	public Image healthBar;
 	public Canvas can;
-
-	private Vector3 originalSize;
+	public Turret turret;
 
 	public string element = "Fire";
 
@@ -18,13 +17,10 @@ public class Enemy : DamagingEntity {
 	void Start () {
 		health = HealthMax;
 		initialBarPos = healthBar.rectTransform.localPosition;
-		originalSize = transform.localScale;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		if (transform.localScale.x < originalSize.x)
-			transform.localScale *= 1.2f;
 	}
 
 	public void TakeDamage(int DamageTaken, string DamageElement)
@@ -53,7 +49,7 @@ public class Enemy : DamagingEntity {
 
 		else {
 			can.gameObject.SetActive(true);
-			transform.localScale = originalSize / 1.5f;
+			turret.HitEffect();
 			healthBar.transform.localScale = new Vector3((health * 100 / HealthMax) / 100f, 1, 1);
 			Vector3 newpos = healthBar.transform.localPosition;
 			newpos.x = healthBar.transform.localScale.x / 2 - 0.5f;
