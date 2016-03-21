@@ -18,7 +18,7 @@ public class Character : DamagingEntity {
 	private float magicRingMinSize = 0.4f;
 	private float magicRingSize;
 
-	public float comboTimerMax = 5;
+	public float comboTimerMax = 4;
 	public float comboTimer = 0;
 	public RawImage comboBar;
 
