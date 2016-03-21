@@ -10,20 +10,29 @@ public class Enemy : DamagingEntity {
 	public Image healthBar;
 	public Canvas can;
 
+	private Vector3 originalSize;
+
 	public string element = "Fire";
 
 	// Use this for initialization
 	void Start () {
 		health = HealthMax;
 		initialBarPos = healthBar.rectTransform.localPosition;
+		originalSize = transform.localScale;
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		if (transform.localScale.x < originalSize.x)
+			transform.localScale *= 1.2f;
 	}
 
 	public void TakeDamage(int DamageTaken, string DamageElement)
 	{
+		//debug
+		MapManager.PlayerCharacter.comboTimer = MapManager.PlayerCharacter.comboTimerMax;
+		//
+
 		if (DamageElement == "Wind" && element == "Water" ||
 			DamageElement == "Water" && element == "fire" || 
 			DamageElement == "Fire" && element == "Wind" ||
@@ -41,9 +50,10 @@ public class Enemy : DamagingEntity {
 
 		if (health <= 0)
 			Die();
+
 		else {
-//			GetComponentInChildren<Canvas>().enabled = true;
 			can.gameObject.SetActive(true);
+			transform.localScale = originalSize / 1.5f;
 			healthBar.transform.localScale = new Vector3((health * 100 / HealthMax) / 100f, 1, 1);
 			Vector3 newpos = healthBar.transform.localPosition;
 			newpos.x = healthBar.transform.localScale.x / 2 - 0.5f;

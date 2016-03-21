@@ -18,7 +18,11 @@ public class Character : DamagingEntity {
 	private float magicRingMinSize = 0.4f;
 	private float magicRingSize;
 
-	private float SuckRingSize = 30;
+	public float comboTimerMax = 5;
+	public float comboTimer = 0;
+	public RawImage comboBar;
+
+	private float suckRingSize = 30;
 
 
 	public Image healthBar;
@@ -39,14 +43,14 @@ public class Character : DamagingEntity {
 			return;
 		Move ();
 		ClearShots ();
+		SolveCombo();
 		if (invincibility > 0)
 			invincibility -= Time.deltaTime;
 		if (Input.GetMouseButton (0))
 			Fire ();
 		if (Input.GetMouseButtonUp (1)) {
 			equipedShot ^= 1;
-			MapManager.Manager.PlayerHealthBar.size =
-				(equipedShotTypes[equipedShot].health * 100f / equipedShotTypes[equipedShot].healthMax) / 100f;
+			SolveHealthBar();
 		}
 
 		////debug
@@ -54,6 +58,12 @@ public class Character : DamagingEntity {
 			++power;
 		if (Input.GetKeyDown("l"))
 			--power;
+		if (Input.GetKeyDown (KeyCode.D)) {
+			Debug.Log(comboBar.rectTransform.localPosition + " loc pos\n" + 
+			          comboBar.rectTransform.rect + " rect\n" +
+			          comboBar.rectTransform.sizeDelta + " delta\n"
+			          );
+		}
 	}
 
 	void Move(){
@@ -93,14 +103,25 @@ public class Character : DamagingEntity {
 		if (invincibility <= 0) {
 			equipedShotTypes[equipedShot].health -= other.GetComponent<DamagingEntity>().damage;
 			invincibility = invincibilityTime;
-			MapManager.Manager.PlayerHealthBar.size =
-				(equipedShotTypes[equipedShot].health * 100f / equipedShotTypes[equipedShot].healthMax) / 100f;
-
-			healthBar.transform.localScale = new Vector3((equipedShotTypes[equipedShot].health * 100f / equipedShotTypes[equipedShot].healthMax) / 100f, 1, 1);
-			Vector3 newpos = healthBar.transform.localPosition;
-			Debug.Log (newpos);
-			newpos.x *= 2;
-			healthBar.transform.localPosition = newpos;
+			SolveHealthBar();
 		}
 	}	
+
+	void SolveCombo(){
+		if (comboTimer > 0) {
+			comboTimer -= Time.deltaTime;
+			Vector3 newBarSize = comboBar.transform.localScale;
+			newBarSize.x = Mathf.Clamp01((comboTimer * 100 / comboTimerMax) / 100f);
+			comboBar.transform.localScale = newBarSize;
+			comboBar.rectTransform.anchoredPosition = Vector2.right * (comboBar.rectTransform.sizeDelta.x / 2 * newBarSize.x);
+		}
+	}
+
+	void SolveHealthBar(){
+		Vector3 newBarSize = healthBar.transform.localScale;
+		newBarSize.x = Mathf.Clamp01 ((equipedShotTypes [equipedShot].health * 100f / equipedShotTypes [equipedShot].healthMax) / 100f);
+		healthBar.transform.localScale = newBarSize;
+		healthBar.rectTransform.anchoredPosition = Vector2.right * (healthBar.rectTransform.sizeDelta.x / 2 * newBarSize.x);
+	}
+
 }
