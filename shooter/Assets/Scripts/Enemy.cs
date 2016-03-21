@@ -4,21 +4,26 @@ using System.Collections;
 
 public class Enemy : DamagingEntity {
 
-	protected int health = 200;
-	protected int initialHealth;
+	protected int health;
+	public int HealthMax = 200;
 	protected Vector3 initialBarPos;
-	public string element = "Fire";
 	public Image healthBar;
+
+	public string element = "Fire";
 
 	// Use this for initialization
 	void Start () {
-		initialHealth = health;
-		initialBarPos = healthBar.transform.localPosition;
+		health = HealthMax;
+		initialBarPos = healthBar.rectTransform.localPosition;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-	
+	if (Input.GetKeyDown (KeyCode.End)) {
+			Debug.Log("local pos = " +  healthBar.rectTransform.localPosition);
+			Debug.Log("pos = " +  healthBar.transform.localPosition);
+
+		}
 	}
 
 	public void TakeDamage(int DamageTaken, string DamageElement)
@@ -53,10 +58,11 @@ public class Enemy : DamagingEntity {
 		if (health <= 0)
 			Destroy (gameObject);
 		else {
-			healthBar.enabled = true;
-			healthBar.transform.localScale = new Vector3((health * 100 / initialHealth) / 100f, 1, 1);
-			// a faire, position bar vers la gauche
-			healthBar.transform.localPosition = initialBarPos;
+//			GetComponentInChildren<Canvas>().enabled = true;
+			healthBar.transform.localScale = new Vector3((health * 100 / HealthMax) / 100f, 1, 1);
+			Vector3 newpos = healthBar.transform.localPosition;
+			newpos.x = healthBar.transform.localScale.x / 2 - 0.5f;
+			healthBar.transform.localPosition = newpos;
 		}
 	}
 }
