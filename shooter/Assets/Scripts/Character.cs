@@ -16,25 +16,22 @@ public class Character : DamagingEntity {
 	
 	private float comboTimerMax = 4;
 	private float comboTimer = 0;
-	private int comboCount = 0;
+	public int comboCount = 0;
 	public Text comboCountUI;
 	public RawImage comboBar;
 
-	private float magicRingMaxSize = 2;
-	private float magicRingMinSize = 1;
-	private float magicRingSize;
-	public Sprite ringSprite;
-
-	private float suckRingSize = 30;
+	private float magicRingMaxSize = 6;
+	private Vector3 magicRingInitialSize;
+	public GameObject ringSprite;
 
 	public Image healthBar;
 
 	// Use this for initialization
 	void Start () {
-		magicRingSize = magicRingMinSize;
 		gameObject.AddComponent <ShotStraight>();
 		gameObject.AddComponent <ShotWide>();
 		equipedShotTypes.AddRange(GetComponents<ShotType>());
+		magicRingInitialSize = ringSprite.transform.localScale;
 		MapManager.PlayerCharacter = this;
 	}
 	
@@ -47,7 +44,6 @@ public class Character : DamagingEntity {
 		Move ();
 		ClearShots ();
 		SolveCombo();
-		SetMagicRing ();
 
 		if (invincibility > 0)
 			invincibility -= Time.deltaTime;
@@ -79,6 +75,7 @@ public class Character : DamagingEntity {
 		else if (transform.position.y > 3.5f)
 			newPos.y = 3.5f;
 		transform.position = newPos;
+		ringSprite.transform.position = newPos;
 	}
 
 	void ClearShots(){
@@ -120,23 +117,20 @@ public class Character : DamagingEntity {
 			newBarSize.x = Mathf.Clamp01 ((comboTimer * 100 / comboTimerMax) / 100f);
 			comboBar.transform.localScale = newBarSize;
 			comboBar.rectTransform.anchoredPosition = Vector2.right * (comboBar.rectTransform.sizeDelta.x / 2 * newBarSize.x);
+			//set magic ring size
+			ringSprite.transform.localScale = magicRingInitialSize * Mathf.Clamp((comboTimer * 100 / comboTimerMax) / 100f * magicRingMaxSize, 1f, magicRingMaxSize);
 		} else {
 			//code some good looking fade out
 			comboCountUI.text = "";
 		}
 	}
 
-	void SetMagicRing(){
-
-	}
-
 	public void ComboAdd(int value = 0){
 		if (value > 0) {
 			comboCount += value;
-			comboCountUI.text = comboCount.ToString();
+			comboCountUI.text = comboCount.ToString ();
 			comboTimer = comboTimerMax;
-		}
-		else
-			comboTimer += 0.05f;
+		} else if ((comboTimer += 0.05f) > comboTimerMax)
+			comboTimer = comboTimerMax;
 	}
 }

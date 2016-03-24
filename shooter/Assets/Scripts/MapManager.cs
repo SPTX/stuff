@@ -41,4 +41,10 @@ public class MapManager : MonoBehaviour {
 		score += value;
 		scoreUI.text = score.ToString ();
 	}
+
+	public void AddMaterial(int value){
+		AddScore(100 * value);
+		material += value;
+		materialUI.text = material.ToString ();
+	}
 }
