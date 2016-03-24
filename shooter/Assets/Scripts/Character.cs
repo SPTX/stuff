@@ -13,17 +13,19 @@ public class Character : DamagingEntity {
 	public List<ShotType> equipedShotTypes;
 	public int equipedShot = 0;
 	public int power = 0;
-
-	private float magicRingMaxSize = 2;
-	private float magicRingMinSize = 0.4f;
-	private float magicRingSize;
-
-	public float comboTimerMax = 4;
-	public float comboTimer = 0;
+	
+	private float comboTimerMax = 4;
+	private float comboTimer = 0;
+	private int comboCount = 0;
+	public Text comboCountUI;
 	public RawImage comboBar;
 
-	private float suckRingSize = 30;
+	private float magicRingMaxSize = 2;
+	private float magicRingMinSize = 1;
+	private float magicRingSize;
+	public Sprite ringSprite;
 
+	private float suckRingSize = 30;
 
 	public Image healthBar;
 
@@ -41,9 +43,12 @@ public class Character : DamagingEntity {
 
 		if (Time.timeScale == 0)
 			return;
+
 		Move ();
 		ClearShots ();
 		SolveCombo();
+		SetMagicRing ();
+
 		if (invincibility > 0)
 			invincibility -= Time.deltaTime;
 		if (Input.GetMouseButton (0))
@@ -58,15 +63,9 @@ public class Character : DamagingEntity {
 			++power;
 		if (Input.GetKeyDown("l"))
 			--power;
-		if (Input.GetKeyDown (KeyCode.D)) {
-			Debug.Log(comboBar.rectTransform.localPosition + " loc pos\n" + 
-			          comboBar.rectTransform.rect + " rect\n" +
-			          comboBar.rectTransform.sizeDelta + " delta\n"
-			          );
-		}
 	}
 
-	void Move(){
+	void Move() {
 
 		transform.Translate (Input.GetAxis ("Mouse X"), Input.GetAxis ("Mouse Y"), 0);
 		Vector2 newPos = transform.position;
@@ -107,16 +106,6 @@ public class Character : DamagingEntity {
 		}
 	}	
 
-	void SolveCombo(){
-		if (comboTimer > 0) {
-			comboTimer -= Time.deltaTime;
-			Vector3 newBarSize = comboBar.transform.localScale;
-			newBarSize.x = Mathf.Clamp01((comboTimer * 100 / comboTimerMax) / 100f);
-			comboBar.transform.localScale = newBarSize;
-			comboBar.rectTransform.anchoredPosition = Vector2.right * (comboBar.rectTransform.sizeDelta.x / 2 * newBarSize.x);
-		}
-	}
-
 	void SolveHealthBar(){
 		Vector3 newBarSize = healthBar.transform.localScale;
 		newBarSize.x = Mathf.Clamp01 ((equipedShotTypes [equipedShot].health * 100f / equipedShotTypes [equipedShot].healthMax) / 100f);
@@ -124,4 +113,30 @@ public class Character : DamagingEntity {
 		healthBar.rectTransform.anchoredPosition = Vector2.right * (healthBar.rectTransform.sizeDelta.x / 2 * newBarSize.x);
 	}
 
+	void SolveCombo(){
+		if (comboTimer > 0) {
+			comboTimer -= Time.deltaTime;
+			Vector3 newBarSize = comboBar.transform.localScale;
+			newBarSize.x = Mathf.Clamp01 ((comboTimer * 100 / comboTimerMax) / 100f);
+			comboBar.transform.localScale = newBarSize;
+			comboBar.rectTransform.anchoredPosition = Vector2.right * (comboBar.rectTransform.sizeDelta.x / 2 * newBarSize.x);
+		} else {
+			//code some good looking fade out
+			comboCountUI.text = "";
+		}
+	}
+
+	void SetMagicRing(){
+
+	}
+
+	public void ComboAdd(int value = 0){
+		if (value > 0) {
+			comboCount += value;
+			comboCountUI.text = comboCount.ToString();
+			comboTimer = comboTimerMax;
+		}
+		else
+			comboTimer += 0.05f;
+	}
 }

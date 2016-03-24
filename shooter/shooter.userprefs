@@ -1,18 +1,18 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/MainMenu.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Character.cs">
     <Files>
-      <File FileName="Assets/Scripts/DamagingEntity.cs" Line="18" Column="1" />
-      <File FileName="Assets/Scripts/Character.cs" Line="12" Column="37" />
+      <File FileName="Assets/Scripts/Enemy.cs" Line="62" Column="41" />
+      <File FileName="Assets/Scripts/DamagingEntity.cs" Line="16" Column="3" />
+      <File FileName="Assets/Scripts/Character.cs" Line="122" Column="1" />
       <File FileName="Assets/Scripts/EnemyShot.cs" Line="1" Column="1" />
       <File FileName="Assets/Scripts/Turret.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/MapManager.cs" Line="9" Column="1" />
+      <File FileName="Assets/Scripts/MapManager.cs" Line="31" Column="1" />
       <File FileName="Assets/Scripts/ShotType.cs" Line="1" Column="1" />
       <File FileName="Assets/Scripts/ShotWide.cs" Line="1" Column="1" />
       <File FileName="Assets/Scripts/ShotStraight.cs" Line="1" Column="1" />
       <File FileName="Assets/Scripts/Shot.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Enemy.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/MainMenu.cs" Line="37" Column="1" />
+      <File FileName="Assets/Scripts/MainMenu.cs" Line="30" Column="24" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

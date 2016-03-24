@@ -4,6 +4,7 @@ using System.Collections;
 public class DamagingEntity : MonoBehaviour {
 
 	public int damage = 100;
+	public int scoreValue = 10;
 
 	// Use this for initialization
 	void Start () {
@@ -14,5 +15,4 @@ public class DamagingEntity : MonoBehaviour {
 	void Update () {
 	
 	}
-
 }

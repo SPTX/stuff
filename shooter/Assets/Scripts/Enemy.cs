@@ -26,7 +26,7 @@ public class Enemy : DamagingEntity {
 	public void TakeDamage(int DamageTaken, string DamageElement)
 	{
 		//debug
-		MapManager.PlayerCharacter.comboTimer = MapManager.PlayerCharacter.comboTimerMax;
+		MapManager.PlayerCharacter.ComboAdd ();
 		//
 
 		if (DamageElement == "Wind" && element == "Water" ||
@@ -59,6 +59,8 @@ public class Enemy : DamagingEntity {
 
 	void Die(){
 		//Spawn explosin effect or whatever
+		MapManager.PlayerCharacter.ComboAdd (1);
+		Instantiate (Resources.Load ("Material"), transform.position, Quaternion.identity);
 		Destroy (gameObject);
 	}
 }

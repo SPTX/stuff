@@ -7,6 +7,13 @@ public class MapManager : MonoBehaviour {
 	public static Character PlayerCharacter;
 	public static MapManager Manager;
 
+	private int bestScore;
+	private int score = 0;
+	private int material = 0;
+	public Text bestScoreUI;
+	public Text scoreUI;
+	public Text materialUI;
+
 	// Use this for initialization
 	void Start () {
 		Cursor.lockState = CursorLockMode.Locked;
@@ -27,5 +34,11 @@ public class MapManager : MonoBehaviour {
 			Cursor.visible = !Cursor.visible;
 			Time.timeScale = (Time.timeScale == 1f ? 0 : 1f);
 		}
+	}
+
+	public void AddScore(int value)
+	{
+		score += value;
+		scoreUI.text = score.ToString ();
 	}
 }
