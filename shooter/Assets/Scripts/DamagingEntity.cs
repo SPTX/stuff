@@ -15,4 +15,5 @@ public class DamagingEntity : MonoBehaviour {
 	void Update () {
 	
 	}
+
 }

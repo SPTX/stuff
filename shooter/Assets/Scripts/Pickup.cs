@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Pickup : MonoBehaviour {
 
-	private int value = 1;
+	public int value = 1;
 	private bool hooked;
 	private bool falling;
 	private Vector3 velocity = new Vector3(0, 1, 0);
