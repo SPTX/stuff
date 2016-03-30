@@ -33,7 +33,7 @@ public class Turret : MonoBehaviour {
 
 	void LookAtPlayer(){
 		Quaternion rotation = Quaternion.LookRotation
-			(2 * (MapManager.PlayerCharacter.transform.position * 0.4f - transform.position),
+			(2 * (MapManager.PlayerCharacter.transform.position - transform.position),
 			 transform.TransformDirection (Vector3.up));
 		rotation.x = rotation.y = 0;
 		transform.rotation = rotation;

@@ -13,11 +13,14 @@ public class Character : DamagingEntity {
 	public List<ShotType> equipedShotTypes;
 	public int equipedShot = 0;
 	public int power = 0;
-	
+
+	private int pulse = 1;
+	private bool fading;
 	private float comboTimerMax = 4;
 	private float comboTimer = 0;
 	public int comboCount = 0;
 	public Text comboCountUI;
+	public Text comboText;
 	public RawImage comboBar;
 
 	private float magicRingMaxSize = 6;
@@ -99,6 +102,7 @@ public class Character : DamagingEntity {
 		if (invincibility <= 0) {
 			equipedShotTypes[equipedShot].health -= other.GetComponent<DamagingEntity>().damage;
 			invincibility = invincibilityTime;
+			MapManager.Manager.AddLove(-1);
 			SolveHealthBar();
 		}
 	}	
@@ -119,18 +123,33 @@ public class Character : DamagingEntity {
 			comboBar.rectTransform.anchoredPosition = Vector2.right * (comboBar.rectTransform.sizeDelta.x / 2 * newBarSize.x);
 			//set magic ring size
 			ringSprite.transform.localScale = magicRingInitialSize * Mathf.Clamp((comboTimer * 100 / comboTimerMax) / 100f * magicRingMaxSize, 1f, magicRingMaxSize);
-		} else {
-			//code some good looking fade out
-			comboCountUI.text = "";
+
+			if (comboCountUI.transform.localScale.y <= 1.5f){
+				comboText.transform.localScale = comboCountUI.transform.localScale += (Vector3.up * Time.deltaTime * pulse);
+				if (comboText.transform.localScale.y <= 1 || comboText.transform.localScale.y >= 1.5f)
+					pulse = -pulse;
+			}
+			else
+				comboCountUI.transform.localScale -= Vector3.one * 2 * Time.deltaTime;
+
+		} else if (!fading){
+			fading = true;
+			comboCountUI.color = comboText.color = Color.red;
 		}
+		else
+			comboCountUI.color = comboText.color -= new Color(0,0,0,1 * Time.deltaTime);
 	}
 
 	public void ComboAdd(int value = 0){
+		comboCountUI.color = comboText.color = new Color(1, 0.5f, 0, 1);
 		if (value > 0) {
 			comboCount += value;
 			comboCountUI.text = comboCount.ToString ();
+			comboText.text = "combo!";
 			comboTimer = comboTimerMax;
-		} else if ((comboTimer += 0.05f) > comboTimerMax)
+		} else if ((comboTimer += 0.05f) > comboTimerMax) {
 			comboTimer = comboTimerMax;
+			comboCountUI.transform.localScale = Vector3.one * 1.75f;
+		}
 	}
 }

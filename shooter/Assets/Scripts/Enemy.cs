@@ -7,6 +7,9 @@ public class Enemy : DamagingEntity {
 	protected int health;
 	public int HealthMax = 200;
 	protected Vector3 initialBarPos;
+	public GameObject LockRing;
+	public int materials = 0;
+	public int value = 100;
 	public Image healthBar;
 	public Canvas can;
 	public Turret turret;
@@ -57,10 +60,21 @@ public class Enemy : DamagingEntity {
 		}
 	}
 
+	void OnTriggerStay2D(Collider2D other)
+	{
+		if (other.name == "ring")
+			LockRing.SetActive (true);
+	}
+
 	void Die(){
 		//Spawn explosin effect or whatever
 		MapManager.PlayerCharacter.ComboAdd (1);
-		Instantiate (Resources.Load ("Material"), transform.position, Quaternion.identity);
+		MapManager.Manager.AddScore(value);
+		if (LockRing.activeSelf && MapManager.Manager.material < 1000) {
+			Pickup mat = ((GameObject)Instantiate (Resources.Load ("Material"), transform.position, Quaternion.identity)).GetComponent<Pickup>();
+			mat.value = Mathf.Clamp(materials, 1, 1000 - MapManager.Manager.material);
+			mat.transform.localScale *= Mathf.Clamp(materials / 2, 0.75f, 2.5f);
+		}
 		Destroy (gameObject);
 	}
 }
