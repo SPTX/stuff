@@ -6,6 +6,7 @@ public class Enemy : DamagingEntity {
 
 	protected int health;
 	public int HealthMax = 200;
+	public bool big;
 	protected Vector3 initialBarPos;
 	public GameObject LockRing;
 	public int materials = 0;
@@ -28,9 +29,8 @@ public class Enemy : DamagingEntity {
 
 	public void TakeDamage(int DamageTaken, string DamageElement)
 	{
-		//debug
-		MapManager.PlayerCharacter.ComboAdd ();
-		//
+		if (big)
+			MapManager.PlayerCharacter.ComboAdd (1);
 
 		if (DamageElement == "Wind" && element == "Water" ||
 			DamageElement == "Water" && element == "fire" || 

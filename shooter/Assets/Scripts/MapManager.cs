@@ -99,7 +99,7 @@ public class MapManager : MonoBehaviour {
 	public void AddLove(float value)
 	{
 		//debug
-		value = 100;
+//		value = 100;
 
 		if (value < 0)
 			love = 0;

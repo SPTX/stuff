@@ -122,22 +122,24 @@ public class Character : DamagingEntity {
 			comboBar.transform.localScale = newBarSize;
 			comboBar.rectTransform.anchoredPosition = Vector2.right * (comboBar.rectTransform.sizeDelta.x / 2 * newBarSize.x);
 			//set magic ring size
-			ringSprite.transform.localScale = magicRingInitialSize * Mathf.Clamp((comboTimer * 100 / comboTimerMax) / 100f * magicRingMaxSize, 1f, magicRingMaxSize);
+			ringSprite.transform.localScale = magicRingInitialSize * Mathf.Clamp ((comboTimer * 100 / comboTimerMax) / 100f * magicRingMaxSize, 1f, magicRingMaxSize);
 
-			if (comboCountUI.transform.localScale.y <= 1.5f){
-				comboText.transform.localScale = comboCountUI.transform.localScale += (Vector3.up * Time.deltaTime * pulse);
+			if (comboCountUI.transform.localScale.y <= 1.5f) {
+				Vector3 newScale = comboCountUI.transform.localScale + (Vector3.up * Time.deltaTime * pulse);
+				newScale.x = newScale.z = 1;
+				comboText.transform.localScale = comboCountUI.transform.localScale = newScale;
 				if (comboText.transform.localScale.y <= 1 || comboText.transform.localScale.y >= 1.5f)
 					pulse = -pulse;
-			}
-			else
+			} else
 				comboCountUI.transform.localScale -= Vector3.one * 2 * Time.deltaTime;
 
-		} else if (!fading){
+		} else if (!fading) {
 			fading = true;
 			comboCountUI.color = comboText.color = Color.red;
+		} else {
+			comboCountUI.color = comboText.color -= new Color (0, 0, 0, 1 * Time.deltaTime);
+			comboCount = 0;
 		}
-		else
-			comboCountUI.color = comboText.color -= new Color(0,0,0,1 * Time.deltaTime);
 	}
 
 	public void ComboAdd(int value = 0){
