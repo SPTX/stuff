@@ -46,17 +46,16 @@ public class MapManager : MonoBehaviour {
 
 		if (DisplayedMaterial < material) {
 			DisplayedMaterial += 1;
-			materialUI.text = DisplayedMaterial.ToString();
+			materialUI.text = DisplayedMaterial.ToString ();
 		}
 		if (materialUI.transform.localScale.x > 1)
 			materialUI.transform.localScale -= Vector3.one * 0.1f;
 
-		if (loveHeart.transform.localScale.y <= 1.5f){
-			loveHeart.transform.localScale  += (Vector3.one * Time.deltaTime * pulse);
+		if (loveHeart.transform.localScale.y <= 1.5f) {
+			loveHeart.transform.localScale += (Vector3.one * Time.deltaTime * pulse);
 			if (loveHeart.transform.localScale.y <= 1 || loveHeart.transform.localScale.y >= 1.5f)
 				pulse = -pulse;
-		}
-		else
+		} else
 			loveHeart.transform.localScale += (Vector3.one * Time.deltaTime * pulse);
 		loveHeart.rectTransform.anchoredPosition = Vector3.up * (240 * (((love * 100) / loveMax) / 100f));
 
@@ -75,7 +74,13 @@ public class MapManager : MonoBehaviour {
 				loveMellow.color = new Color (1, 1, 1, loveMellow.color.a + 0.01f);
 		} else {
 			if (loveMellow.color.a > 0)
-				loveMellow.color = new Color(1, 1, 1,loveMellow.color.a - 0.01f);
+				loveMellow.color = new Color (1, 1, 1, loveMellow.color.a - 0.01f);
+			if (loveDrain) {
+				if ((love -= 1 * Time.deltaTime) <= 0) {
+					loveDrain = false;
+					love = 0;
+				}
+			}
 		}
 	}
 

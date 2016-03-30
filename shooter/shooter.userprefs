@@ -1,20 +1,9 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Enemy.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/MapManager.cs">
     <Files>
-      <File FileName="Assets/Scripts/MapManager.cs" Line="77" Column="31" />
+      <File FileName="Assets/Scripts/MapManager.cs" Line="75" Column="4" />
       <File FileName="Assets/Scripts/Enemy.cs" Line="73" Column="1" />
-      <File FileName="Assets/Scripts/DamagingEntity.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Character.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/EnemyShot.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Turret.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/ShotType.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/ShotWide.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/ShotStraight.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Shot.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/MainMenu.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Pickup.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/GameCamera.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
