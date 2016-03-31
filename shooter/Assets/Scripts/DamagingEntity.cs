@@ -16,4 +16,7 @@ public class DamagingEntity : MonoBehaviour {
 	
 	}
 
+	public void TakeDamage(int DamageTaken, string DamageElement){
+
+	}
 }

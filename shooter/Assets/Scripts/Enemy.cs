@@ -27,7 +27,7 @@ public class Enemy : DamagingEntity {
 	void Update () {
 	}
 
-	public void TakeDamage(int DamageTaken, string DamageElement)
+	new public void TakeDamage(int DamageTaken, string DamageElement)
 	{
 		if (big)
 			MapManager.PlayerCharacter.ComboAdd (1);
