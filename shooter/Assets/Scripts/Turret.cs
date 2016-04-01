@@ -7,6 +7,7 @@ public class Turret : MonoBehaviour {
 	protected float refire = 0;
 
 	public bool follow = true;
+	public bool triggersHitEffect = true;
 
 	private Vector3 originalSize;
 	
@@ -43,13 +44,15 @@ public class Turret : MonoBehaviour {
 	void Shoot()
 	{
 		if (refire <= 0) {
-			Instantiate (Resources.Load ("ShotEnemy"), transform.position, transform.localRotation);
+			MapManager.Manager.onScreenEntities.Add (
+				((GameObject)Instantiate(Resources.Load ("ShotEnemy"), transform.position, transform.localRotation)).GetComponent<DamagingEntity>());
 			refire = firerate;
 		}
 	}
 
 	public void HitEffect()
 	{
-		transform.localScale = originalSize / 1.5f;
+		if (triggersHitEffect)
+			transform.localScale = originalSize / 1.5f;
 	}
 }

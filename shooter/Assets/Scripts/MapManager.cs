@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using System.Collections.Generic;
 
 public class MapManager : MonoBehaviour {
 
@@ -10,6 +11,7 @@ public class MapManager : MonoBehaviour {
 	private int bestScore;
 	private int score = 0;
 	public int material = 0;
+	public int materialSpawned = 0;
 	private int DisplayedMaterial = 0;
 	public Text bestScoreUI;
 	public Text scoreUI;
@@ -22,7 +24,8 @@ public class MapManager : MonoBehaviour {
 	private bool loveDrain;
 	private int pulse = 1;
 
-	public string Difficulty = "easy";
+	public string difficulty = "easy";
+	public List<DamagingEntity> onScreenEntities;
 
 	// Use this for initialization
 	void Start () {
@@ -43,6 +46,8 @@ public class MapManager : MonoBehaviour {
 			Cursor.visible = !Cursor.visible;
 			Time.timeScale = (Time.timeScale == 1f ? 0 : 1f);
 		}
+
+		ClearEntities ();
 
 		if (DisplayedMaterial < material) {
 			DisplayedMaterial += 1;
@@ -108,6 +113,13 @@ public class MapManager : MonoBehaviour {
 			loveDrain = true;
 			PlayerCharacter.power += 1;
 //			loveMellow.enabled = true;
+		}
+	}
+
+	void ClearEntities(){
+		for (int i = 0; i < onScreenEntities.Count; ++i) {
+			if (onScreenEntities[i] == null)
+				onScreenEntities.RemoveAt(i);
 		}
 	}
 }

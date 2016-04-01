@@ -10,8 +10,8 @@ public class Spawner : MonoBehaviour {
 	public float startTime;
 	public int quantity;
 	public float delay;
-	public DamagingEntity enemyType;
-	public patternType pattern;
+	public GameObject enemyType;
+//	public patternType pattern;
 	public float spacing;
 
 	// Use this for initialization
@@ -29,12 +29,21 @@ public class Spawner : MonoBehaviour {
 		else {
 			///start spwaning
 			if ((decreasedDelay -= Time.deltaTime) <= 0){
-				Instantiate(enemyType, transform.position - transform.right * nextSpawnSpacing, Quaternion.identity);
-				nextSpawnSpacing += spacing;
-				if (quantity > 0)
-					quantity -= 1;
+				Spawn ();
 				decreasedDelay = delay;
 			}
+		}
+	}
+
+	void Spawn(){
+		MapManager.Manager.onScreenEntities.Add (
+			((GameObject)Instantiate(enemyType, transform.position - transform.right * nextSpawnSpacing, Quaternion.identity)).GetComponent<DamagingEntity>());
+
+		nextSpawnSpacing += spacing;
+		if (quantity > 0) {
+			quantity -= 1;
+			if (delay <= 0)
+				Spawn ();
 		}
 	}
 }
