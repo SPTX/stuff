@@ -4,7 +4,9 @@ using System.Collections;
 public class DamagingEntity : MonoBehaviour {
 
 	public int damage = 100;
-	public int scoreValue = 10;
+	public float scoreValue = 0.2f;
+	protected bool damageable = true;
+	protected bool canBeHit = true;
 
 	// Use this for initialization
 	void Start () {
@@ -20,7 +22,7 @@ public class DamagingEntity : MonoBehaviour {
 
 	}
 
-	protected void Die(){
+	protected void Die(float elementMultiplier){
 
 	}
 }

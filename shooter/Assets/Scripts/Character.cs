@@ -16,7 +16,7 @@ public class Character : DamagingEntity {
 
 	private int pulse = 1;
 	private bool fading;
-	private float comboTimerMax = 4;
+	private float comboTimerMax = 3;
 	private float comboTimer = 0;
 	public int comboCount = 0;
 	public Text comboCountUI;
@@ -103,6 +103,7 @@ public class Character : DamagingEntity {
 			equipedShotTypes[equipedShot].health -= other.GetComponent<DamagingEntity>().damage;
 			invincibility = invincibilityTime;
 			MapManager.Manager.AddLove(-1);
+			comboCount = 0;
 			SolveHealthBar();
 		}
 	}	
@@ -148,6 +149,8 @@ public class Character : DamagingEntity {
 			comboCount += value;
 			comboCountUI.text = comboCount.ToString ();
 			comboText.text = "combo!";
+			if (comboCount > 2000 && MapManager.Manager.difficulty < MapManager.Difficulty.death)
+				comboCount = 2000;
 			comboTimer = comboTimerMax;
 		} else if ((comboTimer += 0.05f) > comboTimerMax) {
 			comboTimer = comboTimerMax;

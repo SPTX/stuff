@@ -12,7 +12,6 @@ public class Enemy : DamagingEntity {
 	public GameObject LockRing;
 	public int materials = 0;
 	public int materialSize = 1;
-	public int value = 100;
 	public Image healthBar;
 	public Canvas can;
 	public Turret turret;
@@ -23,8 +22,12 @@ public class Enemy : DamagingEntity {
 	protected void Start () {
 		health = HealthMax;
 		initialBarPos = healthBar.rectTransform.localPosition;
-		if (spawnEffect)
+		if (spawnEffect) {
 			transform.localScale = Vector3.zero;
+			damageable = false;
+			if (!big)
+				canBeHit = false;
+		}
 	}
 	
 	// Update is called once per frame
@@ -37,6 +40,8 @@ public class Enemy : DamagingEntity {
 			{
 				transform.localScale = Vector3.one;
 				spawnEffect = false;
+				canBeHit = true;
+				damageable = true;
 			}
 		}
 
@@ -44,26 +49,21 @@ public class Enemy : DamagingEntity {
 
 	new public virtual void TakeDamage(int DamageTaken, string DamageElement)
 	{
+		if (!canBeHit)
+			return;
+
+		//do things for big enemies (combo add, spawn stars on "death" difficulty)
 		if (big)
 			MapManager.PlayerCharacter.ComboAdd (1);
 
-		if (DamageElement == "Wind" && element == "Water" ||
-			DamageElement == "Water" && element == "fire" || 
-			DamageElement == "Fire" && element == "Wind" ||
-			DamageElement == "Light" && element == "Dark" || 
-			DamageElement == "Dark" && element == "Light")
-			health -= DamageTaken * 2;
-		else if (DamageElement == "Water" && element == "Wind" ||
-			DamageElement == "Fire" && element == "Water" || 
-			DamageElement == "Wind" && element == "Fire" ||
-			DamageElement == "Dark" && element == "Light" || 
-			DamageElement == "Light" && element == "Dark")
-			health -= DamageTaken / 2;
-		else
-			health -= DamageTaken;
+		if (!damageable)
+			return;
+		//solve element returns 2, 0.5 or 1 (*2, /2, *1)
+		float damMul = MapManager.Manager.SolveElement (DamageElement, element);
+		health -= (int)(DamageTaken * damMul);
 
 		if (health <= 0)
-			Die();
+			Die(damMul);
 
 		else {
 			can.gameObject.SetActive(true);
@@ -81,12 +81,13 @@ public class Enemy : DamagingEntity {
 			LockRing.SetActive (true);
 	}
 
-	new void Die(){
+	new void Die(float elementMultiplier){
 		//Spawn explosin effect or whatever
 		MapManager.PlayerCharacter.ComboAdd (1);
-		MapManager.Manager.AddScore(value);
+		MapManager.Manager.AddScore(scoreValue, elementMultiplier, LockRing.activeSelf, (big ? 1 : 0));
 		if (LockRing.activeSelf && MapManager.Manager.materialSpawned < 1000) {
-			while (materials-- > 0)
+			MapManager.Manager.SpawnMaterial (materials, materialSize, transform.position);
+/*			while (materials-- > 0)
 			{
 				Vector3 randvector = Vector3.zero;
 				randvector.x = Random.Range(-0.5f, 0.5f);
@@ -96,6 +97,7 @@ public class Enemy : DamagingEntity {
 				mat.transform.localScale *= Mathf.Clamp(materialSize / 2, 0.75f, 2.5f);
 				MapManager.Manager.materialSpawned += mat.value;
 			}
+			*/
 		}
 		Destroy (gameObject);
 	}

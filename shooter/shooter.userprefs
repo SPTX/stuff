@@ -1,18 +1,19 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/ShotType.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Enemy.cs">
     <Files>
-      <File FileName="Assets/Scripts/Enemy.cs" Line="5" Column="36" />
-      <File FileName="Assets/Scripts/MapManager.cs" Line="28" Column="24" />
-      <File FileName="Assets/Scripts/Character.cs" Line="85" Column="34" />
-      <File FileName="Assets/Scripts/EnemyShot.cs" Line="8" Column="1" />
-      <File FileName="Assets/Scripts/Shot.cs" Line="26" Column="1" />
-      <File FileName="Assets/Scripts/DamagingEntity.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Spawner.cs" Line="39" Column="44" />
+      <File FileName="Assets/Scripts/Character.cs" Line="19" Column="1" />
+      <File FileName="Assets/Scripts/Enemy.cs" Line="56" Column="1" />
+      <File FileName="Assets/Scripts/MapManager.cs" Line="130" Column="20" />
+      <File FileName="Assets/Scripts/EnemyShot.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Shot.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/DamagingEntity.cs" Line="9" Column="1" />
+      <File FileName="Assets/Scripts/Spawner.cs" Line="1" Column="1" />
       <File FileName="Assets/Scripts/ShotType.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/ProjectileHead.cs" Line="14" Column="1" />
-      <File FileName="Assets/Scripts/Turret.cs" Line="55" Column="2" />
-      <File FileName="Assets/Scripts/ProjectileEnemy.cs" Line="28" Column="1" />
+      <File FileName="Assets/Scripts/ProjectileHead.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Turret.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/ProjectileEnemy.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Pickup.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

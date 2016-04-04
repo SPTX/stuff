@@ -53,8 +53,11 @@ public class Pickup : MonoBehaviour {
 
 	void PickedUp()
 	{
-		if (itemName == "Star") {
-			MapManager.Manager.AddScore (MapManager.PlayerCharacter.comboCount);
+		if (itemName == "StarBig") {
+			MapManager.Manager.AddScore (2, 1, false, 3);
+			//spawn floating text
+		} else if (itemName == "StarSmall") {
+			MapManager.Manager.AddScore (1, 1, false, 3);
 			//spawn floating text
 		}
 		else {

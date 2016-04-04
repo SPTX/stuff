@@ -10,7 +10,7 @@ public class MapManager : MonoBehaviour {
 
 	private int bestScore;
 	private int score = 0;
-	public int material = 0;
+	private int material = 0;
 	public int materialSpawned = 0;
 	private int DisplayedMaterial = 0;
 	public Text bestScoreUI;
@@ -24,7 +24,8 @@ public class MapManager : MonoBehaviour {
 	private bool loveDrain;
 	private int pulse = 1;
 
-	public string difficulty = "easy";
+	public enum Difficulty{easy, normal, hard, death};
+	public Difficulty difficulty = Difficulty.easy;
 	public List<DamagingEntity> onScreenEntities;
 
 	// Use this for initialization
@@ -80,25 +81,53 @@ public class MapManager : MonoBehaviour {
 		} else {
 			if (loveMellow.color.a > 0)
 				loveMellow.color = new Color (1, 1, 1, loveMellow.color.a - 0.01f);
-			if (loveDrain) {
-				if ((love -= 1 * Time.deltaTime) <= 0) {
+			if (loveDrain && (love -= 1 * Time.deltaTime) <= 0) {
 					loveDrain = false;
 					love = 0;
-				}
 			}
 		}
 	}
 
-	public void AddScore(int value)
+	public void AddScore(float value, float element, bool ring, int type)
 	{
-		score += value;
+		/*type
+		 * 0 = normal enemy,
+		 * 1 = big enemy (sub boss type),
+		 * 2 = boss (inluding as sub boss),
+		 * 3 = item */
+		float scoreToAdd = 0;
+		int maRyoku = Mathf.Clamp (material, 500, 1000);
+
+		if (type < 2) {
+			scoreToAdd = value * maRyoku * (0.75f * element) * (ring ? 2 : 1) * (loveDrain ? 1.1f : 1) /* * awakenedSkill ? 1.5f : 1  */ * (type == 1 ? (1 + 0.01f * PlayerCharacter.comboCount) : 1);
+		} else if (type == 3)
+			scoreToAdd = value * maRyoku * (loveDrain ? 1.2f : 1) * (0.1f + 0.001f * PlayerCharacter.comboCount);
+		else //boss or type error
+				scoreToAdd = maRyoku * PlayerCharacter.comboCount * 0.1f;
+
+		score += Mathf.RoundToInt(scoreToAdd);
 		scoreUI.text = score.ToString ("n0");
 	}
 
 	public void AddMaterial(int value){
-		AddScore(100 * value);
+		AddScore(value, 1, false, 3);
 		material += value;
 		materialUI.transform.localScale = Vector3.one * 2;
+	}
+
+	public void SpawnMaterial(int materialNum, int materialSize, Vector3 spawnPosition)
+	{
+		while (materialNum-- > 0)
+		{
+			Vector3 randvector = Vector3.zero;
+			randvector.x = Random.Range(-0.5f, 0.5f);
+			randvector.y = Random.Range(-0.5f, 0.5f);
+			Pickup mat = ((GameObject)Instantiate (Resources.Load ("Material"), spawnPosition + randvector, Quaternion.identity)).GetComponent<Pickup>();
+			mat.value = Mathf.Clamp(materialSize, 1, 1000 - material);
+			mat.transform.localScale *= Mathf.Clamp(materialSize / 2, 0.75f, 2.5f);
+			materialSpawned += mat.value;
+		}
+		//spawn stars if max materials reached
 	}
 
 	public void AddLove(float value)
@@ -114,6 +143,23 @@ public class MapManager : MonoBehaviour {
 			PlayerCharacter.power += 1;
 //			loveMellow.enabled = true;
 		}
+	}
+
+	public float SolveElement(string attacker, string target)
+	{
+		if (attacker == "Wind" && target == "Water" ||
+		    attacker == "Water" && target == "fire" || 
+		    attacker == "Fire" && target == "Wind" ||
+		    attacker == "Light" && target == "Dark" || 
+		    attacker == "Dark" && target == "Light")
+			return 2; // *2
+		else if (attacker == "Water" && target == "Wind" ||
+		         attacker == "Fire" && target == "Water" || 
+		         attacker == "Wind" && target == "Fire" ||
+		         attacker == "Dark" && target == "Light" || 
+		         attacker == "Light" && target == "Dark")
+			return 0.5f;// /2
+		return 1;
 	}
 
 	void ClearEntities(){
