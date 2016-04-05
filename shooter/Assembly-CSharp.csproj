@@ -55,6 +55,7 @@
      <Compile Include="Assets\Scripts\Pickup.cs" />
      <Compile Include="Assets\Scripts\ProjectileEnemy.cs" />
      <Compile Include="Assets\Scripts\ProjectileHead.cs" />
+     <Compile Include="Assets\Scripts\Route.cs" />
      <Compile Include="Assets\Scripts\Shot.cs" />
      <Compile Include="Assets\Scripts\ShotStraight.cs" />
      <Compile Include="Assets\Scripts\ShotType.cs" />

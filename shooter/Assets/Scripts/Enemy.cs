@@ -8,6 +8,11 @@ public class Enemy : DamagingEntity {
 	public int HealthMax = 200;
 	public bool big;
 	public bool spawnEffect = false;
+	public float moveSpeed = 5;
+	public float timeToFlee = 12;
+	public Vector3 fleeingDirection = Vector3.up;
+	public Route route;
+	public Route nextRoute;
 	protected Vector3 initialBarPos;
 	public GameObject LockRing;
 	public int materials = 0;
@@ -41,10 +46,28 @@ public class Enemy : DamagingEntity {
 				transform.localScale = Vector3.one;
 				spawnEffect = false;
 				canBeHit = true;
-				damageable = true;
+				if (nextRoute)
+					damageable = nextRoute.damageableUntilReached;
+				else
+					damageable = true;
 			}
 		}
 
+		if ((timeToFlee -= Time.deltaTime) <= 0) {
+			transform.Translate(fleeingDirection * moveSpeed * Time.deltaTime, Space.World);
+		}
+		else if (route)
+			MoveToRoute ();
+
+		if (!MapManager.Manager.WithinBounds (transform.position, 10, 6)) {
+			canBeHit = false;
+		}
+		if (!MapManager.Manager.WithinBounds (transform.position, 14, 10)) {
+			Destroy (gameObject);
+			if (route)
+				Destroy(route.gameObject);
+		}
+		can.transform.rotation = Quaternion.identity;
 	}
 
 	new public virtual void TakeDamage(int DamageTaken, string DamageElement)
@@ -53,8 +76,10 @@ public class Enemy : DamagingEntity {
 			return;
 
 		//do things for big enemies (combo add, spawn stars on "death" difficulty)
-		if (big)
+		if (big) {
 			MapManager.PlayerCharacter.ComboAdd (1);
+			turret.HitEffect();
+		}
 
 		if (!damageable)
 			return;
@@ -87,18 +112,42 @@ public class Enemy : DamagingEntity {
 		MapManager.Manager.AddScore(scoreValue, elementMultiplier, LockRing.activeSelf, (big ? 1 : 0));
 		if (LockRing.activeSelf && MapManager.Manager.materialSpawned < 1000) {
 			MapManager.Manager.SpawnMaterial (materials, materialSize, transform.position);
-/*			while (materials-- > 0)
-			{
-				Vector3 randvector = Vector3.zero;
-				randvector.x = Random.Range(-0.5f, 0.5f);
-				randvector.y = Random.Range(-0.5f, 0.5f);
-				Pickup mat = ((GameObject)Instantiate (Resources.Load ("Material"), transform.position + randvector, Quaternion.identity)).GetComponent<Pickup>();
-				mat.value = Mathf.Clamp(materialSize, 1, 1000 - MapManager.Manager.material);
-				mat.transform.localScale *= Mathf.Clamp(materialSize / 2, 0.75f, 2.5f);
-				MapManager.Manager.materialSpawned += mat.value;
-			}
-			*/
 		}
 		Destroy (gameObject);
+		if (route)
+			Destroy(route.gameObject);
+	}
+
+	public void AddRoute(Route newRoute){
+		route = newRoute;
+		nextRoute = newRoute;
+		moveSpeed = newRoute.speedTowards;
+		damageable = nextRoute.damageableUntilReached;
+	}
+
+	void MoveToRoute(){
+		if (!nextRoute)
+			return;
+		if (nextRoute.useRotationTowardsThis != 0) {
+			transform.Translate(transform.right * moveSpeed * Time.deltaTime, Space.World);
+			transform.Rotate(Vector3.forward, nextRoute.useRotationTowardsThis * Time.deltaTime, Space.World);
+		} else {
+			transform.position = Vector3.MoveTowards (transform.position, nextRoute.transform.position, moveSpeed * Time.deltaTime);
+		}
+		if (Vector3.Distance (nextRoute.transform.position, transform.position) <= 0.2f){
+			Vector3 newRot = transform.rotation.eulerAngles;
+			newRot.z = nextRoute.transform.rotation.eulerAngles.z;
+			transform.rotation = Quaternion.Euler(newRot);
+			if (nextRoute = nextRoute.nextRoute)
+			{
+				damageable = nextRoute.damageableUntilReached;
+				moveSpeed = nextRoute.speedTowards;
+			}
+			else
+			{
+				moveSpeed = 4;
+				damageable = true;
+			}
+		}
 	}
 }

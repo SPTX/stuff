@@ -33,19 +33,20 @@ public class Turret : MonoBehaviour {
 	}
 
 	void LookAtPlayer(){
+		//FIX THIS FFS
 		Quaternion rotation = Quaternion.LookRotation
 			(2 * (MapManager.PlayerCharacter.transform.position - transform.position),
 			 transform.TransformDirection (Vector3.up));
 		rotation.x = rotation.y = 0;
 		transform.rotation = rotation;
-		transform.RotateAround (transform.position, transform.up, 180f);
+//		transform.RotateAround (transform.position, transform.up, 180f);
 	}
 
 	void Shoot()
 	{
 		if (refire <= 0) {
 			MapManager.Manager.onScreenEntities.Add (
-				((GameObject)Instantiate(Resources.Load ("ShotEnemy"), transform.position, transform.localRotation)).GetComponent<DamagingEntity>());
+				((GameObject)Instantiate(Resources.Load ("ShotEnemy"), transform.position, transform.rotation)).GetComponent<DamagingEntity>());
 			refire = firerate;
 		}
 	}

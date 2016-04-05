@@ -147,11 +147,13 @@ public class Character : DamagingEntity {
 		comboCountUI.color = comboText.color = new Color(1, 0.5f, 0, 1);
 		if (value > 0) {
 			comboCount += value;
-			comboCountUI.text = comboCount.ToString ();
-			comboText.text = "combo!";
 			if (comboCount > 2000 && MapManager.Manager.difficulty < MapManager.Difficulty.death)
 				comboCount = 2000;
+			else if (comboCount > 10000)
+				comboCount = 10000;
 			comboTimer = comboTimerMax;
+			comboCountUI.text = comboCount.ToString ();
+			comboText.text = "combo!";
 		} else if ((comboTimer += 0.05f) > comboTimerMax) {
 			comboTimer = comboTimerMax;
 			comboCountUI.transform.localScale = Vector3.one * 1.75f;

@@ -162,6 +162,32 @@ public class MapManager : MonoBehaviour {
 		return 1;
 	}
 
+	public bool WithinBounds(Vector3 objectPos, Vector2 bounds)
+	{
+		if (objectPos.x < -bounds.x)
+			return false;
+		else if (objectPos.x > bounds.x)
+			return false;
+		if (objectPos.y < -bounds.y)
+			return false;
+		else if (objectPos.y > bounds.y)
+			return false;
+		return true;
+	}
+	
+	public bool WithinBounds(Vector3 objectPos, float x, float y)
+	{
+		if (objectPos.x < -x)
+			return false;
+		else if (objectPos.x > x)
+			return false;
+		if (objectPos.y < -y)
+			return false;
+		else if (objectPos.y > y)
+			return false;
+		return true;
+	}
+	
 	void ClearEntities(){
 		for (int i = 0; i < onScreenEntities.Count; ++i) {
 			if (onScreenEntities[i] == null)
