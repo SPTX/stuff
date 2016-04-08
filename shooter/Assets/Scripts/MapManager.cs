@@ -28,6 +28,9 @@ public class MapManager : MonoBehaviour {
 	public Difficulty difficulty = Difficulty.easy;
 	public List<DamagingEntity> onScreenEntities;
 
+	public bool bossTime;
+	public float bossTimer = 120;
+
 	// Use this for initialization
 	void Start () {
 		Cursor.lockState = CursorLockMode.Locked;

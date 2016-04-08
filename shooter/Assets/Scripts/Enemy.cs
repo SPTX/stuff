@@ -77,7 +77,7 @@ public class Enemy : DamagingEntity {
 
 		//do things for big enemies (combo add, spawn stars on "death" difficulty)
 		if (big) {
-			MapManager.PlayerCharacter.ComboAdd (1);
+			MapManager.PlayerCharacter.ComboAdd (0.4f);
 			turret.HitEffect();
 		}
 

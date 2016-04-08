@@ -18,7 +18,7 @@ public class Character : DamagingEntity {
 	private bool fading;
 	private float comboTimerMax = 3;
 	private float comboTimer = 0;
-	public int comboCount = 0;
+	public float comboCount = 0;
 	public Text comboCountUI;
 	public Text comboText;
 	public RawImage comboBar;
@@ -138,23 +138,35 @@ public class Character : DamagingEntity {
 			fading = true;
 			comboCountUI.color = comboText.color = Color.red;
 		} else {
-			comboCountUI.color = comboText.color -= new Color (0, 0, 0, 1 * Time.deltaTime);
-			comboCount = 0;
+			if (MapManager.Manager.bossTime && comboCount > 0)
+			{
+				comboCount -= 6 * Time.deltaTime;
+				ComboAdd(-1);
+			}
+			else {
+				comboCountUI.color = comboText.color -= new Color (0, 0, 0, 1 * Time.deltaTime);
+				comboCount = 0;
+			}
 		}
 	}
 
-	public void ComboAdd(int value = 0){
-		comboCountUI.color = comboText.color = new Color(1, 0.5f, 0, 1);
+	public void ComboAdd(float value = 0){
 		if (value > 0) {
-			comboCount += value;
+			comboCountUI.color = comboText.color = new Color(1, 0.5f, 0, 1);
+			if ((comboCount += value) < 1)
+				comboCount = 1;
 			if (comboCount > 2000 && MapManager.Manager.difficulty < MapManager.Difficulty.death)
 				comboCount = 2000;
 			else if (comboCount > 10000)
 				comboCount = 10000;
 			comboTimer = comboTimerMax;
-			comboCountUI.text = comboCount.ToString ();
+			comboCountUI.text = ((int)comboCount).ToString ();
 			comboText.text = "combo!";
-		} else if ((comboTimer += 0.05f) > comboTimerMax) {
+		}else if (value == -1) {
+			fading = false;
+			comboCountUI.text = ((int)comboCount).ToString ();
+		}
+		else if ((comboTimer += 0.2f * comboTimerMax) > comboTimerMax) {
 			comboTimer = comboTimerMax;
 			comboCountUI.transform.localScale = Vector3.one * 1.75f;
 		}
