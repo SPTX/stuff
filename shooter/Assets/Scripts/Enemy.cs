@@ -24,7 +24,7 @@ public class Enemy : DamagingEntity {
 	public string element = "Fire";
 
 	// Use this for initialization
-	protected void Start () {
+	protected virtual void Start () {
 		health = HealthMax;
 		initialBarPos = healthBar.rectTransform.localPosition;
 		if (spawnEffect) {
@@ -36,7 +36,7 @@ public class Enemy : DamagingEntity {
 	}
 	
 	// Update is called once per frame
-	protected void Update () {
+	protected virtual void Update () {
 		if (spawnEffect && transform.localScale.x < 1) {
 			Vector3 newScale = transform.localScale;
 			newScale += Vector3.one * 2 * Time.deltaTime;
@@ -70,7 +70,7 @@ public class Enemy : DamagingEntity {
 		can.transform.rotation = Quaternion.identity;
 	}
 
-	new public virtual void TakeDamage(int DamageTaken, string DamageElement)
+	override public void TakeDamage(int DamageTaken, string DamageElement)
 	{
 		if (!canBeHit)
 			return;
@@ -106,7 +106,7 @@ public class Enemy : DamagingEntity {
 			LockRing.SetActive (true);
 	}
 
-	new void Die(float elementMultiplier){
+	override protected void Die(float elementMultiplier){
 		//Spawn explosin effect or whatever
 		MapManager.PlayerCharacter.ComboAdd (1);
 		MapManager.Manager.AddScore(scoreValue, elementMultiplier, LockRing.activeSelf, (big ? 1 : 0));

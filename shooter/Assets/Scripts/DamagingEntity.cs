@@ -22,7 +22,7 @@ public class DamagingEntity : MonoBehaviour {
 
 	}
 
-	protected void Die(float elementMultiplier){
+	virtual protected void Die(float elementMultiplier){
 
 	}
 }

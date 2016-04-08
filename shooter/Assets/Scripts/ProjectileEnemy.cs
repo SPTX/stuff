@@ -11,12 +11,12 @@ public class ProjectileEnemy : Enemy {
 	protected float accel = 0.4f;
 
 	// Use this for initialization
-	new void Start () {
+	override protected void Start () {
 		base.Start ();
 	}
 	
 	// Update is called once per frame
-	new void Update () {
+	override protected void Update () {
 		base.Update ();
 
 		if (launchTime > 0)

@@ -6,7 +6,7 @@ public class ShotWide : ShotType {
 	private float shotAngle = 6f;
 
 	// Use this for initialization
-	new void Start () {
+	override protected void Start () {
 		base.Start ();
 		damage = 40;
 	}

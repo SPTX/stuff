@@ -14,7 +14,7 @@ public class EnemyShot : Shot {
 	}
 	
 	// Update is called once per frame
-	new void Update () {
+	override protected void Update () {
 		if (launchTime > 0)
 		{
 			launchTime -= Time.deltaTime;
