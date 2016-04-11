@@ -3,6 +3,8 @@ using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 
+public enum Elements {fire, wind, water, light, dark};
+
 public class MapManager : MonoBehaviour {
 
 	public static Character PlayerCharacter;
@@ -28,8 +30,7 @@ public class MapManager : MonoBehaviour {
 	public Difficulty difficulty = Difficulty.easy;
 	public List<DamagingEntity> onScreenEntities;
 
-	public bool bossTime;
-	public float bossTimer = 120;
+	public float bossTime;
 
 	// Use this for initialization
 	void Start () {
@@ -38,7 +39,7 @@ public class MapManager : MonoBehaviour {
 		Manager = this;
 
 		//debug
-		Time.timeScale = 0.1f;
+//		Time.timeScale = 0.1f;
 	}
 	
 	// Update is called once per frame
@@ -148,23 +149,21 @@ public class MapManager : MonoBehaviour {
 		}
 	}
 
-	public float SolveElement(string attacker, string target)
+	public float SolveElement(Elements attacker, Elements target)
 	{
-		if (attacker == "Wind" && target == "Water" ||
-		    attacker == "Water" && target == "fire" || 
-		    attacker == "Fire" && target == "Wind" ||
-		    attacker == "Light" && target == "Dark" || 
-		    attacker == "Dark" && target == "Light")
+		if (attacker == Elements.wind && target == Elements.water ||
+		    attacker == Elements.water && target == Elements.fire || 
+		    attacker == Elements.fire && target == Elements.wind ||
+		    attacker == Elements.light && target == Elements.dark || 
+		    attacker == Elements.dark && target == Elements.light)
 			return 2; // *2
-		else if (attacker == "Water" && target == "Wind" ||
-		         attacker == "Fire" && target == "Water" || 
-		         attacker == "Wind" && target == "Fire" ||
-		         attacker == "Dark" && target == "Light" || 
-		         attacker == "Light" && target == "Dark")
+		else if (attacker == Elements.water && target == Elements.wind ||
+		         attacker == Elements.fire && target == Elements.water || 
+		         attacker == Elements.wind && target == Elements.fire)
 			return 0.5f;// /2
 		return 1;
 	}
-
+	
 	public bool WithinBounds(Vector3 objectPos, Vector2 bounds)
 	{
 		if (objectPos.x < -bounds.x)

@@ -21,7 +21,7 @@ public class Enemy : DamagingEntity {
 	public Canvas can;
 	public Turret turret;
 
-	public string element = "Fire";
+	public Elements element = Elements.fire;
 
 	// Use this for initialization
 	protected virtual void Start () {
@@ -70,7 +70,7 @@ public class Enemy : DamagingEntity {
 		can.transform.rotation = Quaternion.identity;
 	}
 
-	override public void TakeDamage(int DamageTaken, string DamageElement)
+	override public void TakeDamage(int DamageTaken, Elements DamageElement)
 	{
 		if (!canBeHit)
 			return;

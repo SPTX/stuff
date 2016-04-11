@@ -6,7 +6,7 @@ public class ShotType : MonoBehaviour {
 	public int damage = 100;
 	public int maxBullets = 3;
 	public float firerate = 0.04f;
-	public string element = "Fire";
+	public Elements element = Elements.fire;
 	protected string ShotElem;
 
 	public int healthMax = 400;

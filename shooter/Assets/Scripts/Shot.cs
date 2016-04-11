@@ -5,7 +5,8 @@ public class Shot : DamagingEntity {
 
 	protected float life = 30;
 	protected float speed = 40f;
-	public string element;
+	//public string element;
+	public Elements element;
 
 	// Use this for initialization
 	void Start () {

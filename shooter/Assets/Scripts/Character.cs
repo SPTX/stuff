@@ -28,6 +28,7 @@ public class Character : DamagingEntity {
 	public GameObject ringSprite;
 
 	public Image healthBar;
+	public GameObject seal;
 
 	// Use this for initialization
 	void Start () {
@@ -36,6 +37,7 @@ public class Character : DamagingEntity {
 		equipedShotTypes.AddRange(GetComponents<ShotType>());
 		magicRingInitialSize = ringSprite.transform.localScale;
 		MapManager.PlayerCharacter = this;
+		seal.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Sprites/Seal-" + equipedShotTypes[equipedShot].element);
 	}
 	
 	// Update is called once per frame
@@ -54,6 +56,7 @@ public class Character : DamagingEntity {
 			Fire ();
 		if (Input.GetMouseButtonUp (1)) {
 			equipedShot ^= 1;
+			seal.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Sprites/Seal-" + equipedShotTypes[equipedShot].element);
 			SolveHealthBar();
 		}
 
@@ -78,7 +81,8 @@ public class Character : DamagingEntity {
 		else if (transform.position.y > 3.5f)
 			newPos.y = 3.5f;
 		transform.position = newPos;
-		ringSprite.transform.position = newPos;
+		ringSprite.transform.position = seal.transform.position = newPos;
+		seal.transform.Rotate (Vector3.forward * 90 * Time.deltaTime);
 	}
 
 	void ClearShots(){
@@ -104,6 +108,7 @@ public class Character : DamagingEntity {
 			invincibility = invincibilityTime;
 			MapManager.Manager.AddLove(-1);
 			comboCount = 0;
+			ComboAdd(-1);
 			SolveHealthBar();
 		}
 	}	
@@ -138,7 +143,7 @@ public class Character : DamagingEntity {
 			fading = true;
 			comboCountUI.color = comboText.color = Color.red;
 		} else {
-			if (MapManager.Manager.bossTime && comboCount > 0)
+			if (MapManager.Manager.bossTime > 0 && comboCount > 0)
 			{
 				comboCount -= 6 * Time.deltaTime;
 				ComboAdd(-1);

@@ -5,12 +5,16 @@ using System.Collections;
 public class Boss : DamagingEntity {
 
 	public int health;
-	public Text HPText;
-	public string element = "fire";
-	public GameObject turret;
-	public Image seal;
+	protected int HPMax;
 	protected float healthActual;
 	protected float lastTakenDamageType;
+
+	public Text HPText;
+	public Image healthBar;
+	public Elements element = Elements.fire;
+	public Image seal;
+
+	public GameObject turret;
 	public float turretRefireDelay = 4;
 	protected float turretRefire;
 	public float turretFireDuration = 2;
@@ -18,15 +22,16 @@ public class Boss : DamagingEntity {
 	public float turretRotSpeed = 90;
 	protected float nextShot = 0;
 	protected int type = 0;
-
 	protected string[] deathShotNames = {"DeathShot", "DeathShotSmall"};
+
+	public float timer = 120;
 
 	// Use this for initialization
 	void Start () {
 		seal.sprite = Resources.Load<Sprite>("Sprites/Seal-" + element);
-		healthActual = health;
+		healthActual = HPMax = health;
 		damageable = false;
-		MapManager.Manager.bossTime = true;
+		MapManager.Manager.bossTime = timer;
 		turretRefire = turretRefireDelay;
 		turretFiring = turretFireDuration + turretRefireDelay;
 	}
@@ -60,21 +65,30 @@ public class Boss : DamagingEntity {
 
 		if (health > healthActual && (health -= (int)((health - healthActual) * (Time.deltaTime * 2))) <= 0)
 			Die (lastTakenDamageType);
-		HPText.text = health.ToString ();
+		HealthBarProcessing ();
 	}
 
-	override public void TakeDamage(int DamageTaken, string DamageElement){
+	override public void TakeDamage(int DamageTaken, Elements DamageElement){
 		if (!damageable)
 			return;
 		//solve element returns 2, 0.5 or 1 (*2, /2, *1)
 		lastTakenDamageType = MapManager.Manager.SolveElement (DamageElement, element);
 		healthActual -= (DamageTaken * lastTakenDamageType);
 	}
-
+	
 	protected override void Die (float elementMultiplier)
 	{
 		MapManager.Manager.AddScore (0, lastTakenDamageType, false, 2);
-		MapManager.Manager.bossTime = false;
+		MapManager.Manager.bossTime = 0;
 		Destroy (gameObject);
 	}
+
+	protected void HealthBarProcessing(){
+		HPText.text = health.ToString ();
+		Vector3 newBarSize = healthBar.transform.localScale;
+		newBarSize.x = Mathf.Clamp01 ((health * 100f / HPMax) / 100f);
+		healthBar.transform.localScale = newBarSize;
+		healthBar.rectTransform.anchoredPosition = Vector2.right * (healthBar.rectTransform.sizeDelta.x / 2 * newBarSize.x);
+	}
 }
+
