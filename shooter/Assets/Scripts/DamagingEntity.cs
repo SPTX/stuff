@@ -18,10 +18,6 @@ public class DamagingEntity : MonoBehaviour {
 	
 	}
 
-	virtual public void TakeDamage(int DamageTaken, string DamageElement){
-		
-	}
-	
 	virtual public void TakeDamage(int DamageTaken, Elements DamageElement){
 		
 	}

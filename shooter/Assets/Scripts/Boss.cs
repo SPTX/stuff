@@ -74,6 +74,7 @@ public class Boss : DamagingEntity {
 		//solve element returns 2, 0.5 or 1 (*2, /2, *1)
 		lastTakenDamageType = MapManager.Manager.SolveElement (DamageElement, element);
 		healthActual -= (DamageTaken * lastTakenDamageType);
+		//add score
 	}
 	
 	protected override void Die (float elementMultiplier)

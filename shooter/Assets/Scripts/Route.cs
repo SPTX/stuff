@@ -7,6 +7,7 @@ public class Route : MonoBehaviour {
 	public float waitBeforeNext = 0;
 	public float useRotationTowardsThis = 0;
 	public float speedTowards = 4;
+	public float minDistance;
 	public bool damageableUntilReached = true;
 
 	// Use this for initialization

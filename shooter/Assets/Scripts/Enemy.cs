@@ -134,7 +134,7 @@ public class Enemy : DamagingEntity {
 		} else {
 			transform.position = Vector3.MoveTowards (transform.position, nextRoute.transform.position, moveSpeed * Time.deltaTime);
 		}
-		if (Vector3.Distance (nextRoute.transform.position, transform.position) <= 0.2f){
+		if (Vector3.Distance (nextRoute.transform.position, transform.position) <= nextRoute.minDistance){
 			Vector3 newRot = transform.rotation.eulerAngles;
 			newRot.z = nextRoute.transform.rotation.eulerAngles.z;
 			transform.rotation = Quaternion.Euler(newRot);

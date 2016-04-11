@@ -33,13 +33,9 @@ public class Turret : MonoBehaviour {
 	}
 
 	void LookAtPlayer(){
-		//FIX THIS FFS
-		Quaternion rotation = Quaternion.LookRotation
-			(2 * (MapManager.PlayerCharacter.transform.position - transform.position),
-			 transform.TransformDirection (Vector3.up));
-		rotation.x = rotation.y = 0;
-		transform.rotation = rotation;
-//		transform.RotateAround (transform.position, transform.up, 180f);
+		Vector3 lookPos = MapManager.PlayerCharacter.transform.position - transform.position;
+		float angle = Mathf.Atan2(lookPos.y, lookPos.x) * Mathf.Rad2Deg;
+		transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 	}
 
 	void Shoot()

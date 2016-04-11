@@ -38,7 +38,7 @@ public class ProjectileEnemy : Enemy {
 			Destroy (gameObject);
 	}
 
-	public override void TakeDamage(int DamageTaken, string DamageElement)
+	public override void TakeDamage(int DamageTaken, Elements DamageElement)
 	{
 		if (trembles) {
 			Vector3 randvector = Vector3.zero;

@@ -38,7 +38,7 @@ public class Pickup : MonoBehaviour {
 					velocity.x -= 0.04f;
 			}
 			transform.Translate (velocity * Time.deltaTime, Space.World);
-			transform.Rotate(0,0,50 * Time.deltaTime, Space.Self);
+			transform.Rotate(0,0,120 * Time.deltaTime, Space.Self);
 		}
 
 		if (transform.position.x < -10)

@@ -108,6 +108,7 @@ public class Character : DamagingEntity {
 			invincibility = invincibilityTime;
 			MapManager.Manager.AddLove(-1);
 			comboCount = 0;
+			comboTimer = 0.000001f;
 			ComboAdd(-1);
 			SolveHealthBar();
 		}

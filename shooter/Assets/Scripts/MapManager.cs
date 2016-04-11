@@ -44,6 +44,15 @@ public class MapManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		//debug
+		if (Input.GetKey (KeyCode.A)) {
+			for (int i = 0; i < onScreenEntities.Count;++i)
+			{
+				if (onScreenEntities[i])
+					onScreenEntities[i].TakeDamage(1000, Elements.fire);
+			}
+		}
+
 		//texture scrolling
 		GetComponent<Renderer> ().material.mainTextureOffset += -Vector2.left * (loveDrain ? 0.25f : 0.1f) * Time.deltaTime;﻿
 		if (Input.GetKeyDown (KeyCode.Escape)) {
