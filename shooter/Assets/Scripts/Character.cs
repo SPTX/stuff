@@ -58,6 +58,10 @@ public class Character : DamagingEntity {
 			equipedShot ^= 1;
 			seal.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Sprites/Seal-" + equipedShotTypes[equipedShot].element);
 			SolveHealthBar();
+			for (int i = 0; i < MapManager.Manager.bossSkulls.Count; ++i) {
+				if (MapManager.Manager.bossSkulls[i] != null)
+					MapManager.Manager.bossSkulls[i].SetRing();
+			}
 		}
 
 		////debug

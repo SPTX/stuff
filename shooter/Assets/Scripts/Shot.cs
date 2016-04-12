@@ -4,7 +4,7 @@ using System.Collections;
 public class Shot : DamagingEntity {
 
 	protected float life = 30;
-	protected float speed = 40f;
+	public float speed = 40f;
 	//public string element;
 	public Elements element;
 

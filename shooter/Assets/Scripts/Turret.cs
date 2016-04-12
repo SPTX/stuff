@@ -50,6 +50,6 @@ public class Turret : MonoBehaviour {
 	public void HitEffect()
 	{
 		if (triggersHitEffect)
-			transform.localScale = originalSize / 1.5f;
+			transform.localScale = originalSize / 1.25f;
 	}
 }

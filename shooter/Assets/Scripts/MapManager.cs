@@ -29,6 +29,7 @@ public class MapManager : MonoBehaviour {
 	public enum Difficulty{easy, normal, hard, death};
 	public Difficulty difficulty = Difficulty.easy;
 	public List<DamagingEntity> onScreenEntities;
+	public List<BossSkull> bossSkulls;
 
 	public float bossTime;
 
@@ -203,6 +204,11 @@ public class MapManager : MonoBehaviour {
 		for (int i = 0; i < onScreenEntities.Count; ++i) {
 			if (onScreenEntities[i] == null)
 				onScreenEntities.RemoveAt(i);
+		}
+
+		for (int i = 0; i < bossSkulls.Count; ++i) {
+			if (bossSkulls[i] == null)
+				bossSkulls.RemoveAt(i);
 		}
 	}
 }

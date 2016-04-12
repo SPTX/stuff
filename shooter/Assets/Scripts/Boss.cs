@@ -4,6 +4,18 @@ using System.Collections;
 
 public class Boss : DamagingEntity {
 
+	/* list of patterns:
+	 * straight
+	 * falling sides
+	 * straight sides
+	 * round
+	 * seeking
+
+	 * subboss patterns:
+	 * straight snake line
+	 * rotator
+	*/
+
 	public int health;
 	protected int HPMax;
 	protected float healthActual;
@@ -26,6 +38,9 @@ public class Boss : DamagingEntity {
 
 	public float timer = 120;
 
+	protected float respawnSkulls = 5;
+	protected float respawnSkullsDelay = 5;
+
 	// Use this for initialization
 	void Start () {
 		seal.sprite = Resources.Load<Sprite>("Sprites/Seal-" + element);
@@ -40,7 +55,7 @@ public class Boss : DamagingEntity {
 	void Update () {
 		if (!damageable) {
 			transform.Translate (Vector3.left * 4 * Time.deltaTime);
-			if (transform.position.x <= 6)
+			if (transform.position.x <= 4)
 				damageable = true;
 		}
 
@@ -53,9 +68,9 @@ public class Boss : DamagingEntity {
 				MapManager.Manager.onScreenEntities.Add(
 					((GameObject)Instantiate(Resources.Load(deathShotNames[type]), transform.position, turret.transform.rotation * Quaternion.AngleAxis(240, Vector3.forward))).GetComponent<DeathShot> ());
 				if ((type ^= 1) == 0)
-					nextShot = 0.08f;
+					nextShot = 0.12f;
 				else
-					nextShot = 0.04f;
+					nextShot = 0.06f;
 		}
 		if ((turretFiring -= Time.deltaTime) <= 0) {
 			turretRefire = turretRefireDelay;
@@ -66,6 +81,13 @@ public class Boss : DamagingEntity {
 		if (health > healthActual && (health -= (int)((health - healthActual) * (Time.deltaTime * 2))) <= 0)
 			Die (lastTakenDamageType);
 		HealthBarProcessing ();
+
+		if ((respawnSkulls -= Time.deltaTime) <= 0) {
+			respawnSkulls = respawnSkullsDelay;
+			BossSkull newSkull = ((GameObject)Instantiate(Resources.Load("BossSkull"), transform.position, Quaternion.AngleAxis(160, Vector3.forward))).GetComponent<BossSkull> ();
+			newSkull.SetUp((Elements)Random.Range(0, 5), BossSkull.Pattern.seeking);
+			MapManager.Manager.bossSkulls.Add(newSkull);
+		}
 	}
 
 	override public void TakeDamage(int DamageTaken, Elements DamageElement){
