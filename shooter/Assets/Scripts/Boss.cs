@@ -38,8 +38,10 @@ public class Boss : DamagingEntity {
 
 	public float timer = 120;
 
-	protected float respawnSkulls = 5;
-	protected float respawnSkullsDelay = 5;
+	protected float respawnSkulls = 12;
+	protected float respawnSkullsDelay = 6;
+	protected byte activePattern = 0;
+	public BossSkull.Pattern[] patterns = {(BossSkull.Pattern)0, (BossSkull.Pattern)1, (BossSkull.Pattern)2};
 
 	// Use this for initialization
 	void Start () {
@@ -56,7 +58,10 @@ public class Boss : DamagingEntity {
 		if (!damageable) {
 			transform.Translate (Vector3.left * 4 * Time.deltaTime);
 			if (transform.position.x <= 4)
+			{
+				respawnSkulls = 0;
 				damageable = true;
+			}
 		}
 
 		turret.transform.Rotate (Vector3.forward * turretRotSpeed * Time.deltaTime);
@@ -84,9 +89,11 @@ public class Boss : DamagingEntity {
 
 		if ((respawnSkulls -= Time.deltaTime) <= 0) {
 			respawnSkulls = respawnSkullsDelay;
-			BossSkull newSkull = ((GameObject)Instantiate(Resources.Load("BossSkull"), transform.position, Quaternion.AngleAxis(160, Vector3.forward))).GetComponent<BossSkull> ();
-			newSkull.SetUp((Elements)Random.Range(0, 5), BossSkull.Pattern.seeking);
-			MapManager.Manager.bossSkulls.Add(newSkull);
+			Instantiate(Resources.Load("BossSkullsSpawner"));
+			BossSkullSpawner newSpawner = ((GameObject)Instantiate(Resources.Load("BossSkullsSpawner"), transform.position, Quaternion.AngleAxis(180, Vector3.forward))).GetComponent<BossSkullSpawner> ();
+			newSpawner.SetUp(patterns[activePattern]);
+			if (++activePattern == 3)
+				activePattern = 0;
 		}
 	}
 

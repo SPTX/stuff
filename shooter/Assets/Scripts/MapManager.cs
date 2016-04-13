@@ -40,7 +40,7 @@ public class MapManager : MonoBehaviour {
 		Manager = this;
 
 		//debug
-//		Time.timeScale = 0.1f;
+		Time.timeScale = 0.1f;
 	}
 	
 	// Update is called once per frame

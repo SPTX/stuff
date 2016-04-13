@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Turret : MonoBehaviour {
 
-	protected float firerate = 0.5f;
+	public float firerate = 0.5f;
 	protected float refire = 0;
 
 	public bool follow = true;
@@ -38,7 +38,7 @@ public class Turret : MonoBehaviour {
 		transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 	}
 
-	void Shoot()
+	public void Shoot()
 	{
 		if (refire <= 0) {
 			MapManager.Manager.onScreenEntities.Add (
@@ -51,5 +51,11 @@ public class Turret : MonoBehaviour {
 	{
 		if (triggersHitEffect)
 			transform.localScale = originalSize / 1.25f;
+	}
+
+	public void SetFireRate(float newRate)
+	{
+		firerate = newRate;
+		refire = Random.Range (0, firerate);
 	}
 }
