@@ -8,6 +8,7 @@ public class BossSkull : DamagingEntity {
 
 	protected int healthMax = 2500;
 	protected int health;
+	protected float lifeTime = 20;
 
 	protected float moveSpeed = 0;
 	protected float moveSpeedMax = 5;
@@ -47,7 +48,7 @@ public class BossSkull : DamagingEntity {
 
 	// Update is called once per frame
 	void Update () {
-		if (!MapManager.Manager.WithinBounds (transform.position, 15, 15))
+		if (!MapManager.Manager.WithinBounds (transform.position, 32, 32) || (lifeTime -= Time.deltaTime) < 0)
 			Destroy (gameObject);
 		if (!MapManager.Manager.WithinBounds (transform.position, 10, 6)) {
 			canBeHit = false;
@@ -94,6 +95,7 @@ public class BossSkull : DamagingEntity {
 		if (rotatingSpeed > 0)
 			transform.Rotate (Vector3.forward * rotatingSpeed * Time.deltaTime);
 		else if (pattern == Pattern.seeking && !MapManager.Manager.WithinBounds (transform.position, 15, 3.5f)) {
+			transform.position -= Vector3.up * transform.position.normalized.y * 0.05f;
 			transform.Rotate(Vector3.forward, Quaternion.Angle(transform.rotation, Quaternion.Euler(Vector3.right * transform.position.x)) * transform.position.normalized.y / 2);
 		}
 	}
@@ -119,7 +121,7 @@ public class BossSkull : DamagingEntity {
 		healthBar.rectTransform.anchoredPosition = Vector2.right * (healthBar.rectTransform.sizeDelta.x / 2 * newBarSize.x);
 	}
 
-	public void SetUp(Elements setElem, Pattern newPattern = Pattern.straight)
+	public void SetUp(Elements setElem, Pattern newPattern = Pattern.straight, float newMaxSpeed = 5)
 	{
 		element = setElem;
 		pattern = newPattern;
@@ -129,6 +131,7 @@ public class BossSkull : DamagingEntity {
 		turret.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Sprites/Skull-" + element);
 		if (newPattern == Pattern.round)
 			rotatingSpeed = 24;
+		moveSpeedMax = newMaxSpeed;
 		SetRing ();
 	}
 

@@ -55,7 +55,7 @@ public class BossSkullSpawner : MonoBehaviour {
 		}
 	}
 
-	public void SetUp(BossSkull.Pattern newPattern, SubBossPattern sub = SubBossPattern.none, byte numberOfWaves = 5)
+	public float SetUp(BossSkull.Pattern newPattern, SubBossPattern sub = SubBossPattern.none, byte numberOfWaves = 5)
 	{
 		pattern = newPattern;
 		if (numberOfWaves > 0)
@@ -65,8 +65,16 @@ public class BossSkullSpawner : MonoBehaviour {
 			newPosition = transform.position;
 			frequency = 0.025f;
 			duration = (frequency * 4 + 1) * numberOfWaves;
+		} else if (pattern == BossSkull.Pattern.round) {
+			frequency = 7.5f;
+			duration = frequency * 4;
+		}
+		else if (pattern == BossSkull.Pattern.seeking) {
+			frequency = 0.5f;
+			duration = frequency * 12;
 		}
 		setUp = true;
+		return duration;
 	}
 
 	void StraightSpawn ()
@@ -95,13 +103,23 @@ public class BossSkullSpawner : MonoBehaviour {
 
 	void Round()
 	{
-		
+		Quaternion nextRot = transform.rotation;
+		for (int i = 0; i < 8;++i) {
+			BossSkull newSkull = ((GameObject)Instantiate(Resources.Load("BossSkull"), transform.position, nextRot)).GetComponent<BossSkull> ();
+			newSkull.SetUp((Elements)Random.Range(0, 5), BossSkull.Pattern.round);
+			MapManager.Manager.bossSkulls.Add(newSkull);
+
+			newSkull = ((GameObject)Instantiate(Resources.Load("BossSkull"), transform.position + newSkull.transform.up * 23.8f, nextRot * Quaternion.AngleAxis(180, Vector3.forward))).GetComponent<BossSkull> ();
+			newSkull.SetUp((Elements)Random.Range(0, 5), BossSkull.Pattern.round);
+			MapManager.Manager.bossSkulls.Add(newSkull);
+			nextRot *= Quaternion.AngleAxis(45, Vector3.forward);
+		}
 	}
 	
 	void Seeking()
 	{
-		BossSkull newSkull = ((GameObject)Instantiate(Resources.Load("BossSkull"), transform.position, transform.rotation * Quaternion.AngleAxis(Random.Range(-60f, 60f), Vector3.forward))).GetComponent<BossSkull> ();
-		newSkull.SetUp((Elements)Random.Range(0, 5), BossSkull.Pattern.seeking);
+		BossSkull newSkull = ((GameObject)Instantiate(Resources.Load("BossSkull"), transform.position, transform.rotation * Quaternion.AngleAxis(Random.Range(-70f, 70f), Vector3.forward))).GetComponent<BossSkull> ();
+		newSkull.SetUp((Elements)Random.Range(0, 5), BossSkull.Pattern.seeking, 3);
 		MapManager.Manager.bossSkulls.Add(newSkull);
 	}
 }

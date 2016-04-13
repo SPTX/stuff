@@ -91,7 +91,7 @@ public class Boss : DamagingEntity {
 			respawnSkulls = respawnSkullsDelay;
 			Instantiate(Resources.Load("BossSkullsSpawner"));
 			BossSkullSpawner newSpawner = ((GameObject)Instantiate(Resources.Load("BossSkullsSpawner"), transform.position, Quaternion.AngleAxis(180, Vector3.forward))).GetComponent<BossSkullSpawner> ();
-			newSpawner.SetUp(patterns[activePattern]);
+			respawnSkulls = newSpawner.SetUp(patterns[activePattern]) - 0.5f;
 			if (++activePattern == 3)
 				activePattern = 0;
 		}
