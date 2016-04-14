@@ -53,20 +53,18 @@ public class BossSkullSpawner : MonoBehaviour {
 		}
 	}
 
-	public float SetUp(BossSkull.Pattern newPattern, byte numberOfWaves = 5)
+	public float SetUp(BossSkull.Pattern newPattern)
 	{
 		pattern = newPattern;
-		if (numberOfWaves > 0)
-			duration = frequency * numberOfWaves;
 		if (pattern == BossSkull.Pattern.straight) {
 			newPosition = transform.position + Vector3.up * 3.5f;
 			frequency = 0.025f;
-			duration = (frequency * 4 + 1) * numberOfWaves;
+			duration = (frequency * 4 + 1) * 5;
 		}
 		else if (pattern == BossSkull.Pattern.side){
-			newPosition = Vector3.right * 8.2f + Vector3.up * 3.5f;
+			newPosition = Vector3.right * 6.2f + Vector3.up * 3;
 			frequency = 2;
-			duration = frequency * 2 * numberOfWaves + NextPatternDelay;
+			duration = frequency * 2 * 3 + (NextPatternDelay = 2);
 		}
 		else if (pattern == BossSkull.Pattern.round) {
 			frequency = 7f;
@@ -100,20 +98,28 @@ public class BossSkullSpawner : MonoBehaviour {
 
 	void Side()
 	{
+		if (duration < NextPatternDelay)
+			return;
+
 		Quaternion nextRot = Quaternion.AngleAxis (90, Vector3.forward);
 
-//		for (int n = 0; n < 2; ++n)
-		for (int i = 0; i < 9; ++i) {
-			BossSkull newSkull = ((GameObject)Instantiate (Resources.Load ("BossSkull"), newPosition, transform.rotation * nextRot)).GetComponent<BossSkull> ();
-			newSkull.SetUp ((Elements)Random.Range (0, 5), BossSkull.Pattern.side, 2);
-			MapManager.Manager.bossSkulls.Add (newSkull);
-			newPosition -= Vector3.right * spacing;
-			if (newPosition.x > 8.2f || newPosition.x < -8.2f) {
-				spacing = -spacing;
-				newPosition -= Vector3.right * (spacing / 2);
-				refire = 1;
+		for (int n = 0; n < 2; ++n) {
+			for (int i = 0; i < 8; ++i) {
+				BossSkull newSkull = ((GameObject)Instantiate (Resources.Load ("BossSkull"), newPosition, transform.rotation * nextRot)).GetComponent<BossSkull> ();
+				newSkull.SetUp ((Elements)Random.Range (0, 5), BossSkull.Pattern.side, 1.5f);
+				MapManager.Manager.bossSkulls.Add (newSkull);
+				newPosition -= Vector3.right * spacing;
 			}
+			newPosition += Vector3.right * spacing;
+			spacing = -spacing;
+			nextRot *= Quaternion.AngleAxis (180, Vector3.forward);
+			newPosition.y = -newPosition.y;
 		}
+		if (newPosition.x == 7.2f)
+			newPosition = Vector3.right * 6.2f + Vector3.up * 3;
+		else
+			newPosition = Vector3.right * (6.2f + spacing / 2) + Vector3.up * 3;
+		refire = 3;
 	}
 
 	void Round()
