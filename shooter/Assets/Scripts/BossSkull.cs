@@ -4,11 +4,11 @@ using System.Collections;
 
 public class BossSkull : DamagingEntity {
 
-	public enum Pattern	{straight, fallingFromSides, side, round, seeking};
+	public enum Pattern	{straight, fallingFromSides, side, round, seeking, snake, rotator};
 
 	protected int healthMax = 2500;
 	protected int health;
-	protected float lifeTime = 20;
+	protected float lifeTime = 12;
 
 	protected float moveSpeed = 0;
 	protected float moveSpeedMax = 5;
@@ -26,16 +26,17 @@ public class BossSkull : DamagingEntity {
 
 	protected bool ringActive;
 	protected Vector3 ringSize;
+	private Vector3 glowSize = Vector3.one * 12;
+	public GameObject Glow;
 	
 	public Elements element = Elements.fire;
 
-	//fuckng halos
 	private Color[] haloColors = {
-		new Color(255,78,62),
-		new Color(25,215,2),
-		new Color(5,127,211),
-		new Color(255,255,255),
-		new Color(165,64,255)};
+		new Color(1,0.3f,0.24f),
+		new Color(0.1f,0.84f,0.008f),
+		new Color(0.02f,0.5f,0.82f),
+		new Color(1,1,1),
+		new Color(0.65f,0.25f,1)};
 	
 	// Use this for initialization
 	void Start () {
@@ -64,14 +65,21 @@ public class BossSkull : DamagingEntity {
 		}
 
 		if (spawnEffect && transform.localScale.x < 1) {
+
 			Vector3 newScale = transform.localScale;
 			newScale += Vector3.one * 2 * Time.deltaTime;
 			transform.localScale = newScale;
+			if ((Glow.transform.localScale += glowSize * Time.deltaTime).x > 3)
+			{
+				Glow.transform.localScale = Vector3.one * 3;
+				glowSize *= -0.5f;
+			}
 			if (newScale.x >= 1)
 			{
 				transform.localScale = Vector3.one;
 				spawnEffect = false;
 				canBeHit = true;
+				Destroy(Glow.gameObject);
 			}
 			return;
 		}
@@ -79,7 +87,7 @@ public class BossSkull : DamagingEntity {
 		Move ();
 
 		can.transform.rotation = Quaternion.identity;
-		LockRing.transform.Rotate (Vector3.forward * 45 * Time.deltaTime);
+		LockRing.transform.Rotate (Vector3.back * 45 * Time.deltaTime);
 
 		if (MapManager.Manager.difficulty > MapManager.Difficulty.easy)
 			turret.Shoot ();
@@ -95,6 +103,8 @@ public class BossSkull : DamagingEntity {
 		if (rotatingSpeed > 0)
 			transform.Rotate (Vector3.forward * rotatingSpeed * Time.deltaTime);
 		else if (pattern == Pattern.seeking && !MapManager.Manager.WithinBounds (transform.position, 15, 3.5f)) {
+			if (transform.position.x < -14)
+				Destroy(gameObject);
 			transform.position -= Vector3.up * transform.position.normalized.y * 0.05f;
 			transform.Rotate(Vector3.forward, Quaternion.Angle(transform.rotation, Quaternion.Euler(Vector3.right * transform.position.x)) * transform.position.normalized.y / 2);
 		}
@@ -132,6 +142,7 @@ public class BossSkull : DamagingEntity {
 		if (newPattern == Pattern.round)
 			rotatingSpeed = 24;
 		moveSpeedMax = newMaxSpeed;
+		Glow.GetComponent<SpriteRenderer> ().color = haloColors [(int)element];
 		SetRing ();
 	}
 
