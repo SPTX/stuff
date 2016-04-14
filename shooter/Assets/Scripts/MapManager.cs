@@ -38,6 +38,7 @@ public class MapManager : MonoBehaviour {
 		Cursor.lockState = CursorLockMode.Locked;
 		Cursor.visible = false;
 		Manager = this;
+		Random.seed = (int)System.DateTime.Now.Ticks;
 
 		//debug
 //		Time.timeScale = 0.1f;

@@ -15,6 +15,7 @@ public class BossSkull : DamagingEntity {
 	protected float rotatingSpeed = 0;
 	protected Vector3 direction;
 	protected Pattern pattern;
+	protected bool accelerating;
 
 	protected Vector3 initialBarPos;
 	protected bool spawnEffect = true;
@@ -95,8 +96,14 @@ public class BossSkull : DamagingEntity {
 
 	protected void Move()
 	{
-		if (moveSpeed < moveSpeedMax && (moveSpeed += 12 * Time.deltaTime) > moveSpeedMax)
+		if (pattern == Pattern.snake && !accelerating) {
+			 if ((moveSpeed -= 6 * Time.deltaTime) <= 0)
+				accelerating = true;
+		}
+		else if (moveSpeed < moveSpeedMax && (moveSpeed += 12 * Time.deltaTime) >= moveSpeedMax) {
 			moveSpeed = moveSpeedMax;
+			accelerating = false;
+		}
 
 		transform.Translate (transform.right * moveSpeed * Time.deltaTime, Space.World);
 		
@@ -112,7 +119,7 @@ public class BossSkull : DamagingEntity {
 
 	override public void TakeDamage(int DamageTaken, Elements DamageElement)
 	{
-		if (pattern != Pattern.round)
+		if (pattern != Pattern.round && pattern != Pattern.snake)
 			moveSpeed = 0;
 		turret.HitEffect ();
 		float damElem = MapManager.Manager.SolveElement (DamageElement, element);
@@ -141,6 +148,8 @@ public class BossSkull : DamagingEntity {
 		turret.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Sprites/Skull-" + element);
 		if (newPattern == Pattern.round)
 			rotatingSpeed = 24;
+		else if (newPattern == Pattern.snake)
+			accelerating = true;
 		moveSpeedMax = newMaxSpeed;
 		Glow.GetComponent<SpriteRenderer> ().color = haloColors [(int)element];
 		SetRing ();
