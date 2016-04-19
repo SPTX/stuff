@@ -27,7 +27,7 @@ public class BossSkull : DamagingEntity {
 
 	protected bool ringActive;
 	protected Vector3 ringSize;
-	private Vector3 glowSize = Vector3.one * 12;
+	private Vector3 glowSize = Vector3.one * 4;
 	public GameObject Glow;
 	
 	public Elements element = Elements.fire;
@@ -68,13 +68,14 @@ public class BossSkull : DamagingEntity {
 		if (spawnEffect && transform.localScale.x < 1) {
 
 			Vector3 newScale = transform.localScale;
-			newScale += Vector3.one * 2 * Time.deltaTime;
+			newScale += Vector3.one * Time.deltaTime;
 			transform.localScale = newScale;
-			if ((Glow.transform.localScale += glowSize * Time.deltaTime).x > 3)
-			{
-				Glow.transform.localScale = Vector3.one * 3;
-				glowSize *= -0.5f;
-			}
+//			if ((Glow.transform.localScale += glowSize * Time.deltaTime).x > 2)
+//			{
+//				Glow.transform.localScale = Vector3.one * 2;
+//				glowSize *= -2f * Time.deltaTime;
+			Glow.transform.localScale -= Vector3.one * 4f * Time.deltaTime;
+//			}
 			if (newScale.x >= 1)
 			{
 				transform.localScale = Vector3.one;

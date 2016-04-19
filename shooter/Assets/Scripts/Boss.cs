@@ -4,18 +4,6 @@ using System.Collections;
 
 public class Boss : DamagingEntity {
 
-	/* list of patterns:
-	 * straight
-	 * falling sides
-	 * straight sides
-	 * round
-	 * seeking
-
-	 * subboss patterns:
-	 * straight snake line
-	 * rotator
-	*/
-
 	public int health;
 	protected int HPMax;
 	protected float healthActual;

@@ -20,7 +20,7 @@ public class BossSkullSpawner : MonoBehaviour {
 	private float frequency = 5;
 	private float NextPatternDelay = 5;
 	private float duration = 12;
-	private float spacing = 2;
+	private float spacing = 1.5f;
 	private Vector3 newPosition;
 	private bool setUp;
 
@@ -61,18 +61,19 @@ public class BossSkullSpawner : MonoBehaviour {
 		if (pattern == BossSkull.Pattern.straight) {
 			newPosition = transform.position + Vector3.up * 3.5f;
 			frequency = 0.025f;
-			duration = (frequency * 4 + 1) * 5 + (NextPatternDelay = 1.5f);
+			duration = (frequency * 4 + 1) * 8 + (NextPatternDelay = 1.5f);
 		} else if (pattern == BossSkull.Pattern.snake) {
 			newPosition = transform.position + Vector3.up * 3.5f;
 			frequency = 0.15f;
 			speed = 4;
-			duration = (frequency * 37 + 0.5f) + (NextPatternDelay = 4);
-			spacing = 1;
+			duration = (frequency * 35 + 0.5f) + (NextPatternDelay = 4);
+			spacing = 0.75f;
 		} else if (pattern == BossSkull.Pattern.side) {
-			newPosition = Vector3.right * 6.2f + Vector3.up * 3;
-			frequency = 2;
-			speed = 1.5f;
-			duration = frequency * 2 * 3 + (NextPatternDelay = 2);
+			newPosition = Vector3.left * (6.2f + spacing);
+			frequency = 1.6f;
+			speed = 1f;
+			spacing = 2.2f;
+			duration = frequency * 6 + (NextPatternDelay = 2);
 		} else if (pattern == BossSkull.Pattern.round) {
 			frequency = 7f;
 			duration = frequency * 4 + (NextPatternDelay = 2);
@@ -125,7 +126,21 @@ public class BossSkullSpawner : MonoBehaviour {
 
 		Quaternion nextRot = Quaternion.AngleAxis (90, Vector3.forward);
 
-		for (int n = 0; n < 2; ++n) {
+		for (int i = 0; i < 10; ++i) {
+			BossSkull newSkull = ((GameObject)Instantiate (Resources.Load ("BossSkull"), newPosition + Vector3.up * 3, transform.rotation * nextRot)).GetComponent<BossSkull> ();
+			newSkull.SetUp ((Elements)Random.Range (0f, 5f), pattern, speed);
+			MapManager.Manager.bossSkulls.Add (newSkull);
+			
+			newSkull = ((GameObject)Instantiate (Resources.Load ("BossSkull"), newPosition - Vector3.up * 3, transform.rotation * Quaternion.AngleAxis (-90, Vector3.forward))).GetComponent<BossSkull> ();
+			newSkull.SetUp ((Elements)Random.Range (0f, 5f), pattern, speed);
+			MapManager.Manager.bossSkulls.Add (newSkull);
+
+			newPosition.x += spacing;
+		}
+		newPosition.x -= spacing / 2;
+		spacing = -spacing;
+
+/*		for (int n = 0; n < 2; ++n) {
 			for (int i = 0; i < 8; ++i) {
 				BossSkull newSkull = ((GameObject)Instantiate (Resources.Load ("BossSkull"), newPosition, transform.rotation * nextRot)).GetComponent<BossSkull> ();
 				newSkull.SetUp ((Elements)Random.Range (0f, 5f), pattern, speed);
@@ -141,6 +156,7 @@ public class BossSkullSpawner : MonoBehaviour {
 			newPosition = Vector3.right * 6.2f + Vector3.up * 3;
 		else
 			newPosition = Vector3.right * (6.2f + spacing / 2) + Vector3.up * 3;
+*/
 		refire = 3;
 	}
 
