@@ -9,7 +9,15 @@ public class MapManager : MonoBehaviour {
 
 	public static Character PlayerCharacter;
 	public static MapManager Manager;
+	public static Color[] elementColors = {
+		new Color(1,0.3f,0.24f),
+		new Color(0.1f,0.84f,0.008f),
+		new Color(0.02f,0.5f,0.82f),
+		new Color(1,1,1),
+		new Color(0.65f,0.25f,1)};
+	
 
+	
 	private int bestScore;
 	private int score = 0;
 	private int material = 0;
@@ -31,7 +39,7 @@ public class MapManager : MonoBehaviour {
 	public List<DamagingEntity> onScreenEntities;
 	public List<BossSkull> bossSkulls;
 
-	public float bossTime;
+	public float bossTime = 0;
 
 	// Use this for initialization
 	void Start () {
@@ -160,7 +168,7 @@ public class MapManager : MonoBehaviour {
 		}
 	}
 
-	public float SolveElement(Elements attacker, Elements target)
+	static public float SolveElement(Elements attacker, Elements target)
 	{
 		if (attacker == Elements.wind && target == Elements.water ||
 		    attacker == Elements.water && target == Elements.fire || 
@@ -175,7 +183,7 @@ public class MapManager : MonoBehaviour {
 		return 1;
 	}
 	
-	public bool WithinBounds(Vector3 objectPos, Vector2 bounds)
+	static public bool WithinBounds(Vector3 objectPos, Vector2 bounds)
 	{
 		if (objectPos.x < -bounds.x)
 			return false;
@@ -188,7 +196,7 @@ public class MapManager : MonoBehaviour {
 		return true;
 	}
 	
-	public bool WithinBounds(Vector3 objectPos, float x, float y)
+	static public bool WithinBounds(Vector3 objectPos, float x, float y)
 	{
 		if (objectPos.x < -x)
 			return false;
@@ -210,6 +218,14 @@ public class MapManager : MonoBehaviour {
 		for (int i = 0; i < bossSkulls.Count; ++i) {
 			if (bossSkulls[i] == null)
 				bossSkulls.RemoveAt(i);
+		}
+	}
+
+	public void KillSkulls()
+	{
+		for (int i = 0; i < bossSkulls.Count; ++i) {
+			if (bossSkulls[i] != null)
+				bossSkulls[i].TakeDamage(-1, Elements.fire);
 		}
 	}
 }

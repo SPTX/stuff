@@ -27,18 +27,10 @@ public class BossSkull : DamagingEntity {
 
 	protected bool ringActive;
 	protected Vector3 ringSize;
-	private Vector3 glowSize = Vector3.one * 4;
 	public GameObject Glow;
 	
 	public Elements element = Elements.fire;
 
-	private Color[] haloColors = {
-		new Color(1,0.3f,0.24f),
-		new Color(0.1f,0.84f,0.008f),
-		new Color(0.02f,0.5f,0.82f),
-		new Color(1,1,1),
-		new Color(0.65f,0.25f,1)};
-	
 	// Use this for initialization
 	void Start () {
 		health = healthMax;
@@ -50,9 +42,9 @@ public class BossSkull : DamagingEntity {
 
 	// Update is called once per frame
 	void Update () {
-		if (!MapManager.Manager.WithinBounds (transform.position, 32, 32) || (lifeTime -= Time.deltaTime) < 0)
+		if (!MapManager.WithinBounds (transform.position, 32, 32) || (lifeTime -= Time.deltaTime) < 0)
 			Destroy (gameObject);
-		if (!MapManager.Manager.WithinBounds (transform.position, 10, 6)) {
+		if (!MapManager.WithinBounds (transform.position, 10, 6)) {
 			canBeHit = false;
 		} else
 			canBeHit = true;
@@ -70,12 +62,7 @@ public class BossSkull : DamagingEntity {
 			Vector3 newScale = transform.localScale;
 			newScale += Vector3.one * Time.deltaTime;
 			transform.localScale = newScale;
-//			if ((Glow.transform.localScale += glowSize * Time.deltaTime).x > 2)
-//			{
-//				Glow.transform.localScale = Vector3.one * 2;
-//				glowSize *= -2f * Time.deltaTime;
 			Glow.transform.localScale -= Vector3.one * 4f * Time.deltaTime;
-//			}
 			if (newScale.x >= 1)
 			{
 				transform.localScale = Vector3.one;
@@ -106,11 +93,11 @@ public class BossSkull : DamagingEntity {
 			accelerating = false;
 		}
 
-		transform.Translate (transform.right * moveSpeed * Time.deltaTime, Space.World);
+		transform.Translate (direction * moveSpeed * Time.deltaTime, Space.World);
 		
 		if (rotatingSpeed > 0)
 			transform.Rotate (Vector3.forward * rotatingSpeed * Time.deltaTime);
-		else if (pattern == Pattern.seeking && !MapManager.Manager.WithinBounds (transform.position, 15, 3.5f)) {
+		else if (pattern == Pattern.seeking && !MapManager.WithinBounds (transform.position, 15, 3.5f)) {
 			if (transform.position.x < -14)
 				Destroy(gameObject);
 			transform.position -= Vector3.up * transform.position.normalized.y * 0.05f;
@@ -120,10 +107,13 @@ public class BossSkull : DamagingEntity {
 
 	override public void TakeDamage(int DamageTaken, Elements DamageElement)
 	{
+		if (DamageTaken < 0) {
+			Die(1);
+		}
 		if (pattern != Pattern.round && pattern != Pattern.snake)
 			moveSpeed = 0;
 		turret.HitEffect ();
-		float damElem = MapManager.Manager.SolveElement (DamageElement, element);
+		float damElem = MapManager.SolveElement (DamageElement, element);
 		if (damElem != 2)
 			return;
 		if ((health -= DamageTaken) <= 0)
@@ -152,13 +142,13 @@ public class BossSkull : DamagingEntity {
 		else if (newPattern == Pattern.snake)
 			accelerating = true;
 		moveSpeedMax = newMaxSpeed;
-		Glow.GetComponent<SpriteRenderer> ().color = haloColors [(int)element];
+		Glow.GetComponent<SpriteRenderer> ().color = MapManager.elementColors [(int)element];
 		SetRing ();
 	}
 
 	public void SetRing()
 	{
-		if (MapManager.Manager.SolveElement (
+		if (MapManager.SolveElement (
 			MapManager.PlayerCharacter.equipedShotTypes [MapManager.PlayerCharacter.equipedShot].element, element) < 2) {
 			ringActive = false;
 			LockRing.GetComponent<SpriteRenderer>().color = new Color(1,1,1,0);
@@ -173,6 +163,11 @@ public class BossSkull : DamagingEntity {
 
 	protected override void Die (float elementMultiplier)
 	{
+		if (elementMultiplier == 2)
+			;//spawn broken
+		MapManager.Manager.AddScore (scoreValue, elementMultiplier, false, 0);
+		if (MapManager.Manager.bossTime < 0)
+			Instantiate (Resources.Load ("StarBig"), transform.position, Quaternion.identity);
 		Destroy (gameObject);
 	}
 }

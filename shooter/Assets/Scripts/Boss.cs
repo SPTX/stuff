@@ -47,6 +47,7 @@ public class Boss : DamagingEntity {
 			transform.Translate (Vector3.left * 4 * Time.deltaTime);
 			if (transform.position.x <= 4)
 			{
+				MapManager.Manager.onScreenEntities.Add(gameObject.GetComponent<Boss>());
 				respawnSkulls = 0;
 				damageable = true;
 			}
@@ -88,15 +89,16 @@ public class Boss : DamagingEntity {
 		if (!damageable)
 			return;
 		//solve element returns 2, 0.5 or 1 (*2, /2, *1)
-		lastTakenDamageType = MapManager.Manager.SolveElement (DamageElement, element);
+		lastTakenDamageType = MapManager.SolveElement (DamageElement, element);
 		healthActual -= (DamageTaken * lastTakenDamageType);
 		//add score
 	}
 	
 	protected override void Die (float elementMultiplier)
 	{
-		MapManager.Manager.AddScore (0, lastTakenDamageType, false, 2);
-		MapManager.Manager.bossTime = 0;
+		MapManager.Manager.AddScore (0, elementMultiplier, false, 2);
+		MapManager.Manager.bossTime = -1;
+		MapManager.Manager.KillSkulls ();
 		Destroy (gameObject);
 	}
 

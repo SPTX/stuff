@@ -59,10 +59,10 @@ public class Enemy : DamagingEntity {
 		else if (route)
 			MoveToRoute ();
 
-		if (!MapManager.Manager.WithinBounds (transform.position, 10, 6)) {
+		if (!MapManager.WithinBounds (transform.position, 10, 6)) {
 			canBeHit = false;
 		}
-		if (!MapManager.Manager.WithinBounds (transform.position, 14, 10)) {
+		if (!MapManager.WithinBounds (transform.position, 14, 10)) {
 			Destroy (gameObject);
 			if (route)
 				Destroy(route.gameObject);
@@ -84,7 +84,7 @@ public class Enemy : DamagingEntity {
 		if (!damageable)
 			return;
 		//solve element returns 2, 0.5 or 1 (*2, /2, *1)
-		float damMul = MapManager.Manager.SolveElement (DamageElement, element);
+		float damMul = MapManager.SolveElement (DamageElement, element);
 		health -= (int)(DamageTaken * damMul);
 
 		if (health <= 0)
