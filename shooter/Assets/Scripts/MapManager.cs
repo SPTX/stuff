@@ -208,6 +208,18 @@ public class MapManager : MonoBehaviour {
 			return false;
 		return true;
 	}
+
+	static public Elements IsSensibleTo (Elements target){
+		if (target == Elements.fire)
+			return Elements.water;
+		if (target == Elements.water)
+			return Elements.wind;
+		if (target == Elements.wind)
+			return Elements.fire;
+		if (target == Elements.light)
+			return Elements.dark;
+		return Elements.light;
+	}
 	
 	void ClearEntities(){
 		for (int i = 0; i < onScreenEntities.Count; ++i) {

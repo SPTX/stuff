@@ -11,7 +11,6 @@ public class Boss : DamagingEntity {
 
 	public Text HPText;
 	public Image healthBar;
-	public Elements element = Elements.fire;
 	public Image seal;
 
 	public GameObject turret;
@@ -30,6 +29,7 @@ public class Boss : DamagingEntity {
 	protected float respawnSkullsDelay = 6;
 	protected byte activePattern = 0;
 	public BossSkull.Pattern[] patterns = {(BossSkull.Pattern)0, (BossSkull.Pattern)1, (BossSkull.Pattern)2};
+	BossSkullSpawner skullSpawner;
 
 	// Use this for initialization
 	void Start () {
@@ -78,8 +78,8 @@ public class Boss : DamagingEntity {
 
 		if ((respawnSkulls -= Time.deltaTime) <= 0) {
 			respawnSkulls = respawnSkullsDelay;
-			BossSkullSpawner newSpawner = ((GameObject)Instantiate(Resources.Load("BossSkullsSpawner"), transform.position, Quaternion.AngleAxis(180, Vector3.forward))).GetComponent<BossSkullSpawner> ();
-			respawnSkulls = newSpawner.SetUp(patterns[activePattern]) - 0.5f;
+			skullSpawner = ((GameObject)Instantiate(Resources.Load("BossSkullsSpawner"), transform.position, Quaternion.AngleAxis(180, Vector3.forward))).GetComponent<BossSkullSpawner> ();
+			respawnSkulls = skullSpawner.SetUp(patterns[activePattern]) - 0.5f;
 			if (++activePattern == 3)
 				activePattern = 0;
 		}
@@ -92,12 +92,14 @@ public class Boss : DamagingEntity {
 		lastTakenDamageType = MapManager.SolveElement (DamageElement, element);
 		healthActual -= (DamageTaken * lastTakenDamageType);
 		//add score
+		MapManager.Manager.AddScore (0.2f, MapManager.SolveElement(DamageElement, element), false, 3);
 	}
 	
 	protected override void Die (float elementMultiplier)
 	{
 		MapManager.Manager.AddScore (0, elementMultiplier, false, 2);
 		MapManager.Manager.bossTime = -1;
+		Destroy (skullSpawner.gameObject);
 		MapManager.Manager.KillSkulls ();
 		Destroy (gameObject);
 	}

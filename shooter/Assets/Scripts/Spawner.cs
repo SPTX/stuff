@@ -20,6 +20,7 @@ public class Spawner : MonoBehaviour {
 	void Start () {
 		if (enemyType == null)
 			Destroy (gameObject);
+//		if (enemyType.GetComponent<Boss>())
 	}
 	
 	// Update is called once per frame

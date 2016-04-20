@@ -41,13 +41,7 @@ public class Pickup : MonoBehaviour {
 			transform.Rotate(0,0,120 * Time.deltaTime, Space.Self);
 		}
 
-		if (transform.position.x < -10)
-			Destroy (gameObject);
-		else if (transform.position.x > 10)
-			Destroy (gameObject);
-		if (transform.position.y < -6)
-			Destroy (gameObject);
-		else if (transform.position.y > 6)
+		if (!MapManager.WithinBounds(transform.position, 10, 5))
 			Destroy (gameObject);
 	}
 

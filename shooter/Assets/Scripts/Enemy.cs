@@ -21,8 +21,6 @@ public class Enemy : DamagingEntity {
 	public Canvas can;
 	public Turret turret;
 
-	public Elements element = Elements.fire;
-
 	// Use this for initialization
 	protected virtual void Start () {
 		health = HealthMax;

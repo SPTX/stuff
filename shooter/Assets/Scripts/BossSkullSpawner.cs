@@ -4,12 +4,12 @@ using System.Collections;
 public class BossSkullSpawner : MonoBehaviour {
 
 	BossSkull.Pattern pattern;
-	private float speed = 5;
+	private float speed = 4;
 	private float refire = 0;
 	private float frequency = 5;
 	private float NextPatternDelay = 5;
 	private float duration = 12;
-	private float spacing = 1.5f;
+	private float spacing = 1.75f;
 	private Vector3 newPosition;
 	private bool setUp;
 
@@ -26,6 +26,15 @@ public class BossSkullSpawner : MonoBehaviour {
 			Destroy (gameObject);
 		else if (duration < NextPatternDelay)
 			return;
+
+		if (pattern == BossSkull.Pattern.fallingFromSides) {
+			transform.Translate(Vector3.left * 0.5f * Time.deltaTime, Space.World);
+			newPosition.x -= 0.5f * Time.deltaTime;
+			if (newPosition.x <= -7)
+				newPosition.x = 6;
+			if (transform.position.x <= -7)
+				transform.position = new Vector3(6, 6);
+		}
 
 		if ((refire -= Time.deltaTime) <= 0) {
 			refire = frequency;
@@ -51,13 +60,14 @@ public class BossSkullSpawner : MonoBehaviour {
 		if (pattern == BossSkull.Pattern.straight) {
 			newPosition = transform.position + Vector3.up * 3.5f;
 			frequency = 0.025f;
-			duration = (frequency * 4 + 1) * 8 + (NextPatternDelay = 1.5f);
+			duration = (frequency * 4 + 2) * 6 + (NextPatternDelay = 1.5f);
 		} else if (pattern == BossSkull.Pattern.fallingFromSides) {
-			newPosition = new Vector3(-2.5f, 6, 0);
-			frequency = 1f;
-			speed = 2;
-			spacing = 2;
-			duration = frequency * 4 + (NextPatternDelay = 8);
+			transform.position = new Vector3(4, 6);
+			newPosition = new Vector3(-2, -6);
+			transform.rotation *= Quaternion.AngleAxis (90, Vector3.forward);
+			frequency = 2f;
+			speed = 1;
+			duration = frequency * 30 + (NextPatternDelay = 4);
 		} else if (pattern == BossSkull.Pattern.snake) {
 			newPosition = transform.position + Vector3.up * 3.5f;
 			frequency = 0.15f;
@@ -97,7 +107,7 @@ public class BossSkullSpawner : MonoBehaviour {
 			spacing = -spacing;
 			if (pattern == BossSkull.Pattern.straight){
 				newPosition -= Vector3.up * (spacing / 2);
-				refire = 1;
+				refire = 2;
 			}
 			else {
 				newPosition -= Vector3.up * spacing;
@@ -108,6 +118,13 @@ public class BossSkullSpawner : MonoBehaviour {
 
 	void FallingSides()
 	{
+		BossSkull newSkull = ((GameObject)Instantiate (Resources.Load ("BossSkull"), transform.position, transform.rotation)).GetComponent<BossSkull> ();
+		newSkull.SetUp ((Elements)Random.Range (0f, 5f), pattern, speed);
+		MapManager.Manager.bossSkulls.Add (newSkull);
+		newSkull = ((GameObject)Instantiate (Resources.Load ("BossSkull"), newPosition, transform.rotation * Quaternion.AngleAxis (180, Vector3.forward))).GetComponent<BossSkull> ();
+		newSkull.SetUp ((Elements)Random.Range (0f, 5f), pattern, speed);
+		MapManager.Manager.bossSkulls.Add (newSkull);
+		/*
 		Vector3 nextPosition = newPosition;
 		int normal = Mathf.RoundToInt(nextPosition.normalized.y);
 
@@ -119,6 +136,7 @@ public class BossSkullSpawner : MonoBehaviour {
 		}
 		newPosition.y = -newPosition.y;
 		newPosition.x += spacing * 2;
+		*/
 	}
 
 	void Side()

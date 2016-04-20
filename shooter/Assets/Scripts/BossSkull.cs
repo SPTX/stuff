@@ -28,8 +28,6 @@ public class BossSkull : DamagingEntity {
 	protected bool ringActive;
 	protected Vector3 ringSize;
 	public GameObject Glow;
-	
-	public Elements element = Elements.fire;
 
 	// Use this for initialization
 	void Start () {
@@ -93,8 +91,11 @@ public class BossSkull : DamagingEntity {
 			accelerating = false;
 		}
 
-		transform.Translate (direction * moveSpeed * Time.deltaTime, Space.World);
-		
+		if (pattern == Pattern.fallingFromSides)
+			transform.Translate (direction * moveSpeed * Time.deltaTime, Space.World);
+		else
+			transform.Translate (transform.right * moveSpeed * Time.deltaTime, Space.World);
+
 		if (rotatingSpeed > 0)
 			transform.Rotate (Vector3.forward * rotatingSpeed * Time.deltaTime);
 		else if (pattern == Pattern.seeking && !MapManager.WithinBounds (transform.position, 15, 3.5f)) {
@@ -163,8 +164,10 @@ public class BossSkull : DamagingEntity {
 
 	protected override void Die (float elementMultiplier)
 	{
-		if (elementMultiplier == 2)
-			;//spawn broken
+		if (elementMultiplier == 2) {
+			Instantiate (Resources.Load ("BrokenSkull"), transform.position, turret.transform.rotation);
+			///somehow have to make the explosion
+		}
 		MapManager.Manager.AddScore (scoreValue, elementMultiplier, false, 0);
 		if (MapManager.Manager.bossTime < 0)
 			Instantiate (Resources.Load ("StarBig"), transform.position, Quaternion.identity);
