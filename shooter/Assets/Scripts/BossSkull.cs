@@ -6,7 +6,7 @@ public class BossSkull : DamagingEntity {
 
 	public enum Pattern	{straight, fallingFromSides, side, round, seeking, snake, rotator};
 
-	protected int healthMax = 2500;
+	protected int healthMax = 250;
 	protected int health;
 	protected float lifeTime = 12;
 
@@ -24,6 +24,8 @@ public class BossSkull : DamagingEntity {
 	public Canvas can;
 
 	public Turret turret;
+	private float refire;
+	private float firerate = 5;
 
 	protected bool ringActive;
 	protected Vector3 ringSize;
@@ -72,6 +74,7 @@ public class BossSkull : DamagingEntity {
 		}
 
 		Move ();
+		fire ();
 
 		can.transform.rotation = Quaternion.identity;
 		LockRing.transform.Rotate (Vector3.back * 45 * Time.deltaTime);
@@ -106,11 +109,32 @@ public class BossSkull : DamagingEntity {
 		}
 	}
 
+	void fire ()
+	{
+		if (!MapManager.WithinBounds (transform.position, 7, 4))
+		    return;
+		if (pattern == Pattern.rotator || (refire -= Time.deltaTime) > 0)
+			return;
+		refire = firerate;
+		Quaternion fireDirection = transform.rotation;
+		if (pattern == Pattern.round || pattern == Pattern.side)
+			fireDirection *= Quaternion.AngleAxis (180, Vector3.forward);
+		else if (pattern == Pattern.seeking)
+			fireDirection = turret.transform.rotation;
+		else if (pattern == Pattern.fallingFromSides)
+			fireDirection = Quaternion.identity * Quaternion.AngleAxis (180, Vector3.forward);
+		Shot shot = ((GameObject)Instantiate (Resources.Load ("ShotEnemy"), transform.position, fireDirection)).GetComponent<Shot> ();
+		if (pattern == Pattern.side)
+			shot.speed = 1;
+		MapManager.Manager.onScreenEntities.Add (shot);
+	}
+	
 	override public void TakeDamage(int DamageTaken, Elements DamageElement)
 	{
-		if (DamageTaken < 0) {
+		if (DamageTaken < -1)
+			Die(0.5f);
+		else if (DamageTaken < 0)
 			Die(1);
-		}
 		if (pattern != Pattern.round && pattern != Pattern.snake)
 			moveSpeed = 0;
 		turret.HitEffect ();
@@ -144,6 +168,7 @@ public class BossSkull : DamagingEntity {
 			accelerating = true;
 		moveSpeedMax = newMaxSpeed;
 		Glow.GetComponent<SpriteRenderer> ().color = MapManager.elementColors [(int)element];
+		refire = Random.Range (0, (firerate -= (int)MapManager.Manager.difficulty));
 		SetRing ();
 	}
 
@@ -164,13 +189,22 @@ public class BossSkull : DamagingEntity {
 
 	protected override void Die (float elementMultiplier)
 	{
+		MapManager.Manager.AddScore (scoreValue, elementMultiplier, false, 0);
+		MapManager.PlayerCharacter.ComboAdd (1);
+		MapManager.Manager.bossSkulls.Remove (this);
+
+		if (elementMultiplier == 0.5f) {
+			Instantiate (Resources.Load ("BrokenSkull"), transform.position, turret.transform.rotation);
+		}
 		if (elementMultiplier == 2) {
+			MapManager.Manager.ExpodeNearbySkulls(transform.position);
 			Instantiate (Resources.Load ("BrokenSkull"), transform.position, turret.transform.rotation);
 			///somehow have to make the explosion
 		}
-		MapManager.Manager.AddScore (scoreValue, elementMultiplier, false, 0);
-		if (MapManager.Manager.bossTime < 0)
+		if (MapManager.Manager.bossTime < 0) {
+			MapManager.Manager.SpawnMaterial (1, 2, transform.position);
 			Instantiate (Resources.Load ("StarBig"), transform.position, Quaternion.identity);
+		}
 		Destroy (gameObject);
 	}
 }

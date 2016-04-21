@@ -33,6 +33,7 @@ public class MapManager : MonoBehaviour {
 	private float loveMax = 100;
 	private bool loveDrain;
 	private int pulse = 1;
+	public int InLove() {return System.Convert.ToInt32 (loveDrain);}
 
 	public enum Difficulty{easy, normal, hard, death};
 	public Difficulty difficulty = Difficulty.easy;
@@ -54,14 +55,6 @@ public class MapManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		//debug
-		if (Input.GetKey (KeyCode.A)) {
-			for (int i = 0; i < onScreenEntities.Count;++i)
-			{
-				if (onScreenEntities[i])
-					onScreenEntities[i].TakeDamage(1000, Elements.fire);
-			}
-		}
 
 		//texture scrolling
 		GetComponent<Renderer> ().material.mainTextureOffset += -Vector2.left * (loveDrain ? 0.25f : 0.1f) * Time.deltaTime;﻿
@@ -94,7 +87,6 @@ public class MapManager : MonoBehaviour {
 			if ((love -= 10 * Time.deltaTime) <= 0) {
 				love = 0;
 				loveDrain = false;
-				PlayerCharacter.power -= 1;
 				newRect.x = 0;
 //				loveMellow.enabled = false;
 			}
@@ -136,21 +128,27 @@ public class MapManager : MonoBehaviour {
 		AddScore(value, 1, false, 3);
 		material += value;
 		materialUI.transform.localScale = Vector3.one * 2;
+		if (material > 499)
+			PlayerCharacter.power = 2;
+		else if (material > 249)
+			PlayerCharacter.power = 1;
 	}
 
 	public void SpawnMaterial(int materialNum, int materialSize, Vector3 spawnPosition)
 	{
-		while (materialNum-- > 0)
-		{
-			Vector3 randvector = Vector3.zero;
-			randvector.x = Random.Range(-0.5f, 0.5f);
-			randvector.y = Random.Range(-0.5f, 0.5f);
-			Pickup mat = ((GameObject)Instantiate (Resources.Load ("Material"), spawnPosition + randvector, Quaternion.identity)).GetComponent<Pickup>();
-			mat.value = Mathf.Clamp(materialSize, 1, 1000 - material);
-			mat.transform.localScale *= Mathf.Clamp(materialSize / 2, 0.75f, 2.5f);
-			materialSpawned += mat.value;
+		if (materialSpawned < 1000) {
+			while (materialNum-- > 0) {
+				Vector3 randvector = Vector3.zero;
+				randvector.x = Random.Range (-0.5f, 0.5f);
+				randvector.y = Random.Range (-0.5f, 0.5f);
+				Pickup mat = ((GameObject)Instantiate (Resources.Load ("Material"), spawnPosition + randvector, Quaternion.identity)).GetComponent<Pickup> ();
+				mat.value = Mathf.Clamp (materialSize, 1, 1000 - material);
+				mat.transform.localScale *= Mathf.Clamp (materialSize / 2, 0.75f, 2.5f);
+				materialSpawned += mat.value;
+			}
 		}
-		//spawn stars if max materials reached
+		else
+			Instantiate (Resources.Load ("StarBig"), spawnPosition, Quaternion.identity);
 	}
 
 	public void AddLove(float value)
@@ -163,7 +161,6 @@ public class MapManager : MonoBehaviour {
 		else if (!loveDrain && (love += value) >= loveMax) {
 			love = loveMax;
 			loveDrain = true;
-			PlayerCharacter.power += 1;
 //			loveMellow.enabled = true;
 		}
 	}
@@ -233,11 +230,27 @@ public class MapManager : MonoBehaviour {
 		}
 	}
 
+	public void DamageEntities(int damage, Elements DamElement = Elements.fire, bool ring = false){
+		for (int i = 0; i < onScreenEntities.Count;++i)
+		{
+			if (onScreenEntities[i])
+				onScreenEntities[i].TakeDamage(damage, Elements.fire);
+		}
+	}
+	
+	public void ExpodeNearbySkulls (Vector3 explodingSkull){
+		for (int i = 0; i < bossSkulls.Count; ++i) {
+			if (bossSkulls[i] != null && Vector3.Distance(explodingSkull, bossSkulls[i].transform.position) < 3)
+				bossSkulls[i].TakeDamage(-2, Elements.fire);
+		}
+	}
+		
 	public void KillSkulls()
 	{
 		for (int i = 0; i < bossSkulls.Count; ++i) {
-			if (bossSkulls[i] != null)
+//			if (bossSkulls[i] != null)
 				bossSkulls[i].TakeDamage(-1, Elements.fire);
 		}
 	}
+
 }

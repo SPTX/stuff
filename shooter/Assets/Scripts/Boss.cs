@@ -12,6 +12,7 @@ public class Boss : DamagingEntity {
 	public Text HPText;
 	public Image healthBar;
 	public Image seal;
+	public SpriteRenderer bossSprite;
 
 	public GameObject turret;
 	public float turretRefireDelay = 4;
@@ -47,7 +48,6 @@ public class Boss : DamagingEntity {
 			transform.Translate (Vector3.left * 4 * Time.deltaTime);
 			if (transform.position.x <= 4)
 			{
-				MapManager.Manager.onScreenEntities.Add(gameObject.GetComponent<Boss>());
 				respawnSkulls = 0;
 				damageable = true;
 			}
@@ -72,7 +72,7 @@ public class Boss : DamagingEntity {
 			turretRotSpeed = -turretRotSpeed;
 		}
 
-		if (health > healthActual && (health -= (int)((health - healthActual) * (Time.deltaTime * 2))) <= 0)
+		if (health > healthActual && (health -= (int)Mathf.Clamp((health - healthActual) * 4 * Time.deltaTime, 2, 100)) <= 0)
 			Die (lastTakenDamageType);
 		HealthBarProcessing ();
 
@@ -101,6 +101,7 @@ public class Boss : DamagingEntity {
 		MapManager.Manager.bossTime = -1;
 		Destroy (skullSpawner.gameObject);
 		MapManager.Manager.KillSkulls ();
+		MapManager.Manager.DamageEntities (1);
 		Destroy (gameObject);
 	}
 

@@ -80,10 +80,10 @@ public class Character : DamagingEntity {
 			newPos.x = -8;
 		else if (transform.position.x > 8)
 			newPos.x = 8;
-		if (transform.position.y < -3.5f)
-			newPos.y = -3.5f;
-		else if (transform.position.y > 3.5f)
-			newPos.y = 3.5f;
+		if (transform.position.y < -4.2f)
+			newPos.y = -4.2f;
+		else if (transform.position.y > 3.8f)
+			newPos.y = 3.8f;
 		transform.position = newPos;
 		ringSprite.transform.position = seal.transform.position = newPos;
 		seal.transform.Rotate (Vector3.forward * 90 * Time.deltaTime);
@@ -99,7 +99,7 @@ public class Character : DamagingEntity {
 	void Fire(){
 		if (refire <= 0 && activeShots.Count < equipedShotTypes[equipedShot].maxBullets) {
 
-			activeShots.Add(equipedShotTypes[equipedShot].Fire (transform.position + Vector3.right * 0.4f, power));
+			activeShots.Add(equipedShotTypes[equipedShot].Fire (transform.position + Vector3.right * 0.4f, power + MapManager.Manager.InLove()));
 			refire = equipedShotTypes[equipedShot].firerate;
 		} else
 			refire = refire - Time.deltaTime;
@@ -162,7 +162,7 @@ public class Character : DamagingEntity {
 
 	public void ComboAdd(float value = 0){
 		if (value > 0) {
-			comboCountUI.color = comboText.color = new Color(1, 0.5f, 0, 1);
+			comboCountUI.color = comboText.color = new Color (1, 0.5f, 0, 1);
 			if ((comboCount += value) < 1)
 				comboCount = 1;
 			if (comboCount > 2000 && MapManager.Manager.difficulty < MapManager.Difficulty.death)
@@ -172,11 +172,13 @@ public class Character : DamagingEntity {
 			comboTimer = comboTimerMax;
 			comboCountUI.text = ((int)comboCount).ToString ();
 			comboText.text = "combo!";
-		}else if (value == -1) {
+		} else if (value == -1) {
 			fading = false;
 			comboCountUI.text = ((int)comboCount).ToString ();
+		} else if (value == -2) {
+			comboTimer += Mathf.Clamp(comboTimerMax * 0.05f, 0, comboTimerMax - comboTimer);
 		}
-		else if ((comboTimer += 0.2f * comboTimerMax) > comboTimerMax) {
+			else if ((comboTimer += 0.2f * comboTimerMax) > comboTimerMax) {
 			comboTimer = comboTimerMax;
 			comboCountUI.transform.localScale = Vector3.one * 1.75f;
 		}

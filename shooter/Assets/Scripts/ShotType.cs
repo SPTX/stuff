@@ -3,7 +3,7 @@ using System.Collections;
 
 public class ShotType : MonoBehaviour {
 
-	public int damage = 100;
+	public int damage = 10;
 	public int maxBullets = 3;
 	public float firerate = 0.04f;
 	public Elements element = Elements.fire;

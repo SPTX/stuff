@@ -57,6 +57,7 @@ public class Pickup : MonoBehaviour {
 		else {
 			MapManager.Manager.AddMaterial(value);
 		}
+		MapManager.PlayerCharacter.ComboAdd (-2);
 		Destroy (gameObject);
 	}
 }

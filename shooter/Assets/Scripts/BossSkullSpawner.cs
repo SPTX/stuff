@@ -79,7 +79,7 @@ public class BossSkullSpawner : MonoBehaviour {
 			frequency = 1.6f;
 			speed = 1f;
 			spacing = 2.2f;
-			duration = frequency * 6 + (NextPatternDelay = 2);
+			duration = frequency * 6 + (NextPatternDelay = 8);
 		} else if (pattern == BossSkull.Pattern.round) {
 			frequency = 7f;
 			duration = frequency * 4 + (NextPatternDelay = 2);
@@ -102,15 +102,15 @@ public class BossSkullSpawner : MonoBehaviour {
 		BossSkull newSkull = ((GameObject)Instantiate(Resources.Load("BossSkull"), newPosition, transform.rotation)).GetComponent<BossSkull> ();
 		newSkull.SetUp((Elements)Random.Range(0f, 5f), pattern, speed);
 		MapManager.Manager.bossSkulls.Add(newSkull);
-		newPosition -= Vector3.up * spacing;
-		if (newPosition.y > 3.5f || newPosition.y < -3.5f) {
+		newPosition.y -= spacing;
+		if (newPosition.y > 4f || newPosition.y < -4.5f) {
 			spacing = -spacing;
 			if (pattern == BossSkull.Pattern.straight){
-				newPosition -= Vector3.up * (spacing / 2);
+				newPosition.y -= (spacing / 2);
 				refire = 2;
 			}
 			else {
-				newPosition -= Vector3.up * spacing;
+				newPosition.y -= spacing;
 				refire = 0.5f;
 			}
 		}
@@ -124,19 +124,6 @@ public class BossSkullSpawner : MonoBehaviour {
 		newSkull = ((GameObject)Instantiate (Resources.Load ("BossSkull"), newPosition, transform.rotation * Quaternion.AngleAxis (180, Vector3.forward))).GetComponent<BossSkull> ();
 		newSkull.SetUp ((Elements)Random.Range (0f, 5f), pattern, speed);
 		MapManager.Manager.bossSkulls.Add (newSkull);
-		/*
-		Vector3 nextPosition = newPosition;
-		int normal = Mathf.RoundToInt(nextPosition.normalized.y);
-
-		for (int i = 0; i < 5; ++i) {
-			BossSkull newSkull = ((GameObject)Instantiate (Resources.Load ("BossSkull"), nextPosition, transform.rotation * Quaternion.AngleAxis (90 * normal, Vector3.forward))).GetComponent<BossSkull> ();
-			newSkull.SetUp ((Elements)Random.Range (0f, 5f), pattern, speed);
-			MapManager.Manager.bossSkulls.Add (newSkull);
-			nextPosition.y += spacing * normal;
-		}
-		newPosition.y = -newPosition.y;
-		newPosition.x += spacing * 2;
-		*/
 	}
 
 	void Side()

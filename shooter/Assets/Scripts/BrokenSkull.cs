@@ -3,20 +3,20 @@ using System.Collections;
 
 public class BrokenSkull : MonoBehaviour {
 
-	Transform target;
+	public Transform target;
 	float maxSpeed = 6;
 	float speed = 6;
+	float deltatime = 0;
 	public Elements element;
 	public GameObject turret;
 
 	// Use this for initialization
 	void Start () {
 		if (MapManager.Manager.onScreenEntities.Count > 0) {
-			target = MapManager.Manager.onScreenEntities [MapManager.Manager.onScreenEntities.Count - 1].transform;
+			target = MapManager.Manager.onScreenEntities [0].transform;
 			element = MapManager.IsSensibleTo(MapManager.Manager.onScreenEntities [MapManager.Manager.onScreenEntities.Count - 1].element);
 			turret.GetComponent<SpriteRenderer> ().color = MapManager.elementColors [(int)element];
 		}
-
 	}
 
 	// Update is called once per frame
@@ -38,14 +38,18 @@ public class BrokenSkull : MonoBehaviour {
 		float angle = Vector2.Angle(Vector2.right, dir);
 		angle = dir.y < 0 ? -angle : angle;
 		if (angle > 75 || angle < -75)
-			speed = 1;
+			speed = 0;
 		transform.Rotate(Vector3.forward, 2 * Time.deltaTime * angle);
 	}
 
 	void OnTriggerStay2D(Collider2D other)
 	{
-		Elements damElem = MapManager.IsSensibleTo (other.gameObject.GetComponent<DamagingEntity>().element);
-		other.GetComponent<DamagingEntity> ().TakeDamage (14, damElem);
+		if ((deltatime += Time.deltaTime) >= 0.1f) {
+			deltatime = 0;
+			MapManager.PlayerCharacter.ComboAdd (0.25f);
+			Elements damElem = MapManager.IsSensibleTo (other.gameObject.GetComponent<DamagingEntity> ().element);
+			other.GetComponent<DamagingEntity> ().TakeDamage (10, damElem);
 			speed = 1;
+		}
 	}
 }

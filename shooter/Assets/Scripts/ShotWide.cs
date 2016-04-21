@@ -8,7 +8,7 @@ public class ShotWide : ShotType {
 	// Use this for initialization
 	override protected void Start () {
 		base.Start ();
-		damage = 40;
+		damage = 3;
 	}
 	
 	// Update is called once per frame
