@@ -132,9 +132,9 @@ public class BossSkull : DamagingEntity {
 	override public void TakeDamage(int DamageTaken, Elements DamageElement)
 	{
 		if (DamageTaken < -1)
-			Die(0.5f);
+			Die (0.5f);
 		else if (DamageTaken < 0)
-			Die(1);
+			Die (1);
 		if (pattern != Pattern.round && pattern != Pattern.snake)
 			moveSpeed = 0;
 		turret.HitEffect ();
@@ -191,15 +191,13 @@ public class BossSkull : DamagingEntity {
 	{
 		MapManager.Manager.AddScore (scoreValue, elementMultiplier, false, 0);
 		MapManager.PlayerCharacter.ComboAdd (1);
-		MapManager.Manager.bossSkulls.Remove (this);
 
 		if (elementMultiplier == 0.5f) {
 			Instantiate (Resources.Load ("BrokenSkull"), transform.position, turret.transform.rotation);
 		}
-		if (elementMultiplier == 2) {
+		else if (elementMultiplier == 2) {
 			MapManager.Manager.ExpodeNearbySkulls(transform.position);
 			Instantiate (Resources.Load ("BrokenSkull"), transform.position, turret.transform.rotation);
-			///somehow have to make the explosion
 		}
 		if (MapManager.Manager.bossTime < 0) {
 			MapManager.Manager.SpawnMaterial (1, 2, transform.position);

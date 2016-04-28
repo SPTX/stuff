@@ -248,7 +248,7 @@ public class MapManager : MonoBehaviour {
 	public void KillSkulls()
 	{
 		for (int i = 0; i < bossSkulls.Count; ++i) {
-//			if (bossSkulls[i] != null)
+			if (bossSkulls[i] != null)
 				bossSkulls[i].TakeDamage(-1, Elements.fire);
 		}
 	}
