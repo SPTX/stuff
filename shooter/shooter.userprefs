@@ -1,23 +1,24 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/MapManager.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/SubBoss.cs">
     <Files>
-      <File FileName="Assets/Scripts/EnemyShotAccelerating.cs" Line="4" Column="41" />
-      <File FileName="Assets/Scripts/BossSkull.cs" Line="127" Column="2" />
-      <File FileName="Assets/Scripts/Turret.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Boss.cs" Line="105" Column="1" />
+      <File FileName="Assets/Scripts/BossSkullSpawner.cs" Line="26" Column="11" />
+      <File FileName="Assets/Scripts/EnemyShotAccelerating.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/BossSkull.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Turret.cs" Line="35" Column="1" />
+      <File FileName="Assets/Scripts/Boss.cs" Line="77" Column="1" />
       <File FileName="Assets/Scripts/Enemy.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/MapManager.cs" Line="234" Column="1" />
-      <File FileName="Assets/Scripts/EnemyShot.cs" Line="8" Column="1" />
+      <File FileName="Assets/Scripts/MapManager.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/EnemyShot.cs" Line="1" Column="1" />
       <File FileName="Assets/Scripts/Spawner.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/BossSpawner.cs" Line="26" Column="24" />
+      <File FileName="Assets/Scripts/BossSpawner.cs" Line="1" Column="1" />
       <File FileName="Assets/Scripts/DamagingEntity.cs" Line="1" Column="1" />
       <File FileName="Assets/Scripts/Pickup.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/BrokenSkull.cs" Line="17" Column="1" />
+      <File FileName="Assets/Scripts/BrokenSkull.cs" Line="1" Column="1" />
       <File FileName="Assets/Scripts/Character.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/BossSkullSpawner.cs" Line="82" Column="52" />
-      <File FileName="Assets/Scripts/ShotType.cs" Line="6" Column="24" />
-      <File FileName="Assets/Scripts/Shot.cs" Line="7" Column="24" />
+      <File FileName="Assets/Scripts/ShotType.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Shot.cs" Line="41" Column="3" />
+      <File FileName="Assets/Scripts/SubBoss.cs" Line="13" Column="20" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

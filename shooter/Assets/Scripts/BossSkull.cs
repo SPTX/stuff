@@ -25,7 +25,7 @@ public class BossSkull : DamagingEntity {
 
 	public Turret turret;
 	private float refire;
-	private float firerate = 5;
+	private float firerate = 7;
 
 	protected bool ringActive;
 	protected Vector3 ringSize;
@@ -74,13 +74,11 @@ public class BossSkull : DamagingEntity {
 		}
 
 		Move ();
-		fire ();
+		if (MapManager.Manager.difficulty > MapManager.Difficulty.easy)
+			fire ();
 
 		can.transform.rotation = Quaternion.identity;
 		LockRing.transform.Rotate (Vector3.back * 45 * Time.deltaTime);
-
-		if (MapManager.Manager.difficulty > MapManager.Difficulty.easy)
-			turret.Shoot ();
 	}
 
 	protected void Move()

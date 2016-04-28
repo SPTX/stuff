@@ -103,7 +103,7 @@ public class MapManager : MonoBehaviour {
 		}
 	}
 
-	public void AddScore(float value, float element, bool ring, int type)
+	public int AddScore(float value, float element, bool ring, int type)
 	{
 		/*type
 		 * 0 = normal enemy,
@@ -120,8 +120,9 @@ public class MapManager : MonoBehaviour {
 		else //boss or type error
 				scoreToAdd = maRyoku * PlayerCharacter.comboCount * 0.1f;
 
-		score += Mathf.RoundToInt(scoreToAdd);
+		score += (maRyoku = Mathf.RoundToInt(scoreToAdd));//lol recycling
 		scoreUI.text = score.ToString ("n0");
+		return maRyoku;//lol recycling
 	}
 
 	public void AddMaterial(int value){

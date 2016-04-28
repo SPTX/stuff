@@ -66,6 +66,9 @@ public class Enemy : DamagingEntity {
 				Destroy(route.gameObject);
 		}
 		can.transform.rotation = Quaternion.identity;
+
+
+
 	}
 
 	override public void TakeDamage(int DamageTaken, Elements DamageElement)

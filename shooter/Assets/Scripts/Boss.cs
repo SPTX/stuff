@@ -5,6 +5,7 @@ using System.Collections;
 public class Boss : DamagingEntity {
 
 	public int health;
+	public bool final;
 	protected int HPMax;
 	protected float healthActual;
 	protected float lastTakenDamageType;
@@ -16,7 +17,7 @@ public class Boss : DamagingEntity {
 
 	public GameObject turret;
 	public float turretRefireDelay = 4;
-	protected float turretRefire;
+	protected float turretRefire = 4;
 	public float turretFireDuration = 2;
 	protected float turretFiring;
 	public float turretRotSpeed = 90;
@@ -33,7 +34,7 @@ public class Boss : DamagingEntity {
 	BossSkullSpawner skullSpawner;
 
 	// Use this for initialization
-	void Start () {
+	protected void Start () {
 		seal.sprite = Resources.Load<Sprite>("Sprites/Seal-" + element);
 		healthActual = HPMax = health;
 		damageable = false;
@@ -43,7 +44,7 @@ public class Boss : DamagingEntity {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	protected void Update () {
 		if (!damageable) {
 			transform.Translate (Vector3.left * 4 * Time.deltaTime);
 			if (transform.position.x <= 4)
@@ -53,23 +54,25 @@ public class Boss : DamagingEntity {
 			}
 		}
 
-		turret.transform.Rotate (Vector3.forward * turretRotSpeed * Time.deltaTime);
-		if (MapManager.Manager.difficulty == MapManager.Difficulty.death && (turretRefire -= Time.deltaTime) <= 0 && (nextShot -= Time.deltaTime) <= 0) {
-				MapManager.Manager.onScreenEntities.Add(
-					((GameObject)Instantiate(Resources.Load(deathShotNames[type]), transform.position, turret.transform.rotation)).GetComponent<DeathShot> ());
-				MapManager.Manager.onScreenEntities.Add(
-					((GameObject)Instantiate(Resources.Load(deathShotNames[type]), transform.position, turret.transform.rotation * Quaternion.AngleAxis(120, Vector3.forward))).GetComponent<DeathShot> ());
-				MapManager.Manager.onScreenEntities.Add(
-					((GameObject)Instantiate(Resources.Load(deathShotNames[type]), transform.position, turret.transform.rotation * Quaternion.AngleAxis(240, Vector3.forward))).GetComponent<DeathShot> ());
+		if (final) {
+			turret.transform.Rotate (Vector3.forward * turretRotSpeed * Time.deltaTime);
+			if (MapManager.Manager.difficulty == MapManager.Difficulty.death && (turretRefire -= Time.deltaTime) <= 0 && (nextShot -= Time.deltaTime) <= 0) {
+				MapManager.Manager.onScreenEntities.Add (
+					((GameObject)Instantiate (Resources.Load (deathShotNames [type]), transform.position, turret.transform.rotation)).GetComponent<DeathShot> ());
+				MapManager.Manager.onScreenEntities.Add (
+					((GameObject)Instantiate (Resources.Load (deathShotNames [type]), transform.position, turret.transform.rotation * Quaternion.AngleAxis (120, Vector3.forward))).GetComponent<DeathShot> ());
+				MapManager.Manager.onScreenEntities.Add (
+					((GameObject)Instantiate (Resources.Load (deathShotNames [type]), transform.position, turret.transform.rotation * Quaternion.AngleAxis (240, Vector3.forward))).GetComponent<DeathShot> ());
 				if ((type ^= 1) == 0)
 					nextShot = 0.12f;
 				else
 					nextShot = 0.06f;
-		}
-		if ((turretFiring -= Time.deltaTime) <= 0) {
-			turretRefire = turretRefireDelay;
-			turretFiring = turretFireDuration + turretRefireDelay;
-			turretRotSpeed = -turretRotSpeed;
+			}
+			if ((turretFiring -= Time.deltaTime) <= 0) {
+				turretRefire = turretRefireDelay;
+				turretFiring = turretFireDuration + turretRefireDelay;
+				turretRotSpeed = -turretRotSpeed;
+			}
 		}
 
 		if (health > healthActual && (health -= (int)Mathf.Clamp((health - healthActual) * 4 * Time.deltaTime, 2, 100)) <= 0)
