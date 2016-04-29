@@ -101,6 +101,9 @@ public class MapManager : MonoBehaviour {
 					love = 0;
 			}
 		}
+
+		if (bossTime > 0)
+			bossTime -= Time.deltaTime;
 	}
 
 	public int AddScore(float value, float element, bool ring, int type)

@@ -11,10 +11,13 @@ public class SubBoss : Boss {
 	new void Start () {
 		base.Start ();
 		remainingShots = deathshots;
+		turretRefire = turretRefireDelay;
 	}
 	
 	// Update is called once per frame
 	new void Update () {
+		Debug.Log (turretFiring + "\n" + turretRefire);
+//
 		base.Update ();
 
 		if (!damageable) {
@@ -29,8 +32,9 @@ public class SubBoss : Boss {
 			LookAtPlayer (turret);
 			LookAtPlayer (turret2);
 			turretFiring = 3;
+			turretRefire = turretRefireDelay;
 		}
-		else if ((nextShot -= Time.deltaTime) <= 0) {
+		else if (turretFiring > 0 && (nextShot -= Time.deltaTime) <= 0) {
 			MapManager.Manager.onScreenEntities.Add (
 				((GameObject)Instantiate (Resources.Load ("DeathShotSmall"), turret.transform.position, turret.transform.rotation)).GetComponent<DeathShot> ());
 			MapManager.Manager.onScreenEntities.Add (
@@ -39,8 +43,7 @@ public class SubBoss : Boss {
 			if (--remainingShots <= 0){
 				remainingShots = deathshots;
 				nextShot = 0.35f;
-				if ((turretFiring -= 1) <= 0)
-					turretRefire = turretRefireDelay;
+				turretFiring -= 1;
 				LookAtPlayer (turret);
 				LookAtPlayer (turret2);
 			}

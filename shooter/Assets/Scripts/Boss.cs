@@ -25,7 +25,7 @@ public class Boss : DamagingEntity {
 	protected int type = 0;
 	protected string[] deathShotNames = {"DeathShot", "DeathShotSmall"};
 
-	public float timer = 120;
+	public float timer = 90;
 
 	protected float respawnSkulls = 12;
 	protected float respawnSkullsDelay = 6;
@@ -40,11 +40,19 @@ public class Boss : DamagingEntity {
 		damageable = false;
 		MapManager.Manager.bossTime = timer;
 		turretRefire = turretRefireDelay;
-		turretFiring = turretFireDuration + turretRefireDelay;
+//		turretFiring = turretFireDuration + turretRefireDelay;
 	}
 	
 	// Update is called once per frame
 	protected void Update () {
+		if (MapManager.Manager.bossTime <= 0) {
+			damageable = false;
+			if (skullSpawner)
+				Destroy(skullSpawner.gameObject);
+			transform.Translate(new Vector3(6, 2) * Time.deltaTime);
+			return;
+		}
+		
 		if (!damageable) {
 			transform.Translate (Vector3.left * 4 * Time.deltaTime);
 			if (transform.position.x <= 4)
