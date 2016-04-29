@@ -7,12 +7,15 @@ public class Enemy : DamagingEntity {
 	protected int health;
 	public int HealthMax = 200;
 	public bool big;
+
 	public bool spawnEffect = false;
 	public float moveSpeed = 5;
 	public float timeToFlee = 12;
 	public Vector3 fleeingDirection = Vector3.up;
 	public Route route;
 	public Route nextRoute;
+	public bool seeking;
+
 	protected Vector3 initialBarPos;
 	public GameObject LockRing;
 	public int materials = 0;
@@ -52,10 +55,12 @@ public class Enemy : DamagingEntity {
 		}
 
 		if ((timeToFlee -= Time.deltaTime) <= 0) {
-			transform.Translate(fleeingDirection * moveSpeed * Time.deltaTime, Space.World);
-		}
-		else if (route)
+			transform.Translate (fleeingDirection * moveSpeed * Time.deltaTime, Space.World);
+		} else if (route)
 			MoveToRoute ();
+		else if (seeking) {
+			SeekPlayer();
+		}
 
 		if (!MapManager.WithinBounds (transform.position, 10, 6)) {
 			canBeHit = false;
@@ -151,4 +156,18 @@ public class Enemy : DamagingEntity {
 			}
 		}
 	}
+
+	protected void SeekPlayer()
+	{
+		transform.Translate(transform.right * moveSpeed * Time.deltaTime, Space.World);
+		if (MapManager.PlayerCharacter.transform.position.x > transform.position.x)
+			return;
+		Vector2 dir = transform.InverseTransformPoint(MapManager.PlayerCharacter.transform.position);
+		float angle = Vector2.Angle(Vector2.right, dir);
+		angle = dir.y < 0 ? -angle : angle;
+		//		if (angle > 75 || angle < -75)
+		//			speed = 0;
+		transform.Rotate(Vector3.forward, 4 * Time.deltaTime * angle);
+	}
+	
 }

@@ -32,7 +32,7 @@ public class Turret : MonoBehaviour {
 			Shoot ();
 	}
 
-	void LookAtPlayer(){
+	public void LookAtPlayer(){
 		Vector3 lookPos = MapManager.PlayerCharacter.transform.position - transform.position;
 		float angle = Mathf.Atan2(lookPos.y, lookPos.x) * Mathf.Rad2Deg;
 		transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);

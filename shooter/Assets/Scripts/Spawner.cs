@@ -15,6 +15,8 @@ public class Spawner : MonoBehaviour {
 	public float timeToFlee = 12;
 	public Vector3 fleeingDirection = Vector3.up;
 	public Route route;
+	public bool seeking;
+	public float defaultSpeed = -1;
 
 	// Use this for initialization
 	void Start () {
@@ -45,6 +47,12 @@ public class Spawner : MonoBehaviour {
 		Enemy newEnemy = ((GameObject)Instantiate (enemyType, transform.position - transform.right * nextSpawnSpacing, Quaternion.identity)).GetComponent<Enemy> ();
 		newEnemy.timeToFlee = timeToFlee + delay * (quantity > 0 ? quantity : 1);
 		newEnemy.fleeingDirection = fleeingDirection;
+		if (newEnemy.seeking = seeking){
+			newEnemy.turret.LookAtPlayer ();
+			newEnemy.transform.rotation = newEnemy.turret.transform.rotation;
+		}
+		if (defaultSpeed > -1)
+			newEnemy.moveSpeed = defaultSpeed;
 		if (route) {
 			newEnemy.AddRoute((Route)Instantiate (route, newEnemy.transform.position + route.transform.localPosition, route.transform.rotation));
 		}
