@@ -14,8 +14,9 @@ public class BrokenSkull : MonoBehaviour {
 	void Start () {
 		if (MapManager.Manager.onScreenEntities.Count > 0) {
 			target = MapManager.Manager.onScreenEntities [0].transform;
-			element = MapManager.IsSensibleTo(MapManager.Manager.onScreenEntities [MapManager.Manager.onScreenEntities.Count - 1].element);
+			element = MapManager.IsSensibleTo(MapManager.Manager.onScreenEntities [0].GetElement());
 			turret.GetComponent<SpriteRenderer> ().color = MapManager.elementColors [(int)element];
+			GetComponent<TrailRenderer>().material.SetColor("_Color", MapManager.elementColors [(int)element]);
 		}
 	}
 

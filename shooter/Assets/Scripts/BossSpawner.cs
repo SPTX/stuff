@@ -6,6 +6,7 @@ public class BossSpawner : MonoBehaviour {
 	public float startTime = 0;
 	public bool final;
 	public int health = 6500;
+	public Elements element;
 	public BossSkull.Pattern[] patterns = {(BossSkull.Pattern)0, (BossSkull.Pattern)1, (BossSkull.Pattern)2};
 	protected Boss theBoss;
 
@@ -20,6 +21,7 @@ public class BossSpawner : MonoBehaviour {
 			theBoss = ((GameObject)Instantiate(Resources.Load("Boss" + (final ? "": "Sub")), new Vector3(12,0), Quaternion.identity)).GetComponent<Boss>();
 			theBoss.patterns = patterns;
 			theBoss.health = health;
+			theBoss.element = element;
 			theBoss.bossSprite.sprite = GetComponent<SpriteRenderer>().sprite;
 			theBoss.bossSprite.gameObject.transform.localScale = transform.localScale;
 			theBoss.final = final;

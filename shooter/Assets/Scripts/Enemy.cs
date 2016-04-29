@@ -169,5 +169,9 @@ public class Enemy : DamagingEntity {
 		//			speed = 0;
 		transform.Rotate(Vector3.forward, 4 * Time.deltaTime * angle);
 	}
-	
+
+	protected void Fire(){
+		turret.Fire ();
+	}
+
 }

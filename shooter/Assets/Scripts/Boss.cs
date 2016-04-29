@@ -40,11 +40,11 @@ public class Boss : DamagingEntity {
 		damageable = false;
 		MapManager.Manager.bossTime = timer;
 		turretRefire = turretRefireDelay;
-//		turretFiring = turretFireDuration + turretRefireDelay;
 	}
-	
+
 	// Update is called once per frame
 	protected void Update () {
+
 		if (MapManager.Manager.bossTime <= 0) {
 			damageable = false;
 			if (skullSpawner)

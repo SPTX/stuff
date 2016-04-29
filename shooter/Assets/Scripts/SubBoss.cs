@@ -16,8 +16,6 @@ public class SubBoss : Boss {
 	
 	// Update is called once per frame
 	new void Update () {
-		Debug.Log (turretFiring + "\n" + turretRefire);
-//
 		base.Update ();
 
 		if (!damageable) {

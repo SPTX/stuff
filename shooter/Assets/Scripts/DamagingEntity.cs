@@ -26,4 +26,8 @@ public class DamagingEntity : MonoBehaviour {
 	virtual protected void Die(float elementMultiplier){
 
 	}
+
+	public Elements GetElement(){
+		return element;
+	}
 }

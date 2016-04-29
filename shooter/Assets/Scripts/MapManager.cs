@@ -50,12 +50,11 @@ public class MapManager : MonoBehaviour {
 		Random.seed = (int)System.DateTime.Now.Ticks;
 
 		//debug
-//		Time.timeScale = 0.1f;
+		Time.timeScale = 0.1f;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-
 		//texture scrolling
 		GetComponent<Renderer> ().material.mainTextureOffset += -Vector2.left * (loveDrain ? 0.25f : 0.1f) * Time.deltaTime;﻿
 		if (Input.GetKeyDown (KeyCode.Escape)) {

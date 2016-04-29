@@ -22,14 +22,10 @@ public class Turret : MonoBehaviour {
 			LookAtPlayer ();
 
 		if (refire > 0)
-			refire = refire - Time.deltaTime;
+			refire -= Time.deltaTime;
 
 		if (transform.localScale.x < originalSize.x)
 			transform.localScale *= 1.2f;
-
-		//debug
-		if (Input.GetKeyDown (KeyCode.P))
-			Shoot ();
 	}
 
 	public void LookAtPlayer(){
@@ -38,7 +34,7 @@ public class Turret : MonoBehaviour {
 		transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 	}
 
-	public void Shoot()
+	public void Fire()
 	{
 		if (refire <= 0) {
 			MapManager.Manager.onScreenEntities.Add (
