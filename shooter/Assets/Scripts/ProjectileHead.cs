@@ -4,12 +4,12 @@ using System.Collections;
 public class ProjectileHead : Turret {
 
 	// Use this for initialization
-	void Start () {
-	
+	override protected void Start () {
+		base.Start ();
 	}
 	
 	// Update is called once per frame
-	void Update () {
-		transform.Rotate (Vector3.forward * 180 * Time.deltaTime);
+	override protected void Update () {
+		transform.Rotate (Vector3.forward * 360 * Time.deltaTime);
 	}
 }

@@ -6,6 +6,9 @@ public class ProjectileEnemy : Enemy {
 	public float speed = 6;
 	public bool trembles;
 	public float launchTime = 0;
+	public bool slowsOnHit;
+	public bool projectileOnDeath;
+	public bool shootsTowardsPlayer;
 	protected float curSpeed = 0;
 	protected float accelInit = 1f;
 	protected float accel = 0.4f;
@@ -46,6 +49,20 @@ public class ProjectileEnemy : Enemy {
 			randvector.y = Random.Range(-0.1f, 0.1f);
 			turret.transform.localPosition = randvector;
 		}
+		if (slowsOnHit)
+			curSpeed = 0;
+		DamageElement = element;
 		base.TakeDamage (DamageTaken, DamageElement);
+	}
+
+	protected override void Die (float elementMultiplier)
+	{
+		if (projectileOnDeath) {
+			//difficulty check?
+			if (shootsTowardsPlayer)
+				turret.LookAtPlayer();
+			turret.Fire();
+		}
+		base.Die (elementMultiplier);
 	}
 }

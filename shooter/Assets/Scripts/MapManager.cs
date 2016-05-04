@@ -50,7 +50,7 @@ public class MapManager : MonoBehaviour {
 		Random.seed = (int)System.DateTime.Now.Ticks;
 
 		//debug
-		Time.timeScale = 0.1f;
+//		Time.timeScale = 0.1f;
 	}
 	
 	// Update is called once per frame
