@@ -6,6 +6,7 @@ public class Enemy : DamagingEntity {
 
 	protected int health;
 	public int HealthMax = 200;
+	public bool elementless;
 	public bool big;
 
 	public bool spawnEffect = false;
@@ -89,6 +90,9 @@ public class Enemy : DamagingEntity {
 
 		if (!damageable)
 			return;
+
+		if (elementless)
+			DamageElement = element;
 		//solve element returns 2, 0.5 or 1 (*2, /2, *1)
 		float damMul = MapManager.SolveElement (DamageElement, element);
 		health -= (int)(DamageTaken * damMul);
@@ -127,7 +131,8 @@ public class Enemy : DamagingEntity {
 	public void AddRoute(Route newRoute){
 		route = newRoute;
 		nextRoute = newRoute;
-		moveSpeed = newRoute.speedTowards;
+		if (newRoute.speedTowards > 0)
+			moveSpeed = newRoute.speedTowards;
 		damageable = nextRoute.damageableUntilReached;
 	}
 
@@ -147,7 +152,8 @@ public class Enemy : DamagingEntity {
 			if (nextRoute = nextRoute.nextRoute)
 			{
 				damageable = nextRoute.damageableUntilReached;
-				moveSpeed = nextRoute.speedTowards;
+				if (nextRoute.speedTowards > 0)
+					moveSpeed = nextRoute.speedTowards;
 			}
 			else
 			{

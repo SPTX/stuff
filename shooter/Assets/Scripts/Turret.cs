@@ -23,6 +23,8 @@ public class Turret : MonoBehaviour {
 	virtual protected void Update () {
 		if (follow)
 			LookAtPlayer ();
+		else
+			transform.rotation = Quaternion.identity;
 
 		if (refire > 0)
 			refire -= Time.deltaTime;
