@@ -59,8 +59,11 @@
      <Compile Include="Assets\Scripts\EnemyShotAccelerating.cs" />
      <Compile Include="Assets\Scripts\FallingCadaver.cs" />
      <Compile Include="Assets\Scripts\GameCamera.cs" />
+     <Compile Include="Assets\Scripts\Gargoyle.cs" />
+     <Compile Include="Assets\Scripts\LoveMaxGraphic.cs" />
      <Compile Include="Assets\Scripts\MainMenu.cs" />
      <Compile Include="Assets\Scripts\MapManager.cs" />
+     <Compile Include="Assets\Scripts\Moth.cs" />
      <Compile Include="Assets\Scripts\Pickup.cs" />
      <Compile Include="Assets\Scripts\ProjectileEnemy.cs" />
      <Compile Include="Assets\Scripts\ProjectileHead.cs" />

@@ -164,6 +164,7 @@ public class MapManager : MonoBehaviour {
 		else if (!loveDrain && (love += value) >= loveMax) {
 			love = loveMax;
 			loveDrain = true;
+			Instantiate(Resources.Load("LoveMax"), Vector3.zero, Quaternion.identity);
 //			loveMellow.enabled = true;
 		}
 	}

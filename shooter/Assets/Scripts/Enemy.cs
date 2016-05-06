@@ -8,6 +8,7 @@ public class Enemy : DamagingEntity {
 	public int HealthMax = 200;
 	public bool elementless;
 	public bool big;
+	public bool huge;
 
 	public bool spawnEffect = false;
 	public float moveSpeed = 5;
@@ -23,7 +24,10 @@ public class Enemy : DamagingEntity {
 	public int materialSize = 1;
 	public Image healthBar;
 	public Canvas can;
+
+
 	public Turret turret;
+
 
 	// Use this for initialization
 	protected virtual void Start () {
@@ -67,14 +71,11 @@ public class Enemy : DamagingEntity {
 			canBeHit = false;
 		}
 		if (!MapManager.WithinBounds (transform.position, 14, 10)) {
-			Destroy (gameObject);
 			if (route)
 				Destroy(route.gameObject);
+			Destroy (gameObject);
 		}
 		can.transform.rotation = Quaternion.identity;
-
-
-
 	}
 
 	override public void TakeDamage(int DamageTaken, Elements DamageElement)
@@ -119,7 +120,7 @@ public class Enemy : DamagingEntity {
 	override protected void Die(float elementMultiplier){
 		//Spawn explosin effect or whatever
 		MapManager.PlayerCharacter.ComboAdd (1);
-		MapManager.Manager.AddScore(scoreValue, elementMultiplier, LockRing.activeSelf, (big ? 1 : 0));
+		MapManager.Manager.AddScore(scoreValue, elementMultiplier, LockRing.activeSelf, (huge ? 1 : 0));
 		if (LockRing.activeSelf && MapManager.Manager.materialSpawned < 1000) {
 			MapManager.Manager.SpawnMaterial (materials, materialSize, transform.position);
 		}

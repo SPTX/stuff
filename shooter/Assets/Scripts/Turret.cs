@@ -3,6 +3,7 @@ using System.Collections;
 
 public class Turret : MonoBehaviour {
 
+	public GameObject projectileType;
 	public float firerate = 0.5f;
 	public bool shootsAccelProjectile;
 	public bool altFire;
@@ -10,6 +11,7 @@ public class Turret : MonoBehaviour {
 	protected float refire = 0;
 
 	public bool follow = true;
+	public bool staysStraight;
 	public bool triggersHitEffect = true;
 
 	private Vector3 originalSize;
@@ -23,7 +25,7 @@ public class Turret : MonoBehaviour {
 	virtual protected void Update () {
 		if (follow)
 			LookAtPlayer ();
-		else
+		else if (staysStraight)
 			transform.rotation = Quaternion.identity;
 
 		if (refire > 0)
@@ -41,9 +43,11 @@ public class Turret : MonoBehaviour {
 
 	public void Fire()
 	{
+		if (projectileType == null)
+			return;
 		if (refire <= 0) {
 			MapManager.Manager.onScreenEntities.Add (
-				((GameObject)Instantiate(Resources.Load ("ShotEnemy" + (shootsAccelProjectile ? "Accel" : "")), transform.position, transform.rotation)).GetComponent<DamagingEntity>());
+				((GameObject)Instantiate(projectileType, transform.position, transform.rotation)).GetComponent<DamagingEntity>());
 			refire = firerate;
 		}
 	}
