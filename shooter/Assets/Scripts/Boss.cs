@@ -59,6 +59,7 @@ public class Boss : DamagingEntity {
 			{
 				respawnSkulls = 0;
 				damageable = true;
+				MapManager.PlayerCharacter.comboLock = false;
 			}
 		}
 
@@ -108,7 +109,10 @@ public class Boss : DamagingEntity {
 	
 	protected override void Die (float elementMultiplier)
 	{
-		MapManager.Manager.AddScore (0, elementMultiplier, false, 2);
+		MapManager.PlayerCharacter.comboLock = true;
+		((GameObject)Instantiate (Resources.Load ("ComboBonus"), transform.position, Quaternion.identity)).GetComponent<ComboBonus> ().SetUp (
+			MapManager.Manager.AddScore (0, elementMultiplier, false, 2)
+		);
 		MapManager.Manager.bossTime = -1;
 		Destroy (skullSpawner.gameObject);
 		MapManager.Manager.KillSkulls ();

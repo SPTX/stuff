@@ -19,6 +19,7 @@ public class Character : DamagingEntity {
 	private float comboTimerMax = 3;
 	private float comboTimer = 0;
 	public float comboCount = 0;
+	public bool comboLock;
 	public Text comboCountUI;
 	public Text comboText;
 	public RawImage comboBar;
@@ -126,6 +127,8 @@ public class Character : DamagingEntity {
 	}
 
 	void SolveCombo(){
+		if (comboLock)
+			return;
 		if (comboTimer > 0) {
 			comboTimer -= Time.deltaTime;
 			Vector3 newBarSize = comboBar.transform.localScale;

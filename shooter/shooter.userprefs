@@ -1,6 +1,6 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/StarPickupText.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Boss.cs">
     <Files>
       <File FileName="Assets/Scripts/floatingX2.cs" Line="13" Column="1" />
       <File FileName="Assets/Scripts/EnemyShotAccelerating.cs" Line="1" Column="1" />
@@ -12,12 +12,14 @@
       <File FileName="Assets/Scripts/ProjectileEnemy.cs" Line="1" Column="1" />
       <File FileName="Assets/Scripts/ProjectileHead.cs" Line="1" Column="1" />
       <File FileName="Assets/Scripts/Moth.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Enemy.cs" Line="126" Column="1" />
+      <File FileName="Assets/Scripts/Enemy.cs" Line="123" Column="139" />
       <File FileName="Assets/Scripts/Gargoyle.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/LoveMaxGraphic.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/floatingScore.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/StarPickupText.cs" Line="30" Column="1" />
-      <File FileName="Assets/Scripts/Pickup.cs" Line="54" Column="1" />
+      <File FileName="Assets/Scripts/FloatingComboText.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/BossSkull.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/BrokenSkull.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/BossSpawner.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Boss.cs" Line="113" Column="1" />
+      <File FileName="Assets/Scripts/ComboBonus.cs" Line="27" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

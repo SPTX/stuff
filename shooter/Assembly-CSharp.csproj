@@ -52,6 +52,7 @@
      <Compile Include="Assets\Scripts\BossSpawner.cs" />
      <Compile Include="Assets\Scripts\BrokenSkull.cs" />
      <Compile Include="Assets\Scripts\Character.cs" />
+     <Compile Include="Assets\Scripts\ComboBonus.cs" />
      <Compile Include="Assets\Scripts\DamagingEntity.cs" />
      <Compile Include="Assets\Scripts\DeathShot.cs" />
      <Compile Include="Assets\Scripts\Enemy.cs" />

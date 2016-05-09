@@ -36,6 +36,7 @@ public class Spawner : MonoBehaviour {
 			startTime -= Time.deltaTime;
 		else {
 			///start spwaning
+			MapManager.PlayerCharacter.comboLock = false;
 			if ((decreasedDelay -= Time.deltaTime) <= 0){
 				decreasedDelay = delay;
 				Spawn ();
