@@ -85,7 +85,7 @@ public class Enemy : DamagingEntity {
 
 		//do things for big enemies (combo add, spawn stars on "death" difficulty)
 		if (big) {
-			MapManager.PlayerCharacter.ComboAdd (0.2f);
+			MapManager.PlayerCharacter.ComboAdd (0.2f, transform.position);
 			turret.HitEffect();
 		}
 
@@ -119,7 +119,7 @@ public class Enemy : DamagingEntity {
 
 	override protected void Die(float elementMultiplier){
 		//Spawn explosin effect or whatever
-		MapManager.PlayerCharacter.ComboAdd (1);
+		MapManager.PlayerCharacter.ComboAdd (1, transform.position);
 		((GameObject)Instantiate(Resources.Load("floatingScore"), transform.position, Quaternion.identity)).GetComponent<floatingScore>().SetUp(
 			MapManager.Manager.AddScore(scoreValue, elementMultiplier, LockRing.activeSelf, (huge ? 1 : 0))
 		);

@@ -160,9 +160,11 @@ public class Character : DamagingEntity {
 		}
 	}
 
-	public void ComboAdd(float value = 0){
+	public void ComboAdd(float value, Vector3 position = default(Vector3)){
 		if (value > 0) {
 			comboCountUI.color = comboText.color = new Color (1, 0.5f, 0, 1);
+			if ((int)(comboCount + value) > (int)comboCount && position != Vector3.zero)
+				Instantiate(Resources.Load("floatingComboText"), position, Quaternion.identity);
 			if ((comboCount += value) < 1)
 				comboCount = 1;
 			if (comboCount > 2000 && MapManager.Manager.difficulty < MapManager.Difficulty.death)

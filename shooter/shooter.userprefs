@@ -1,20 +1,23 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Enemy.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/StarPickupText.cs">
     <Files>
       <File FileName="Assets/Scripts/floatingX2.cs" Line="13" Column="1" />
       <File FileName="Assets/Scripts/EnemyShotAccelerating.cs" Line="1" Column="1" />
       <File FileName="Assets/Scripts/Turret.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/MapManager.cs" Line="53" Column="3" />
+      <File FileName="Assets/Scripts/MapManager.cs" Line="1" Column="1" />
       <File FileName="Assets/Scripts/EnemyShot.cs" Line="1" Column="1" />
       <File FileName="Assets/Scripts/DamagingEntity.cs" Line="1" Column="1" />
       <File FileName="Assets/Scripts/Character.cs" Line="1" Column="1" />
       <File FileName="Assets/Scripts/ProjectileEnemy.cs" Line="1" Column="1" />
       <File FileName="Assets/Scripts/ProjectileHead.cs" Line="1" Column="1" />
       <File FileName="Assets/Scripts/Moth.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Enemy.cs" Line="128" Column="1" />
+      <File FileName="Assets/Scripts/Enemy.cs" Line="126" Column="1" />
       <File FileName="Assets/Scripts/Gargoyle.cs" Line="1" Column="1" />
       <File FileName="Assets/Scripts/LoveMaxGraphic.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/floatingScore.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/StarPickupText.cs" Line="30" Column="1" />
+      <File FileName="Assets/Scripts/Pickup.cs" Line="54" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

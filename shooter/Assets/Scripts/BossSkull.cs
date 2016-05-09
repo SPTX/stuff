@@ -188,7 +188,7 @@ public class BossSkull : DamagingEntity {
 	protected override void Die (float elementMultiplier)
 	{
 		MapManager.Manager.AddScore (scoreValue, elementMultiplier, false, 0);
-		MapManager.PlayerCharacter.ComboAdd (1);
+		MapManager.PlayerCharacter.ComboAdd (1, transform.position);
 
 		if (elementMultiplier == 0.5f) {
 			Instantiate (Resources.Load ("BrokenSkull"), transform.position, turret.transform.rotation);

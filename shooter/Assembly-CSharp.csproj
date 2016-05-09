@@ -58,6 +58,7 @@
      <Compile Include="Assets\Scripts\EnemyShot.cs" />
      <Compile Include="Assets\Scripts\EnemyShotAccelerating.cs" />
      <Compile Include="Assets\Scripts\FallingCadaver.cs" />
+     <Compile Include="Assets\Scripts\FloatingComboText.cs" />
      <Compile Include="Assets\Scripts\GameCamera.cs" />
      <Compile Include="Assets\Scripts\Gargoyle.cs" />
      <Compile Include="Assets\Scripts\LoveMaxGraphic.cs" />
@@ -73,6 +74,7 @@
      <Compile Include="Assets\Scripts\ShotType.cs" />
      <Compile Include="Assets\Scripts\ShotWide.cs" />
      <Compile Include="Assets\Scripts\Spawner.cs" />
+     <Compile Include="Assets\Scripts\StarPickupText.cs" />
      <Compile Include="Assets\Scripts\SubBoss.cs" />
      <Compile Include="Assets\Scripts\Turret.cs" />
      <Compile Include="Assets\Scripts\floatingScore.cs" />

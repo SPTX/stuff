@@ -38,6 +38,6 @@ public class floatingScore : MonoBehaviour {
 
 	public void SetUp(int score)
 	{
-		text.text = score.ToString ();
+		text.text = "x" + score.ToString ();
 	}
 }
