@@ -120,7 +120,7 @@ public class MapManager : MonoBehaviour {
 		} else if (type == 3)
 			scoreToAdd = value * maRyoku * (loveDrain ? 1.2f : 1) * (0.1f + 0.001f * PlayerCharacter.comboCount);
 		else //boss or type error
-				scoreToAdd = maRyoku * PlayerCharacter.comboCount * 0.1f;
+			scoreToAdd = maRyoku * Mathf.Clamp((int)PlayerCharacter.comboCount, 1, PlayerCharacter.comboCount) * 0.1f;
 
 		score += (maRyoku = Mathf.RoundToInt(scoreToAdd));//lol recycling
 		scoreUI.text = score.ToString ("n0");
