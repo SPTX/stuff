@@ -34,7 +34,7 @@ public class BossSkull : DamagingEntity {
 	// Use this for initialization
 	void Start () {
 		health = healthMax;
-		turret.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Sprites/Skull-" + element);
+//		turret.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Sprites/Skull-" + element);
 		turret.SetFireRate(2);
 		transform.localScale = Vector3.zero;
 		canBeHit = false;
@@ -46,8 +46,12 @@ public class BossSkull : DamagingEntity {
 			Destroy (gameObject);
 		if (!MapManager.WithinBounds (transform.position, 10, 6)) {
 			canBeHit = false;
-		} else
+			ringActive = false;
+			LockRing.GetComponent<SpriteRenderer>().color = new Color(1,1,1,0);
+		} else {
 			canBeHit = true;
+			SetRing();
+		}
 
 		if (ringActive && LockRing.transform.localScale.x > ringSize.x) {
 			Color newcol = LockRing.GetComponent<SpriteRenderer>().color;
@@ -191,11 +195,16 @@ public class BossSkull : DamagingEntity {
 		MapManager.PlayerCharacter.ComboAdd (1, transform.position);
 
 		if (elementMultiplier == 0.5f) {
-			Instantiate (Resources.Load ("BrokenSkull"), transform.position, turret.transform.rotation);
+			((GameObject)Instantiate (Resources.Load ("BrokenSkull"), transform.position, turret.transform.rotation))
+				.GetComponent<BrokenSkull>().SetUp(MapManager.IsSensibleTo(MapManager.Manager.onScreenEntities [0].GetElement()));
 		}
 		else if (elementMultiplier == 2) {
-			MapManager.Manager.ExpodeNearbySkulls(transform.position);
-			Instantiate (Resources.Load ("BrokenSkull"), transform.position, turret.transform.rotation);
+			if (MapManager.IsSensibleTo(MapManager.Manager.onScreenEntities [0].GetElement())
+				== MapManager.IsSensibleTo(element))
+				((GameObject)Instantiate(Resources.Load("BossSkullExplosion"), transform.position, Quaternion.identity)).
+					GetComponent<BossSkullExplosion>().SetUp(element);
+				((GameObject)Instantiate (Resources.Load ("BrokenSkull"), transform.position, turret.transform.rotation))
+				.GetComponent<BrokenSkull>().SetUp(MapManager.IsSensibleTo(element));
 		}
 		if (MapManager.Manager.bossTime < 0) {
 			MapManager.Manager.SpawnMaterial (1, 2, transform.position);

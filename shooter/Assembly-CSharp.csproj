@@ -48,6 +48,7 @@
      <Compile Include="Assets\Scripts\BigEyeTurret.cs" />
      <Compile Include="Assets\Scripts\Boss.cs" />
      <Compile Include="Assets\Scripts\BossSkull.cs" />
+     <Compile Include="Assets\Scripts\BossSkullExplosion.cs" />
      <Compile Include="Assets\Scripts\BossSkullSpawner.cs" />
      <Compile Include="Assets\Scripts\BossSpawner.cs" />
      <Compile Include="Assets\Scripts\BrokenSkull.cs" />

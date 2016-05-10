@@ -14,9 +14,6 @@ public class BrokenSkull : MonoBehaviour {
 	void Start () {
 		if (MapManager.Manager.onScreenEntities.Count > 0) {
 			target = MapManager.Manager.onScreenEntities [0].transform;
-			element = MapManager.IsSensibleTo(MapManager.Manager.onScreenEntities [0].GetElement());
-			turret.GetComponent<SpriteRenderer> ().color = MapManager.elementColors [(int)element];
-			GetComponent<TrailRenderer>().material.SetColor("_Color", MapManager.elementColors [(int)element]);
 		}
 	}
 
@@ -31,6 +28,12 @@ public class BrokenSkull : MonoBehaviour {
 		if (speed < maxSpeed)
 			speed += 30 * Time.deltaTime;
 		transform.Translate (transform.right * speed * Time.deltaTime, Space.World);
+	}
+
+	public void SetUp(Elements newElem){
+		element = newElem;
+		turret.GetComponent<SpriteRenderer> ().color = MapManager.elementColors [(int)element];
+		GetComponent<TrailRenderer>().material.SetColor("_Color", MapManager.elementColors [(int)element]);
 	}
 
 	void RotateTowardsBoss()

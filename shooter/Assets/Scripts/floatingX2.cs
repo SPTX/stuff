@@ -17,6 +17,7 @@ public class floatingX2 : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		transform.Translate (0, 1 * Time.deltaTime, 0, Space.World);
 		if (shrinking) {
 			text.transform.localScale += scaleMultiplier * Time.deltaTime;
 			if (text.transform.localScale.x <= normalSize){

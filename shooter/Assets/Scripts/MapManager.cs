@@ -242,13 +242,6 @@ public class MapManager : MonoBehaviour {
 		}
 	}
 	
-	public void ExpodeNearbySkulls (Vector3 explodingSkull){
-		for (int i = 0; i < bossSkulls.Count; ++i) {
-			if (bossSkulls[i] != null && Vector3.Distance(explodingSkull, bossSkulls[i].transform.position) < 3)
-				bossSkulls[i].TakeDamage(-2, Elements.fire);
-		}
-	}
-		
 	public void KillSkulls()
 	{
 		for (int i = 0; i < bossSkulls.Count; ++i) {
