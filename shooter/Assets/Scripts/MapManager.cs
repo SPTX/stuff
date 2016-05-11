@@ -8,6 +8,7 @@ public enum Elements {fire, wind, water, light, dark};
 public class MapManager : MonoBehaviour {
 
 	public static int SuicideSkullCounter = 0;
+	public static int ShotCounter = 0;
 	public static Character PlayerCharacter;
 	public static MapManager Manager;
 	public static Color[] elementColors = {
@@ -38,6 +39,7 @@ public class MapManager : MonoBehaviour {
 
 	public enum Difficulty{easy, normal, hard, death};
 	public Difficulty difficulty = Difficulty.easy;
+	public int shotEvery = 7;
 	public List<DamagingEntity> onScreenEntities;
 	public List<BossSkull> bossSkulls;
 
@@ -48,6 +50,9 @@ public class MapManager : MonoBehaviour {
 		Cursor.lockState = CursorLockMode.Locked;
 		Cursor.visible = false;
 		Manager = this;
+		SuicideSkullCounter = 0;
+		ShotCounter = 0;
+		shotEvery -= (int)difficulty * 2;
 		Random.seed = (int)System.DateTime.Now.Ticks;
 
 		//debug

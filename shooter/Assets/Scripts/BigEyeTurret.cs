@@ -21,27 +21,27 @@ public class BigEyeTurret : Turret {
 
 	// Update is called once per frame
 	override protected void Update () {
-		base.Update ();
-		if (potQuantity <= 0)
-			return;
-		if (waitToFire < 0 && refire <= 0)
-				Fire ();
-		else if (waitToFire > 0)
+		if (waitToFire > 0)
 			shootingDirection = transform.rotation;
+		if (waitToFire < 0 && refire <= 0)
+			Fire ();
+		base.Update ();
 	}
 
-	new void Fire(){
+	override public void Fire(){
+		if (potQuantity <= 0)
+			return;
 		--potQuantity;
 
 		if (altFire) {
-			GameObject pot = (GameObject)Instantiate(Resources.Load ("Pot"), transform.position, shootingDirection * Quaternion.AngleAxis(nextAngle, Vector3.forward));
+			GameObject pot = (GameObject)Instantiate (Resources.Load ("Pot"), transform.position, shootingDirection * Quaternion.AngleAxis (nextAngle, Vector3.forward));
 			nextAngle += angleBetweenPots;
-			pot.transform.Translate(pot.transform.right * -0.75f, Space.World);
-			MapManager.Manager.onScreenEntities.Add (pot.GetComponent<DamagingEntity>());
-			return;
+			pot.transform.Translate (pot.transform.right * -0.75f, Space.World);
+			MapManager.Manager.onScreenEntities.Add (pot.GetComponent<DamagingEntity> ());
+		} else {
+			MapManager.Manager.onScreenEntities.Add (
+			((GameObject)Instantiate (Resources.Load ("Pot"), transform.position, shootingDirection)).GetComponent<DamagingEntity> ());
+			refire = potDelay;
 		}
-		MapManager.Manager.onScreenEntities.Add (
-			((GameObject)Instantiate(Resources.Load ("Pot"), transform.position, shootingDirection)).GetComponent<DamagingEntity>());
-		refire = potDelay;
 	}
 }

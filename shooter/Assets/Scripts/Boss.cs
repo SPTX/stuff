@@ -25,8 +25,6 @@ public class Boss : DamagingEntity {
 	protected int type = 0;
 	protected string[] deathShotNames = {"DeathShot", "DeathShotSmall"};
 
-	public float timer = 90;
-
 	protected float respawnSkulls = 12;
 	protected float respawnSkullsDelay = 6;
 	protected byte activePattern = 0;
@@ -38,7 +36,6 @@ public class Boss : DamagingEntity {
 		seal.sprite = Resources.Load<Sprite>("Sprites/Seal-" + element);
 		healthActual = HPMax = health;
 		damageable = false;
-		MapManager.Manager.bossTime = timer;
 		turretRefire = turretRefireDelay;
 	}
 

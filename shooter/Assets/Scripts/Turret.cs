@@ -9,6 +9,8 @@ public class Turret : MonoBehaviour {
 	public float waitToFire;
 	protected float refire = 0;
 
+	public bool autoFire = true;
+	public bool ignoreShotLimit;
 	public bool follow = true;
 	public bool staysStraight;
 	public bool triggersHitEffect = true;
@@ -29,10 +31,12 @@ public class Turret : MonoBehaviour {
 
 		if (refire > 0)
 			refire -= Time.deltaTime;
+		waitToFire -= Time.deltaTime;
 
 		if (transform.localScale.x < originalSize.x)
 			transform.localScale *= 1.2f;
-		waitToFire -= Time.deltaTime;
+		if (waitToFire < 0 && refire <= 0 && autoFire)
+			Fire ();
 	}
 
 	public void LookAtPlayer(){
@@ -41,10 +45,13 @@ public class Turret : MonoBehaviour {
 		transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 	}
 
-	public void Fire()
+	virtual public void Fire()
 	{
-		if (projectileType == null)
+		if (MapManager.ShotCounter++ % (ignoreShotLimit ? 1 : MapManager.Manager.shotEvery) != 0 ||
+			projectileType == null || MapManager.Manager.difficulty == MapManager.Difficulty.easy) {
+			refire = firerate;
 			return;
+		}
 		if (follow)
 			LookAtPlayer ();
 		if (refire <= 0) {

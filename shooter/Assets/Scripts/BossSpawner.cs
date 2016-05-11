@@ -9,6 +9,7 @@ public class BossSpawner : MonoBehaviour {
 	public int health = 6500;
 	public Elements element;
 	public BossSkull.Pattern[] patterns = {(BossSkull.Pattern)0, (BossSkull.Pattern)1, (BossSkull.Pattern)2};
+	public float bossTimer = 240;
 	protected Boss theBoss;
 
 	// Use this for initialization
@@ -21,6 +22,7 @@ public class BossSpawner : MonoBehaviour {
 		if ((startTime -= Time.deltaTime) <= 0) {
 			//boss text + violin sound;
 			MapManager.PlayerCharacter.comboLock = true;
+			MapManager.Manager.bossTime = bossTimer;
 			if ((timeUntilSpawn -= Time.deltaTime) <= 0) {
 				theBoss = ((GameObject)Instantiate(Resources.Load("Boss" + (final ? "": "Sub")), new Vector3(12,0), Quaternion.identity)).GetComponent<Boss>();
 				theBoss.patterns = patterns;
