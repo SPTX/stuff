@@ -4,7 +4,7 @@ using System.Collections;
 public class EnemyShotAccelerating : Shot {
 	
 	protected float launchTime = 0.5f;
-	protected float speedFinal = 14;
+	protected float speedFinal = 4;
 	protected float accelInit = 1f;
 	protected float accel = 0.4f;
 	

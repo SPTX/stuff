@@ -7,6 +7,7 @@ public enum Elements {fire, wind, water, light, dark};
 
 public class MapManager : MonoBehaviour {
 
+	public static int SuicideSkullCounter = 0;
 	public static Character PlayerCharacter;
 	public static MapManager Manager;
 	public static Color[] elementColors = {
@@ -223,19 +224,19 @@ public class MapManager : MonoBehaviour {
 	}
 	
 	void ClearEntities(){
-		for (int i = 0; i < onScreenEntities.Count; ++i) {
+		for (int i = onScreenEntities.Count - 1; i >= 0; --i) {
 			if (onScreenEntities[i] == null)
 				onScreenEntities.RemoveAt(i);
 		}
 
-		for (int i = 0; i < bossSkulls.Count; ++i) {
+		for (int i = bossSkulls.Count - 1; i >= 0 ; --i) {
 			if (bossSkulls[i] == null)
 				bossSkulls.RemoveAt(i);
 		}
 	}
 
 	public void DamageEntities(int damage, Elements DamElement = Elements.fire, bool ring = false){
-		for (int i = 0; i < onScreenEntities.Count;++i)
+		for (int i = onScreenEntities.Count -1; i >= 0; --i)
 		{
 			if (onScreenEntities[i])
 				onScreenEntities[i].TakeDamage(damage, Elements.fire);
@@ -244,7 +245,7 @@ public class MapManager : MonoBehaviour {
 	
 	public void KillSkulls()
 	{
-		for (int i = 0; i < bossSkulls.Count; ++i) {
+		for (int i = bossSkulls.Count -1; i >= 0 ; --i) {
 			if (bossSkulls[i] != null)
 				bossSkulls[i].TakeDamage(-1, Elements.fire);
 		}

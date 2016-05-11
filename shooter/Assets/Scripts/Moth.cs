@@ -42,10 +42,10 @@ public class Moth : Enemy {
 		}
 	}
 
-	public override void TakeDamage (int DamageTaken, Elements DamageElement)
+	public override int TakeDamage (int DamageTaken, Elements DamageElement)
 	{
 		if (nextRoute != null)
 			DamageTaken /= 10;
-		base.TakeDamage (DamageTaken, DamageElement);
+		return base.TakeDamage (DamageTaken, DamageElement);
 	}
 }

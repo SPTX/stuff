@@ -3,7 +3,7 @@ using System.Collections;
 
 public class BigEyeTurret : Turret {
 
-	protected float potDelay = 0.1f;
+	protected float potDelay = 0;
 	protected Quaternion shootingDirection;
 	protected int potQuantity = 4;
 	protected float angleBetweenPots;
@@ -26,7 +26,7 @@ public class BigEyeTurret : Turret {
 			return;
 		if (waitToFire < 0 && refire <= 0)
 				Fire ();
-		else if (waitToFire > 0 && (waitToFire -= Time.deltaTime) <= 0)
+		else if (waitToFire > 0)
 			shootingDirection = transform.rotation;
 	}
 

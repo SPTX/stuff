@@ -41,7 +41,7 @@ public class ProjectileEnemy : Enemy {
 			Destroy (gameObject);
 	}
 
-	public override void TakeDamage(int DamageTaken, Elements DamageElement)
+	public override int TakeDamage(int DamageTaken, Elements DamageElement)
 	{
 		if (trembles) {
 			Vector3 randvector = Vector3.zero;
@@ -52,7 +52,7 @@ public class ProjectileEnemy : Enemy {
 		if (slowsOnHit)
 			curSpeed = 0;
 		DamageElement = element;
-		base.TakeDamage (DamageTaken, DamageElement);
+		return base.TakeDamage (DamageTaken, DamageElement);
 	}
 
 	protected override void Die (float elementMultiplier)

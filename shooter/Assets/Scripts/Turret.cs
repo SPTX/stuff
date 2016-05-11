@@ -5,7 +5,6 @@ public class Turret : MonoBehaviour {
 
 	public GameObject projectileType;
 	public float firerate = 0.5f;
-	public bool shootsAccelProjectile;
 	public bool altFire;
 	public float waitToFire;
 	protected float refire = 0;
@@ -33,6 +32,7 @@ public class Turret : MonoBehaviour {
 
 		if (transform.localScale.x < originalSize.x)
 			transform.localScale *= 1.2f;
+		waitToFire -= Time.deltaTime;
 	}
 
 	public void LookAtPlayer(){
@@ -45,6 +45,8 @@ public class Turret : MonoBehaviour {
 	{
 		if (projectileType == null)
 			return;
+		if (follow)
+			LookAtPlayer ();
 		if (refire <= 0) {
 			MapManager.Manager.onScreenEntities.Add (
 				((GameObject)Instantiate(projectileType, transform.position, transform.rotation)).GetComponent<DamagingEntity>());
@@ -58,9 +60,10 @@ public class Turret : MonoBehaviour {
 			transform.localScale = originalSize / 1.25f;
 	}
 
-	public void SetFireRate(float newRate)
+	public void SetFireRate(float newRate, bool randomized = true)
 	{
 		firerate = newRate;
-		refire = Random.Range (0, firerate);
+		if (randomized)
+			refire = Random.Range (0, firerate);
 	}
 }

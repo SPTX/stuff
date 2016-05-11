@@ -97,14 +97,14 @@ public class Boss : DamagingEntity {
 		}
 	}
 
-	override public void TakeDamage(int DamageTaken, Elements DamageElement){
+	override public int TakeDamage(int DamageTaken, Elements DamageElement){
 		if (!damageable)
-			return;
+			return 0;
 		//solve element returns 2, 0.5 or 1 (*2, /2, *1)
 		lastTakenDamageType = MapManager.SolveElement (DamageElement, element);
 		healthActual -= (DamageTaken * lastTakenDamageType);
-		//add score
 		MapManager.Manager.AddScore (0.2f, MapManager.SolveElement(DamageElement, element), false, 3);
+		return DamageTaken;
 	}
 	
 	protected override void Die (float elementMultiplier)

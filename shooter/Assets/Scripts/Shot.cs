@@ -27,17 +27,18 @@ public class Shot : DamagingEntity {
 			Destroy (gameObject);
 	}
 
-	override public void TakeDamage(int DamageTaken, Elements DamageElement)
+	override public int TakeDamage(int DamageTaken, Elements DamageElement)
 	{
 		Instantiate (Resources.Load ("StarSmall"), transform.position, Quaternion.identity);
 		Destroy (gameObject);
+		return DamageTaken;
 	}
 
 	void OnTriggerEnter2D(Collider2D other)
 	{
 		MapManager.Manager.AddLove(0.25f);
-		other.GetComponent<DamagingEntity> ().TakeDamage (damage, element);
-		Destroy (gameObject);
+		if (other.GetComponent<DamagingEntity> ().TakeDamage (damage, element) != 0)
+			Destroy (gameObject);
 	}
 
 }

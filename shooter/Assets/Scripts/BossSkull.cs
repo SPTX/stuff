@@ -34,8 +34,6 @@ public class BossSkull : DamagingEntity {
 	// Use this for initialization
 	void Start () {
 		health = healthMax;
-//		turret.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Sprites/Skull-" + element);
-		turret.SetFireRate(2);
 		transform.localScale = Vector3.zero;
 		canBeHit = false;
 	}
@@ -131,7 +129,7 @@ public class BossSkull : DamagingEntity {
 		MapManager.Manager.onScreenEntities.Add (shot);
 	}
 	
-	override public void TakeDamage(int DamageTaken, Elements DamageElement)
+	override public int TakeDamage(int DamageTaken, Elements DamageElement)
 	{
 		if (DamageTaken < -1)
 			Die (0.5f);
@@ -142,10 +140,11 @@ public class BossSkull : DamagingEntity {
 		turret.HitEffect ();
 		float damElem = MapManager.SolveElement (DamageElement, element);
 		if (damElem != 2)
-			return;
+			return DamageTaken;
 		if ((health -= DamageTaken) <= 0)
 			Die(damElem);
 		HealthBarProcessing ();
+		return DamageTaken;
 	}
 
 	protected void HealthBarProcessing(){
@@ -164,13 +163,20 @@ public class BossSkull : DamagingEntity {
 		if (newPattern == Pattern.fallingFromSides)
 			direction += Vector3.left * 0.5f;
 		turret.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Sprites/Skull-" + element);
-		if (newPattern == Pattern.round)
+		if (newPattern == Pattern.round) {
 			rotatingSpeed = 24;
-		else if (newPattern == Pattern.snake)
+			turret.SetFireRate(firerate = 3.4f - (int)MapManager.Manager.difficulty, false);
+			refire = 0;
+		}
+		else {
+			turret.SetFireRate((firerate -= (int)MapManager.Manager.difficulty));
+			refire = Random.Range (0, firerate);
+		}
+
+		if (newPattern == Pattern.snake)
 			accelerating = true;
 		moveSpeedMax = newMaxSpeed;
 		Glow.GetComponent<SpriteRenderer> ().color = MapManager.elementColors [(int)element];
-		refire = Random.Range (0, (firerate -= (int)MapManager.Manager.difficulty));
 		SetRing ();
 	}
 

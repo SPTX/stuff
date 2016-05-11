@@ -9,6 +9,8 @@ public class Enemy : DamagingEntity {
 	public bool elementless;
 	public bool big;
 	public bool huge;
+	public bool suicideSkull = true;
+	public int numberOfKillsForSkull = 2;
 
 	public bool spawnEffect = false;
 	public float moveSpeed = 5;
@@ -43,6 +45,7 @@ public class Enemy : DamagingEntity {
 	
 	// Update is called once per frame
 	protected virtual void Update () {
+
 		if (spawnEffect && transform.localScale.x < 1) {
 			Vector3 newScale = transform.localScale;
 			newScale += Vector3.one * 2 * Time.deltaTime;
@@ -70,6 +73,9 @@ public class Enemy : DamagingEntity {
 		if (!MapManager.WithinBounds (transform.position, 10, 6)) {
 			canBeHit = false;
 		}
+		else if (!spawnEffect)
+			canBeHit = true;
+
 		if (!MapManager.WithinBounds (transform.position, 14, 10)) {
 			if (route)
 				Destroy(route.gameObject);
@@ -78,19 +84,21 @@ public class Enemy : DamagingEntity {
 		can.transform.rotation = Quaternion.identity;
 	}
 
-	override public void TakeDamage(int DamageTaken, Elements DamageElement)
+	override public int TakeDamage(int DamageTaken, Elements DamageElement)
 	{
 		if (!canBeHit)
-			return;
+			return 0;
 
 		//do things for big enemies (combo add, spawn stars on "death" difficulty)
 		if (big) {
 			MapManager.PlayerCharacter.ComboAdd (0.2f, transform.position);
 			turret.HitEffect();
+			if (MapManager.Manager.difficulty == MapManager.Difficulty.death)
+				Instantiate (Resources.Load ("Star" + (LockRing.activeSelf ? "Big" : "Small")), transform.position, Quaternion.identity);
 		}
 
 		if (!damageable)
-			return;
+			return 1;
 
 		if (elementless)
 			DamageElement = element;
@@ -109,6 +117,8 @@ public class Enemy : DamagingEntity {
 			newpos.x = healthBar.transform.localScale.x / 2 - 0.5f;
 			healthBar.transform.localPosition = newpos;
 		}
+
+		return DamageTaken;
 	}
 
 	void OnTriggerStay2D(Collider2D other)
@@ -129,6 +139,16 @@ public class Enemy : DamagingEntity {
 				MapManager.Manager.SpawnMaterial (materials, materialSize, transform.position);
 			((GameObject)Instantiate(Resources.Load("x2"), transform.position, Quaternion.identity)).GetComponent<floatingX2>().SetUp(huge);
 		}
+
+		if (MapManager.Manager.difficulty == MapManager.Difficulty.death && suicideSkull
+		    && ++MapManager.SuicideSkullCounter % numberOfKillsForSkull == 0){
+			turret.LookAtPlayer();
+			MapManager.Manager.onScreenEntities.Add (
+				((GameObject)Instantiate(Resources.Load("SuicideSkull"), transform.position, turret.transform.rotation))
+				.GetComponent<DamagingEntity>()
+				);
+		}
+
 		if (route)
 			Destroy(route.gameObject);
 		Destroy (gameObject);

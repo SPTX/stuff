@@ -19,8 +19,8 @@ public class DamagingEntity : MonoBehaviour {
 	
 	}
 
-	virtual public void TakeDamage(int DamageTaken, Elements DamageElement){
-		
+	virtual public int TakeDamage(int DamageTaken, Elements DamageElement){
+		return 0;
 	}
 	
 	virtual protected void Die(float elementMultiplier){
