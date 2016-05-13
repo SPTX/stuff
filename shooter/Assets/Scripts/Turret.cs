@@ -45,12 +45,12 @@ public class Turret : MonoBehaviour {
 		transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 	}
 
-	virtual public void Fire()
+	virtual public bool Fire()
 	{
 		if (MapManager.ShotCounter++ % (ignoreShotLimit ? 1 : MapManager.Manager.shotEvery) != 0 ||
 			projectileType == null || MapManager.Manager.difficulty == MapManager.Difficulty.easy) {
 			refire = firerate;
-			return;
+			return false;
 		}
 		if (follow)
 			LookAtPlayer ();
@@ -58,7 +58,9 @@ public class Turret : MonoBehaviour {
 			MapManager.Manager.onScreenEntities.Add (
 				((GameObject)Instantiate(projectileType, transform.position, transform.rotation)).GetComponent<DamagingEntity>());
 			refire = firerate;
+			return true;
 		}
+		return false;
 	}
 
 	public void HitEffect()

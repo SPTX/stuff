@@ -63,6 +63,8 @@ public class ProjectileEnemy : Enemy {
 				turret.LookAtPlayer();
 			turret.Fire();
 		}
+		if (!LockRing.activeSelf)
+			Instantiate (Resources.Load ("StarSmall"), transform.position, Quaternion.identity);
 		base.Die (elementMultiplier);
 	}
 }

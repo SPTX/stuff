@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\Bat.cs" />
+     <Compile Include="Assets\Scripts\BigEye.cs" />
      <Compile Include="Assets\Scripts\BigEyeTurret.cs" />
      <Compile Include="Assets\Scripts\Boss.cs" />
      <Compile Include="Assets\Scripts\BossSkull.cs" />
@@ -60,6 +61,8 @@
      <Compile Include="Assets\Scripts\Enemy.cs" />
      <Compile Include="Assets\Scripts\EnemyShot.cs" />
      <Compile Include="Assets\Scripts\EnemyShotAccelerating.cs" />
+     <Compile Include="Assets\Scripts\ExplodingCarcass.cs" />
+     <Compile Include="Assets\Scripts\ExplosionGlow.cs" />
      <Compile Include="Assets\Scripts\FallingCadaver.cs" />
      <Compile Include="Assets\Scripts\FloatingComboText.cs" />
      <Compile Include="Assets\Scripts\GameCamera.cs" />
@@ -71,6 +74,8 @@
      <Compile Include="Assets\Scripts\Pickup.cs" />
      <Compile Include="Assets\Scripts\ProjectileEnemy.cs" />
      <Compile Include="Assets\Scripts\ProjectileHead.cs" />
+     <Compile Include="Assets\Scripts\ProjectileHeadContainer.cs" />
+     <Compile Include="Assets\Scripts\ProjectileHeadDistributor.cs" />
      <Compile Include="Assets\Scripts\Route.cs" />
      <Compile Include="Assets\Scripts\Shot.cs" />
      <Compile Include="Assets\Scripts\ShotStraight.cs" />

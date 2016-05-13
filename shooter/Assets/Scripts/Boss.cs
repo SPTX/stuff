@@ -14,6 +14,8 @@ public class Boss : DamagingEntity {
 	public Image healthBar;
 	public Image seal;
 	public SpriteRenderer bossSprite;
+	protected float hitEffetDuration = 0.025f;
+	protected float hitEffectAway = 0;
 
 	public GameObject turret;
 	public float turretRefireDelay = 4;
@@ -81,8 +83,10 @@ public class Boss : DamagingEntity {
 			}
 		}
 
-		if (health > healthActual && (health -= (int)Mathf.Clamp((health - healthActual) * 4 * Time.deltaTime, 2, 100)) <= 0)
+		if (health > healthActual && (health -= (int)Mathf.Clamp ((health - healthActual) * 4 * Time.deltaTime, 2, 100)) <= 0)
 			Die (lastTakenDamageType);
+		if ((hitEffectAway -= Time.deltaTime) < 0)
+			bossSprite.color = Color.white;
 		HealthBarProcessing ();
 
 		if ((respawnSkulls -= Time.deltaTime) <= 0) {
@@ -101,11 +105,17 @@ public class Boss : DamagingEntity {
 		lastTakenDamageType = MapManager.SolveElement (DamageElement, element);
 		healthActual -= (DamageTaken * lastTakenDamageType);
 		MapManager.Manager.AddScore (0.2f, MapManager.SolveElement(DamageElement, element), false, 3);
+		bossSprite.color = Color.yellow;
+		hitEffectAway = hitEffetDuration;
 		return DamageTaken;
 	}
 	
 	protected override void Die (float elementMultiplier)
 	{
+		((GameObject)Instantiate (Resources.Load ("Carcass"), transform.position, Quaternion.identity)).GetComponent<ExplodingCarcass> ().
+			SetUp (bossSprite.sprite, bossSprite.transform.localScale, true);
+		Instantiate (Resources.Load ("ExplosionGlow"), transform.position, Quaternion.identity);
+
 		MapManager.PlayerCharacter.comboLock = true;
 		((GameObject)Instantiate (Resources.Load ("ComboBonus"), transform.position, Quaternion.identity)).GetComponent<ComboBonus> ().SetUp (
 			MapManager.Manager.AddScore (0, elementMultiplier, false, 2)

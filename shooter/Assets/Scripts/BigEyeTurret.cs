@@ -28,9 +28,9 @@ public class BigEyeTurret : Turret {
 		base.Update ();
 	}
 
-	override public void Fire(){
+	override public bool Fire(){
 		if (potQuantity <= 0)
-			return;
+			return false;
 		--potQuantity;
 
 		if (altFire) {
@@ -43,5 +43,6 @@ public class BigEyeTurret : Turret {
 			((GameObject)Instantiate (Resources.Load ("Pot"), transform.position, shootingDirection)).GetComponent<DamagingEntity> ());
 			refire = potDelay;
 		}
+		return true;
 	}
 }
