@@ -39,11 +39,15 @@ public class MapManager : MonoBehaviour {
 
 	public enum Difficulty{easy, normal, hard, death};
 	public Difficulty difficulty = Difficulty.easy;
+	public int enemyDamage = 125;
+	public int bossBonusDamage = 25;
 	public int shotEvery = 7;
 	public List<DamagingEntity> onScreenEntities;
 	public List<BossSkull> bossSkulls;
 
 	public float bossTime = 0;
+
+	public int Damage(){return (bossTime > 0 ? enemyDamage : bossBonusDamage);}
 
 	// Use this for initialization
 	void Start () {
@@ -54,6 +58,15 @@ public class MapManager : MonoBehaviour {
 		ShotCounter = 0;
 		shotEvery -= (int)difficulty * 2;
 		Random.seed = (int)System.DateTime.Now.Ticks;
+
+		if (difficulty == Difficulty.death) {
+			enemyDamage *= 3;
+			bossBonusDamage = bossBonusDamage * 3 + enemyDamage;
+		} else if ((int)difficulty > 0) {
+			enemyDamage *= 2;
+			bossBonusDamage = bossBonusDamage * 2 + enemyDamage;
+		} else
+			bossBonusDamage += enemyDamage;
 
 		//debug
 //		Time.timeScale = 0.1f;

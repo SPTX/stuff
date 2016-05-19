@@ -3,6 +3,7 @@ using System.Collections;
 
 public class Shot : DamagingEntity {
 
+	public int damage;
 	protected float life = 30;
 	public float speed = 4;
 

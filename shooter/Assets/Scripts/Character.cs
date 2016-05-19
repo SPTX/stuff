@@ -37,8 +37,8 @@ public class Character : DamagingEntity {
 		gameObject.AddComponent <ShotWide>();
 		equipedShotTypes.AddRange(GetComponents<ShotType>());
 		magicRingInitialSize = ringSprite.transform.localScale;
-		MapManager.PlayerCharacter = this;
 		seal.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Sprites/Seal-" + equipedShotTypes[equipedShot].element);
+		MapManager.PlayerCharacter = this;
 	}
 	
 	// Update is called once per frame
@@ -109,7 +109,7 @@ public class Character : DamagingEntity {
 	void OnTriggerStay2D(Collider2D other)
 	{
 		if (invincibility <= 0) {
-			equipedShotTypes[equipedShot].health -= other.GetComponent<DamagingEntity>().damage;
+			equipedShotTypes[equipedShot].health -= MapManager.Manager.Damage();
 			invincibility = invincibilityTime;
 			MapManager.Manager.AddLove(-1);
 			comboCount = 0;

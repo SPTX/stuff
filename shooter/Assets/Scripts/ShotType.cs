@@ -9,7 +9,7 @@ public class ShotType : MonoBehaviour {
 	public Elements element = Elements.fire;
 	protected string ShotElem;
 
-	public int healthMax = 400;
+	public int healthMax = 900;
 	public int health;
 
 
