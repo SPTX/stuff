@@ -49,8 +49,10 @@ public class ProjectileEnemy : Enemy {
 			randvector.y = Random.Range(-0.1f, 0.1f);
 			turret.transform.localPosition = randvector;
 		}
-		if (slowsOnHit)
+		if (slowsOnHit) {
 			curSpeed = 0;
+			accelInit = 1;
+		}
 		DamageElement = element;
 		return base.TakeDamage (DamageTaken, DamageElement);
 	}

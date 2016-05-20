@@ -37,9 +37,10 @@ public class Shot : DamagingEntity {
 
 	void OnTriggerEnter2D(Collider2D other)
 	{
+		if (other.GetComponent<DamagingEntity> ().TakeDamage (damage, element) == 0)
+			return;
 		MapManager.Manager.AddLove(0.25f);
-		if (other.GetComponent<DamagingEntity> ().TakeDamage (damage, element) != 0)
-			Destroy (gameObject);
+		Destroy (gameObject);
 	}
 
 }
