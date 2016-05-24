@@ -65,6 +65,7 @@
      <Compile Include="Assets\Scripts\ExplosionGlow.cs" />
      <Compile Include="Assets\Scripts\FallingCadaver.cs" />
      <Compile Include="Assets\Scripts\FloatingComboText.cs" />
+     <Compile Include="Assets\Scripts\FloatingDamage.cs" />
      <Compile Include="Assets\Scripts\GameCamera.cs" />
      <Compile Include="Assets\Scripts\Gargoyle.cs" />
      <Compile Include="Assets\Scripts\LoveMaxGraphic.cs" />

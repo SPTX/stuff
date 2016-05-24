@@ -110,6 +110,8 @@ public class Character : DamagingEntity {
 	{
 		if (invincibility <= 0) {
 			equipedShotTypes[equipedShot].health -= MapManager.Manager.Damage();
+			((GameObject)Instantiate(Resources.Load("FloatingDamage"), transform.position, Quaternion.identity))
+				.GetComponent<FloatingDamage>().SetUp(MapManager.Manager.Damage());
 			invincibility = invincibilityTime;
 			MapManager.Manager.AddLove(-1);
 			comboCount = 0;

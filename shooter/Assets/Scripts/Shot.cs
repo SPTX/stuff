@@ -39,7 +39,7 @@ public class Shot : DamagingEntity {
 	{
 		if (other.GetComponent<DamagingEntity> ().TakeDamage (damage, element) == 0)
 			return;
-		MapManager.Manager.AddLove(0.25f);
+		MapManager.Manager.AddLove(damage * 0.025f);
 		Destroy (gameObject);
 	}
 

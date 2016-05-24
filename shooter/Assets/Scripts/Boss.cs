@@ -9,6 +9,7 @@ public class Boss : DamagingEntity {
 	protected int HPMax;
 	protected float healthActual;
 	protected float lastTakenDamageType;
+	protected Vector3 speerection = new Vector3(0.25f ,0.75f);
 
 	public Text HPText;
 	public Image healthBar;
@@ -49,9 +50,13 @@ public class Boss : DamagingEntity {
 			if (skullSpawner)
 				Destroy(skullSpawner.gameObject);
 			transform.Translate(new Vector3(6, 2) * Time.deltaTime);
+			if (transform.position.x > 16)
+				Destroy(gameObject); ////insert endlevel loss logic
 			return;
 		}
-		
+
+		HealthBarProcessing ();
+
 		if (!damageable) {
 			transform.Translate (Vector3.left * 4 * Time.deltaTime);
 			if (transform.position.x <= 4)
@@ -60,14 +65,20 @@ public class Boss : DamagingEntity {
 				damageable = true;
 				MapManager.PlayerCharacter.comboLock = false;
 			}
+			return;
 		}
+
+		if (transform.position.y > 2 || transform.position.y < -2)
+			speerection.y *= -1;
+		if (transform.position.x > 5 || transform.position.x < 4)
+			speerection.x *= -1;
+		transform.Translate (speerection * Time.deltaTime);
 
 		if (health > healthActual && (health -= (int)Mathf.Clamp ((health - healthActual) * 4 * Time.deltaTime, 2, 100)) <= 0)
 			Die (lastTakenDamageType);
 
 		if ((hitEffectAway -= Time.deltaTime) < 0)
 			bossSprite.color = Color.white;
-		HealthBarProcessing ();
 
 		if (final) {
 			turret.transform.Rotate (Vector3.forward * turretRotSpeed * Time.deltaTime);

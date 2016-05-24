@@ -67,7 +67,7 @@ public class BossSkullSpawner : MonoBehaviour {
 			transform.rotation *= Quaternion.AngleAxis (90, Vector3.forward);
 			frequency = 2f;
 			speed = 1;
-			duration = frequency * 30 + (NextPatternDelay = 4);
+			duration = frequency * 10 + (NextPatternDelay = 4);
 		} else if (pattern == BossSkull.Pattern.snake) {
 			newPosition = transform.position + Vector3.up * 3.5f;
 			frequency = 0.15f;

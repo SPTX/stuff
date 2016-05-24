@@ -47,7 +47,7 @@ public class MapManager : MonoBehaviour {
 
 	public float bossTime = 0;
 
-	public int Damage(){return (bossTime > 0 ? enemyDamage : bossBonusDamage);}
+	public int Damage(){return (bossTime > 0 ? bossBonusDamage : enemyDamage);}
 
 	// Use this for initialization
 	void Start () {

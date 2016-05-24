@@ -10,7 +10,7 @@ public class Enemy : DamagingEntity {
 	public bool big;
 	public bool huge;
 	public bool suicideSkull = true;
-	public int numberOfKillsForSkull = 2;
+	public int numberOfKillsForSkull = 4;
 
 	public bool spawnEffect = false;
 	public float moveSpeed = 5;
