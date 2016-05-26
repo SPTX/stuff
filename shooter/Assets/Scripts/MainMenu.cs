@@ -69,8 +69,16 @@ public class MainMenu : MonoBehaviour {
 		RoamingData.self.tsukaiMaType [TargetShot] = RoamingData.self.GetComponents <ShotType>()[RoamingData.self.GetComponents <ShotType>().Length - 1];
 		RoamingData.self.tsukaiMaType [TargetShot].element = selectedElement;
 
-		RoamingData.data.tsukaiMaType [TargetShot] = RoamingData.self.tsukaiMaType [TargetShot].GetType ().ToString();
-		RoamingData.data.tsukaiMaElement [TargetShot] = (int)selectedElement;
+//		RoamingData.data.tsukaiMaType [TargetShot] = RoamingData.self.tsukaiMaType [TargetShot].GetType ().ToString();
+//		RoamingData.data.tsukaiMaElement [TargetShot] = (int)selectedElement;
+		if (TargetShot == 0) {
+			RoamingData.data.TsukaiMaStraight = RoamingData.self.tsukaiMaType [TargetShot].GetType ().ToString ();
+			RoamingData.data.TsukaiMaStraightElement = (int)selectedElement;
+		} else if (TargetShot == 1) {
+			RoamingData.data.TsukaiMaWide = RoamingData.self.tsukaiMaType [TargetShot].GetType ().ToString ();
+			RoamingData.data.TsukaiMaWideElement = (int)selectedElement;
+		}
+		//RoamingData.data.tsukaiMaElement[TargetShot] = (int)selectedElement;
 		ClosePannels ();
 	}
 	
