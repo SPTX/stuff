@@ -30,6 +30,6 @@ public class FloatingDamage : MonoBehaviour {
 
 	public void SetUp(int damage)
 	{
-		text.text = damage.ToString ();
+		text.text = "-" + damage.ToString ();
 	}
 }

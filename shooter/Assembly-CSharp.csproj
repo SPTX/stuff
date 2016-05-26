@@ -72,12 +72,15 @@
      <Compile Include="Assets\Scripts\MainMenu.cs" />
      <Compile Include="Assets\Scripts\MapManager.cs" />
      <Compile Include="Assets\Scripts\Moth.cs" />
+     <Compile Include="Assets\Scripts\Pannel.cs" />
      <Compile Include="Assets\Scripts\Pickup.cs" />
      <Compile Include="Assets\Scripts\ProjectileEnemy.cs" />
      <Compile Include="Assets\Scripts\ProjectileHead.cs" />
      <Compile Include="Assets\Scripts\ProjectileHeadContainer.cs" />
      <Compile Include="Assets\Scripts\ProjectileHeadDistributor.cs" />
+     <Compile Include="Assets\Scripts\RoamingData.cs" />
      <Compile Include="Assets\Scripts\Route.cs" />
+     <Compile Include="Assets\Scripts\SaveData.cs" />
      <Compile Include="Assets\Scripts\Shot.cs" />
      <Compile Include="Assets\Scripts\ShotStraight.cs" />
      <Compile Include="Assets\Scripts\ShotType.cs" />
@@ -85,6 +88,7 @@
      <Compile Include="Assets\Scripts\Spawner.cs" />
      <Compile Include="Assets\Scripts\StarPickupText.cs" />
      <Compile Include="Assets\Scripts\SubBoss.cs" />
+     <Compile Include="Assets\Scripts\TsukaiMa.cs" />
      <Compile Include="Assets\Scripts\Turret.cs" />
      <Compile Include="Assets\Scripts\floatingScore.cs" />
      <Compile Include="Assets\Scripts\floatingX2.cs" />

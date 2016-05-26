@@ -9,6 +9,7 @@ public class ShotWide : ShotType {
 	override protected void Start () {
 		base.Start ();
 		damage = 3;
+		type = Type.Wide;
 	}
 	
 	// Update is called once per frame

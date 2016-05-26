@@ -6,6 +6,7 @@ public class ShotStraight : ShotType {
 	// Use this for initialization
 	new void Start () {
 		base.Start ();
+		type = Type.Straight;
 	}
 	
 	// Update is called once per frame
