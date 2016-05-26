@@ -33,7 +33,13 @@ public class Character : DamagingEntity {
 
 	// Use this for initialization
 	void Start () {
-		equipedShotTypes = new List<ShotType> (RoamingData.self.tsukaiMaType);
+		if (RoamingData.self)
+			equipedShotTypes = new List<ShotType> (RoamingData.self.tsukaiMaType);
+		else {
+			gameObject.AddComponent <ShotStraight> ();
+			gameObject.AddComponent <ShotWide> ();
+			equipedShotTypes.AddRange(GetComponents<ShotType>());
+		}
 		magicRingInitialSize = ringSprite.transform.localScale;
 		seal.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Sprites/Seal-" + equipedShotTypes[equipedShot].element);
 		MapManager.PlayerCharacter = this;

@@ -68,6 +68,7 @@
      <Compile Include="Assets\Scripts\FloatingDamage.cs" />
      <Compile Include="Assets\Scripts\GameCamera.cs" />
      <Compile Include="Assets\Scripts\Gargoyle.cs" />
+     <Compile Include="Assets\Scripts\HugeEnemy.cs" />
      <Compile Include="Assets\Scripts\LoveMaxGraphic.cs" />
      <Compile Include="Assets\Scripts\MainMenu.cs" />
      <Compile Include="Assets\Scripts\MapManager.cs" />
@@ -79,6 +80,9 @@
      <Compile Include="Assets\Scripts\ProjectileHeadContainer.cs" />
      <Compile Include="Assets\Scripts\ProjectileHeadDistributor.cs" />
      <Compile Include="Assets\Scripts\RoamingData.cs" />
+     <Compile Include="Assets\Scripts\RockSkullDoubleConstantCanon.cs" />
+     <Compile Include="Assets\Scripts\RockSkullPattern.cs" />
+     <Compile Include="Assets\Scripts\RockSkullWave.cs" />
      <Compile Include="Assets\Scripts\Route.cs" />
      <Compile Include="Assets\Scripts\SaveData.cs" />
      <Compile Include="Assets\Scripts\Shot.cs" />
