@@ -5,8 +5,8 @@ public class BrokenSkull : MonoBehaviour {
 
 	public Transform target;
 	float maxSpeed = 6;
-	float speed = 6;
-	float deltatime = 0;
+	float speed = 16;
+	float nextHit = 0;
 	public Elements element;
 	public GameObject turret;
 
@@ -27,6 +27,8 @@ public class BrokenSkull : MonoBehaviour {
 			RotateTowardsBoss ();
 		if (speed < maxSpeed)
 			speed += 30 * Time.deltaTime;
+		else if (speed > maxSpeed)
+			speed -= 30 * Time.deltaTime;
 		transform.Translate (transform.right * speed * Time.deltaTime, Space.World);
 	}
 
@@ -41,19 +43,18 @@ public class BrokenSkull : MonoBehaviour {
 		Vector2 dir = transform.InverseTransformPoint(target.position);
 		float angle = Vector2.Angle(Vector2.right, dir);
 		angle = dir.y < 0 ? -angle : angle;
-		if (angle > 75 || angle < -75)
-			speed = 0;
 		transform.Rotate(Vector3.forward, 2 * Time.deltaTime * angle);
 	}
 
 	void OnTriggerStay2D(Collider2D other)
 	{
-		if ((deltatime += Time.deltaTime) >= 0.1f) {
-			deltatime = 0;
+		if ((nextHit += Time.deltaTime) >= 0.1f) {
+			nextHit = 0;
 			MapManager.PlayerCharacter.ComboAdd (0.25f);
 			Elements damElem = MapManager.IsSensibleTo (other.gameObject.GetComponent<DamagingEntity> ().element);
 			other.GetComponent<DamagingEntity> ().TakeDamage (10, damElem);
-			speed = 1;
+			if (speed <= maxSpeed)
+				speed = 0;
 		}
 	}
 }
