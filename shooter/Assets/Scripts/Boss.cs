@@ -37,7 +37,7 @@ public class Boss : DamagingEntity {
 	// Use this for initialization
 	protected void Start () {
 		seal.sprite = Resources.Load<Sprite>("Sprites/Seal-" + element);
-		healthActual = HPMax = health;
+		healthActual = HPMax = health *= ((int)MapManager.Manager.difficulty + 1);
 		damageable = false;
 		turretRefire = turretRefireDelay;
 	}

@@ -197,7 +197,9 @@ public class BossSkull : DamagingEntity {
 
 	protected override void Die (float elementMultiplier)
 	{
-		MapManager.Manager.AddScore (scoreValue, elementMultiplier, false, 0);
+		((GameObject)Instantiate(Resources.Load("floatingScore"), transform.position, Quaternion.identity)).GetComponent<floatingScore>().SetUp(
+			MapManager.Manager.AddScore (scoreValue, elementMultiplier, false, 0)
+		);
 		MapManager.PlayerCharacter.ComboAdd (1, transform.position);
 
 		if (elementMultiplier == 0.5f) {
