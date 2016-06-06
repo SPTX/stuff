@@ -22,6 +22,8 @@ public class Enemy : DamagingEntity {
 
 	protected Vector3 initialBarPos;
 	public GameObject LockRing;
+	protected int nextStar;
+	protected bool withinRingRange;
 	public int materials = 0;
 	public int materialSize = 1;
 	public Image healthBar;
@@ -34,6 +36,7 @@ public class Enemy : DamagingEntity {
 	// Use this for initialization
 	protected virtual void Start () {
 		health = HealthMax;
+		nextStar = health;
 		initialBarPos = healthBar.rectTransform.localPosition;
 		if (spawnEffect) {
 			transform.localScale = Vector3.zero;
@@ -89,12 +92,25 @@ public class Enemy : DamagingEntity {
 		if (!canBeHit)
 			return 0;
 
+		//solve element returns 2, 0.5 or 1 (*2, /2, *1)
+		float damMul = MapManager.SolveElement (DamageElement, element);
+
 		//do things for big enemies (combo add, spawn stars on "death" difficulty)
 		if (big) {
 			MapManager.PlayerCharacter.ComboAdd (0.2f, transform.position);
 			turret.HitEffect();
-			if (MapManager.Manager.difficulty == MapManager.Difficulty.death)
-				Instantiate (Resources.Load ("Star" + (LockRing.activeSelf ? "Big" : "Small")), transform.position, Quaternion.identity);
+			if (MapManager.Manager.difficulty == MapManager.Difficulty.death && LockRing.activeSelf) {
+				int numberOfStars = 0;
+				float totalDamage = DamageTaken * damMul;
+				while (totalDamage > 0)
+				{
+					if ((--nextStar % 10) == 0)
+						++numberOfStars;
+					totalDamage -= 1;
+				}
+				for (int i = numberOfStars; i > 0;--i)
+					Instantiate (Resources.Load ("Star" + (withinRingRange ? "Big" : "Small")), transform.position, Quaternion.identity);
+			}
 		}
 
 		if (!damageable)
@@ -102,8 +118,6 @@ public class Enemy : DamagingEntity {
 
 		if (elementless)
 			DamageElement = element;
-		//solve element returns 2, 0.5 or 1 (*2, /2, *1)
-		float damMul = MapManager.SolveElement (DamageElement, element);
 		health -= (int)(DamageTaken * damMul);
 
 		if (health <= 0)
@@ -121,12 +135,20 @@ public class Enemy : DamagingEntity {
 		return DamageTaken;
 	}
 
-	void OnTriggerStay2D(Collider2D other)
+	void OnTriggerEnter2D(Collider2D other)
+	{
+		if (other.name == "ring") {
+			LockRing.SetActive (true);
+			withinRingRange = true;
+		}
+	}
+	
+	void OnTriggerExit2D(Collider2D other)
 	{
 		if (other.name == "ring")
-			LockRing.SetActive (true);
+			withinRingRange = false;
 	}
-
+	
 	override protected void Die(float elementMultiplier){
 		//Spawn explosin effect or whatever
 		MapManager.PlayerCharacter.ComboAdd (1, transform.position);
