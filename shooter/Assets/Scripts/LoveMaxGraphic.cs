@@ -13,6 +13,10 @@ public class LoveMaxGraphic : MonoBehaviour {
 	public float reaccelMultiplier = 10;
 	protected bool arrived;
 
+	public GameObject Heart;
+	public float HeartVerticalGrowSpeed = 2;
+	public float HeartHorizontalGrowSpeed = 2;
+
 	// Use this for initialization
 	void Start () {
 	}
@@ -31,8 +35,13 @@ public class LoveMaxGraphic : MonoBehaviour {
 			speed += accel * reaccelMultiplier;
 			Love.transform.Translate(speed * Time.deltaTime, 0, 0, Space.World);
 			Max.transform.Translate(-speed * Time.deltaTime, 0, 0, Space.World);
-			if (Love.transform.position.x < -10)
+			if (MapManager.Manager.InLove() == 0)
 				Destroy(gameObject);
 		}
+
+		if (Heart.transform.localScale.y < 30)
+			Heart.transform.localScale += Vector3.up * HeartVerticalGrowSpeed * Time.deltaTime;
+		else if (Heart.transform.localScale.x < 40)
+			Heart.transform.localScale += Vector3.right * HeartVerticalGrowSpeed * Time.deltaTime;
 	}
 }

@@ -91,29 +91,31 @@ public class MapManager : MonoBehaviour {
 		if (materialUI.transform.localScale.x > 1)
 			materialUI.transform.localScale -= Vector3.one * 0.1f;
 
-		if (loveHeart.transform.localScale.y <= 1.5f) {
-			loveHeart.transform.localScale += (Vector3.one * Time.deltaTime * pulse);
-			if (loveHeart.transform.localScale.y <= 1 || loveHeart.transform.localScale.y >= 1.5f)
-				pulse = -pulse;
-		} else
-			loveHeart.transform.localScale += (Vector3.one * Time.deltaTime * pulse);
-		loveHeart.rectTransform.anchoredPosition = Vector3.up * (240 * (((love * 100) / loveMax) / 100f));
+
+		loveHeart.transform.localScale += Vector3.one * (loveDrain ? 3 : 1) * Time.deltaTime * pulse;
+		if (loveHeart.transform.localScale.x > 1.5f || loveHeart.transform.localScale.x < 1) {
+			if (loveHeart.transform.localScale.x > 1.5f)
+				loveHeart.transform.localScale = Vector3.one * 1.5f;
+			else
+				loveHeart.transform.localScale = Vector3.one;
+			pulse = -pulse;
+		}
+		loveHeart.rectTransform.anchoredPosition = Vector3.up * (360 * (((love * 100) / loveMax) / 100f));
 
 		if (loveDrain) {
-			Rect newRect = loveMellow.uvRect;
-			newRect.x += 0.1f * Time.deltaTime;
+//			Rect newRect = loveMellow.uvRect;
+//			newRect.x += 0.1f * Time.deltaTime;
 			if ((love -= 10 * Time.deltaTime) <= 0) {
 				love = 0;
 				loveDrain = false;
-				newRect.x = 0;
-//				loveMellow.enabled = false;
+//				newRect.x = 0;
 			}
-			loveMellow.uvRect = newRect;
-			if (loveMellow.color.a < 0.2f)
-				loveMellow.color = new Color (1, 1, 1, loveMellow.color.a + 0.01f);
+//			loveMellow.uvRect = newRect;
+//			if (loveMellow.color.a < 0.2f)
+//				loveMellow.color = new Color (1, 1, 1, loveMellow.color.a + 0.01f);
 		} else {
-			if (loveMellow.color.a > 0)
-				loveMellow.color = new Color (1, 1, 1, loveMellow.color.a - 0.01f);
+//			if (loveMellow.color.a > 0)
+//				loveMellow.color = new Color (1, 1, 1, loveMellow.color.a - 0.01f);
 			if (loveDrain && (love -= 1 * Time.deltaTime) <= 0) {
 					loveDrain = false;
 					love = 0;
@@ -184,7 +186,6 @@ public class MapManager : MonoBehaviour {
 			love = loveMax;
 			loveDrain = true;
 			Instantiate(Resources.Load("LoveMax"), Vector3.zero, Quaternion.identity);
-//			loveMellow.enabled = true;
 		}
 	}
 

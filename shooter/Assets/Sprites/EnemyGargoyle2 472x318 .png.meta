@@ -1,0 +1,419 @@
+fileFormatVersion: 2
+guid: bb9c22af647ff4f10a2f43a31e51c354
+timeCreated: 1465912883
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: EnemyGargoyle2 472x318 _0
+    21300002: EnemyGargoyle2 472x318 _1
+    21300004: EnemyGargoyle2 472x318 _2
+    21300006: EnemyGargoyle2 472x318 _3
+    21300008: EnemyGargoyle2 472x318 _4
+    21300010: EnemyGargoyle2 472x318 _5
+    21300012: EnemyGargoyle2 472x318 _6
+    21300014: EnemyGargoyle2 472x318 _7
+    21300016: EnemyGargoyle2 472x318 _8
+    21300018: EnemyGargoyle2 472x318 _9
+    21300020: EnemyGargoyle2 472x318 _10
+    21300022: EnemyGargoyle2 472x318 _11
+    21300024: EnemyGargoyle2 472x318 _12
+    21300026: EnemyGargoyle2 472x318 _13
+    21300028: EnemyGargoyle2 472x318 _14
+    21300030: EnemyGargoyle2 472x318 _15
+    21300032: EnemyGargoyle2 472x318 _16
+    21300034: EnemyGargoyle2 472x318 _17
+    21300036: EnemyGargoyle2 472x318 _18
+    21300038: EnemyGargoyle2 472x318 _19
+    21300040: EnemyGargoyle2 472x318 _20
+    21300042: EnemyGargoyle2 472x318 _21
+    21300044: EnemyGargoyle2 472x318 _22
+    21300046: EnemyGargoyle2 472x318 _23
+    21300048: EnemyGargoyle2 472x318 _24
+    21300050: EnemyGargoyle2 472x318 _25
+    21300052: EnemyGargoyle2 472x318 _26
+    21300054: EnemyGargoyle2 472x318 _27
+    21300056: EnemyGargoyle2 472x318 _28
+    21300058: EnemyGargoyle2 472x318 _29
+    21300060: EnemyGargoyle2 472x318 _30
+    21300062: EnemyGargoyle2 472x318 _31
+    21300064: EnemyGargoyle2 472x318 _32
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: .25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 8
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: 0
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: .5, y: .5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: EnemyGargoyle2 472x318 _0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 636
+        width: 472
+        height: 318
+      alignment: 9
+      pivot: {x: .5, y: .300000012}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: EnemyGargoyle2 472x318 _1
+      rect:
+        serializedVersion: 2
+        x: 472
+        y: 636
+        width: 472
+        height: 318
+      alignment: 9
+      pivot: {x: .5, y: .300000012}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: EnemyGargoyle2 472x318 _2
+      rect:
+        serializedVersion: 2
+        x: 944
+        y: 636
+        width: 472
+        height: 318
+      alignment: 9
+      pivot: {x: .5, y: .300000012}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: EnemyGargoyle2 472x318 _3
+      rect:
+        serializedVersion: 2
+        x: 1416
+        y: 636
+        width: 472
+        height: 318
+      alignment: 9
+      pivot: {x: .5, y: .300000012}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: EnemyGargoyle2 472x318 _4
+      rect:
+        serializedVersion: 2
+        x: 1888
+        y: 636
+        width: 472
+        height: 318
+      alignment: 9
+      pivot: {x: .5, y: .300000012}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: EnemyGargoyle2 472x318 _5
+      rect:
+        serializedVersion: 2
+        x: 2360
+        y: 636
+        width: 472
+        height: 318
+      alignment: 9
+      pivot: {x: .5, y: .300000012}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: EnemyGargoyle2 472x318 _6
+      rect:
+        serializedVersion: 2
+        x: 2832
+        y: 636
+        width: 472
+        height: 318
+      alignment: 9
+      pivot: {x: .5, y: .300000012}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: EnemyGargoyle2 472x318 _7
+      rect:
+        serializedVersion: 2
+        x: 3304
+        y: 636
+        width: 472
+        height: 318
+      alignment: 9
+      pivot: {x: .5, y: .300000012}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: EnemyGargoyle2 472x318 _8
+      rect:
+        serializedVersion: 2
+        x: 3776
+        y: 636
+        width: 472
+        height: 318
+      alignment: 9
+      pivot: {x: .5, y: .300000012}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: EnemyGargoyle2 472x318 _9
+      rect:
+        serializedVersion: 2
+        x: 4248
+        y: 636
+        width: 472
+        height: 318
+      alignment: 9
+      pivot: {x: .5, y: .300000012}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: EnemyGargoyle2 472x318 _10
+      rect:
+        serializedVersion: 2
+        x: 4720
+        y: 636
+        width: 472
+        height: 318
+      alignment: 9
+      pivot: {x: .5, y: .300000012}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: EnemyGargoyle2 472x318 _11
+      rect:
+        serializedVersion: 2
+        x: 5192
+        y: 636
+        width: 472
+        height: 318
+      alignment: 9
+      pivot: {x: .5, y: .300000012}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: EnemyGargoyle2 472x318 _12
+      rect:
+        serializedVersion: 2
+        x: 5664
+        y: 636
+        width: 472
+        height: 318
+      alignment: 9
+      pivot: {x: .5, y: .300000012}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: EnemyGargoyle2 472x318 _13
+      rect:
+        serializedVersion: 2
+        x: 6136
+        y: 636
+        width: 472
+        height: 318
+      alignment: 9
+      pivot: {x: .5, y: .300000012}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: EnemyGargoyle2 472x318 _14
+      rect:
+        serializedVersion: 2
+        x: 6608
+        y: 636
+        width: 472
+        height: 318
+      alignment: 9
+      pivot: {x: .5, y: .300000012}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: EnemyGargoyle2 472x318 _15
+      rect:
+        serializedVersion: 2
+        x: 7080
+        y: 636
+        width: 472
+        height: 318
+      alignment: 9
+      pivot: {x: .5, y: .300000012}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: EnemyGargoyle2 472x318 _16
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 318
+        width: 472
+        height: 318
+      alignment: 9
+      pivot: {x: .5, y: .300000012}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: EnemyGargoyle2 472x318 _17
+      rect:
+        serializedVersion: 2
+        x: 472
+        y: 318
+        width: 472
+        height: 318
+      alignment: 9
+      pivot: {x: .5, y: .300000012}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: EnemyGargoyle2 472x318 _18
+      rect:
+        serializedVersion: 2
+        x: 944
+        y: 318
+        width: 472
+        height: 318
+      alignment: 9
+      pivot: {x: .5, y: .300000012}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: EnemyGargoyle2 472x318 _19
+      rect:
+        serializedVersion: 2
+        x: 1416
+        y: 318
+        width: 472
+        height: 318
+      alignment: 9
+      pivot: {x: .5, y: .300000012}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: EnemyGargoyle2 472x318 _20
+      rect:
+        serializedVersion: 2
+        x: 1888
+        y: 318
+        width: 472
+        height: 318
+      alignment: 9
+      pivot: {x: .5, y: .300000012}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: EnemyGargoyle2 472x318 _21
+      rect:
+        serializedVersion: 2
+        x: 2360
+        y: 318
+        width: 472
+        height: 318
+      alignment: 9
+      pivot: {x: .5, y: .300000012}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: EnemyGargoyle2 472x318 _22
+      rect:
+        serializedVersion: 2
+        x: 2832
+        y: 318
+        width: 472
+        height: 318
+      alignment: 9
+      pivot: {x: .5, y: .300000012}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: EnemyGargoyle2 472x318 _23
+      rect:
+        serializedVersion: 2
+        x: 3304
+        y: 318
+        width: 472
+        height: 318
+      alignment: 9
+      pivot: {x: .5, y: .300000012}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: EnemyGargoyle2 472x318 _24
+      rect:
+        serializedVersion: 2
+        x: 3776
+        y: 318
+        width: 472
+        height: 318
+      alignment: 9
+      pivot: {x: .5, y: .300000012}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: EnemyGargoyle2 472x318 _25
+      rect:
+        serializedVersion: 2
+        x: 4248
+        y: 318
+        width: 472
+        height: 318
+      alignment: 9
+      pivot: {x: .5, y: .300000012}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: EnemyGargoyle2 472x318 _26
+      rect:
+        serializedVersion: 2
+        x: 4720
+        y: 318
+        width: 472
+        height: 318
+      alignment: 9
+      pivot: {x: .5, y: .300000012}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: EnemyGargoyle2 472x318 _27
+      rect:
+        serializedVersion: 2
+        x: 5192
+        y: 318
+        width: 472
+        height: 318
+      alignment: 9
+      pivot: {x: .5, y: .300000012}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: EnemyGargoyle2 472x318 _28
+      rect:
+        serializedVersion: 2
+        x: 5664
+        y: 318
+        width: 472
+        height: 318
+      alignment: 9
+      pivot: {x: .5, y: .300000012}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: EnemyGargoyle2 472x318 _29
+      rect:
+        serializedVersion: 2
+        x: 6136
+        y: 318
+        width: 472
+        height: 318
+      alignment: 9
+      pivot: {x: .5, y: .300000012}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: EnemyGargoyle2 472x318 _30
+      rect:
+        serializedVersion: 2
+        x: 6608
+        y: 318
+        width: 472
+        height: 318
+      alignment: 9
+      pivot: {x: .5, y: .300000012}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: EnemyGargoyle2 472x318 _31
+      rect:
+        serializedVersion: 2
+        x: 7080
+        y: 318
+        width: 472
+        height: 318
+      alignment: 9
+      pivot: {x: .5, y: .300000012}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: EnemyGargoyle2 472x318 _32
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 472
+        height: 318
+      alignment: 9
+      pivot: {x: .5, y: .300000012}
+      border: {x: 0, y: 0, z: 0, w: 0}
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
