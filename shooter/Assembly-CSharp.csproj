@@ -89,6 +89,7 @@
      <Compile Include="Assets\Scripts\ShotStraight.cs" />
      <Compile Include="Assets\Scripts\ShotType.cs" />
      <Compile Include="Assets\Scripts\ShotWide.cs" />
+     <Compile Include="Assets\Scripts\SpawnRing.cs" />
      <Compile Include="Assets\Scripts\Spawner.cs" />
      <Compile Include="Assets\Scripts\StarPickupText.cs" />
      <Compile Include="Assets\Scripts\SubBoss.cs" />
@@ -96,6 +97,7 @@
      <Compile Include="Assets\Scripts\Turret.cs" />
      <Compile Include="Assets\Scripts\floatingScore.cs" />
      <Compile Include="Assets\Scripts\floatingX2.cs" />
+     <Compile Include="Assets\StageStart.cs" />
  <Reference Include="UnityEngine.Networking">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
  </Reference>

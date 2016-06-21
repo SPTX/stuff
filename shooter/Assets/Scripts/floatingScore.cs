@@ -6,6 +6,7 @@ public class floatingScore : MonoBehaviour {
 
 	public Text text;
 	public Vector3 destination;
+	public SpriteRenderer explosionImage;
 	protected Color newAlpha;
 	protected bool arrived;
 	protected float lifetime = 1;
@@ -28,9 +29,9 @@ public class floatingScore : MonoBehaviour {
 			}
 		} else if ((lifetime -= Time.deltaTime) < 0) {
 			newAlpha.a -= 1f * Time.deltaTime;
-			text.color = newAlpha;
-			if (text.transform.localScale.y > 0)
-				text.transform.localScale -= Vector3.up * 0.05f * Time.deltaTime;
+			explosionImage.color = text.color = newAlpha;
+			if (transform.localScale.y > 0)
+				transform.localScale -= Vector3.up * 0.05f * Time.deltaTime;
 			if ((transform.position = Vector3.MoveTowards(transform.position, destination, 12 * Time.deltaTime)) == destination)
 				Destroy(gameObject);
 		}

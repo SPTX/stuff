@@ -48,7 +48,8 @@ public class Turret : MonoBehaviour {
 	virtual public bool Fire()
 	{
 		if (MapManager.ShotCounter++ % (ignoreShotLimit ? 1 : MapManager.Manager.shotEvery) != 0 ||
-			projectileType == null || MapManager.Manager.difficulty == MapManager.Difficulty.easy) {
+			projectileType == null || MapManager.Manager.difficulty == MapManager.Difficulty.easy ||
+		    !MapManager.WithinBounds(transform.position, 7, 4)) {
 			refire = firerate;
 			return false;
 		}

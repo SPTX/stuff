@@ -8,6 +8,7 @@ public class RockSkullDoubleConstantCanon : RockSkullPattern {
 	protected float nextSpread;
 	protected int spreadDirection = -1;
 	protected float canonNumber;
+	protected int canonDirection = -1;
 
 	// Use this for initialization
 	protected override void Start () {
@@ -30,8 +31,6 @@ public class RockSkullDoubleConstantCanon : RockSkullPattern {
 	protected override void Fire ()
 	{
 		base.Fire ();
-		if (shootingDuration < maxShootingDuration / 2 && canonNumber > 0)
-			canonNumber = -(canonSpacing / 2);
 		if ((nextSpread += 120 * spreadDirection * Time.deltaTime) < -spreadAngle || nextSpread > spreadAngle) {
 			spreadDirection *= -1;
 			if (nextSpread > spreadAngle)
@@ -42,8 +41,11 @@ public class RockSkullDoubleConstantCanon : RockSkullPattern {
 		MapManager.Manager.onScreenEntities.Add(
 			((GameObject)Instantiate(Resources.Load("ProjectileHead"),
 		                         transform.position + Vector3.up * canonNumber,
-		                         LookAtPlayer() * Quaternion.AngleAxis(nextSpread, Vector3.forward)))
+		                         LookAtPlayer(transform.position + Vector3.up * canonNumber) * Quaternion.AngleAxis(nextSpread, Vector3.forward)))
 			.GetComponent<DamagingEntity>()
 			);
+
+		if ((canonNumber += canonDirection * 0.15f) > canonSpacing || canonNumber < -canonSpacing)
+			canonDirection = -canonDirection;
 	}
 }

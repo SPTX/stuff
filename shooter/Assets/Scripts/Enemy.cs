@@ -13,6 +13,7 @@ public class Enemy : DamagingEntity {
 	public int numberOfKillsForSkull = 4;
 
 	public bool spawnEffect = false;
+	public bool spawnRing = false;
 	public float moveSpeed = 5;
 	public float timeToFlee = 12;
 	public Vector3 fleeingDirection = Vector3.up;
@@ -44,6 +45,9 @@ public class Enemy : DamagingEntity {
 			if (!big)
 				canBeHit = false;
 		}
+		if (spawnRing)
+			((GameObject)Instantiate(Resources.Load("SpawnRing"), transform.position, Quaternion.identity))
+				.GetComponent<SpawnRing> ().SetUp (huge, transform, (elementless ? Elements.light : element));
 	}
 	
 	// Update is called once per frame
@@ -152,6 +156,7 @@ public class Enemy : DamagingEntity {
 	override protected void Die(float elementMultiplier){
 		//Spawn explosin effect or whatever
 		MapManager.PlayerCharacter.ComboAdd (1, transform.position);
+		if (MapManager.WithinBounds(transform.position, 7, 4))
 		((GameObject)Instantiate(Resources.Load("floatingScore"), transform.position, Quaternion.identity)).GetComponent<floatingScore>().SetUp(
 			MapManager.Manager.AddScore(scoreValue, elementMultiplier, LockRing.activeSelf, (huge ? 1 : 0))
 		);

@@ -8,7 +8,7 @@ public class BossSkull : DamagingEntity {
 
 	protected int healthMax = 250;
 	protected int health;
-	protected float lifeTime = 12;
+	protected float lifeTime = 30;
 
 	protected float moveSpeed = 0;
 	protected float moveSpeedMax = 5;
@@ -197,6 +197,7 @@ public class BossSkull : DamagingEntity {
 
 	protected override void Die (float elementMultiplier)
 	{
+		if (MapManager.WithinBounds(transform.position, 7, 4))
 		((GameObject)Instantiate(Resources.Load("floatingScore"), transform.position, Quaternion.identity)).GetComponent<floatingScore>().SetUp(
 			MapManager.Manager.AddScore (scoreValue, elementMultiplier, false, 0)
 		);

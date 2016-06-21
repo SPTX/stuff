@@ -26,7 +26,7 @@ public class RockSkullWave : RockSkullPattern {
 		float nextangle = -(angle / 2);
 		for (int i = 0; i < numberOfSkulls; ++i) {
 			MapManager.Manager.onScreenEntities.Add(
-				((GameObject)Instantiate(Resources.Load("ProjectileHead"), transform.position, LookAtPlayer() * Quaternion.AngleAxis(nextangle ,Vector3.forward)))
+				((GameObject)Instantiate(Resources.Load("ProjectileHead"), transform.position, LookAtPlayer(transform.position) * Quaternion.AngleAxis(nextangle ,Vector3.forward)))
 				.GetComponent<DamagingEntity>()
 				);
 			nextangle += angleBetweenSkulls;

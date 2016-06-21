@@ -27,8 +27,8 @@ public class RockSkullPattern : MonoBehaviour {
 
 	protected virtual void Fire(){}
 
-	public Quaternion LookAtPlayer(){
-		Vector3 lookPos = MapManager.PlayerCharacter.transform.position - transform.position;
+	public Quaternion LookAtPlayer(Vector3 lookPos){
+		lookPos = MapManager.PlayerCharacter.transform.position - transform.position;
 		float angle = Mathf.Atan2(lookPos.y, lookPos.x) * Mathf.Rad2Deg;
 		return Quaternion.AngleAxis(angle, Vector3.forward);
 	}

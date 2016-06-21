@@ -14,4 +14,11 @@ public class HugeEnemy : Enemy {
 	protected override void Update () {
 		base.Update ();
 	}
+
+	protected override void Die (float elementMultiplier)
+	{
+		base.Die (elementMultiplier);
+		((GameObject)Instantiate (Resources.Load ("Carcass"), transform.position, Quaternion.identity)).GetComponent<ExplodingCarcass> ().
+			SetUp (turret.GetComponent<SpriteRenderer>().sprite, turret.transform.localScale);
+	}
 }
