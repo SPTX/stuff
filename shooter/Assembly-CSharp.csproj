@@ -53,6 +53,7 @@
      <Compile Include="Assets\Scripts\BossSkullExplosion.cs" />
      <Compile Include="Assets\Scripts\BossSkullSpawner.cs" />
      <Compile Include="Assets\Scripts\BossSpawner.cs" />
+     <Compile Include="Assets\Scripts\BossWarning.cs" />
      <Compile Include="Assets\Scripts\BrokenSkull.cs" />
      <Compile Include="Assets\Scripts\Character.cs" />
      <Compile Include="Assets\Scripts\ComboBonus.cs" />
@@ -69,6 +70,7 @@
      <Compile Include="Assets\Scripts\GameCamera.cs" />
      <Compile Include="Assets\Scripts\Gargoyle.cs" />
      <Compile Include="Assets\Scripts\HugeEnemy.cs" />
+     <Compile Include="Assets\Scripts\LightStreak.cs" />
      <Compile Include="Assets\Scripts\LoveMaxGraphic.cs" />
      <Compile Include="Assets\Scripts\MainMenu.cs" />
      <Compile Include="Assets\Scripts\MapManager.cs" />
@@ -95,6 +97,7 @@
      <Compile Include="Assets\Scripts\SubBoss.cs" />
      <Compile Include="Assets\Scripts\TsukaiMa.cs" />
      <Compile Include="Assets\Scripts\Turret.cs" />
+     <Compile Include="Assets\Scripts\WarningBat.cs" />
      <Compile Include="Assets\Scripts\floatingScore.cs" />
      <Compile Include="Assets\Scripts\floatingX2.cs" />
      <Compile Include="Assets\StageStart.cs" />

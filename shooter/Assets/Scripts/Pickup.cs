@@ -30,11 +30,11 @@ public class Pickup : MonoBehaviour {
 			transform.RotateAround (transform.position, transform.up, 180f);
 			transform.Translate ((MapManager.PlayerCharacter.transform.position - transform.position).normalized * 14 * Time.deltaTime, Space.World);
 		} else {
-			if (velocity.y > -4){
+			if (velocity.y > -6){
 				velocity.y -= 0.01f;
 				if (velocity.y <= 0.5f)
 					falling = true;
-				if (velocity.x > -1)
+				if (velocity.x > -1.5f)
 					velocity.x -= 0.04f;
 			}
 			transform.Translate (velocity * Time.deltaTime, Space.World);

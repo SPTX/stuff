@@ -30,7 +30,9 @@ public class SpawnRing : MonoBehaviour {
 
 	public void SetUp(bool newExpands, Transform newParent, Elements colour){
 
-		GetComponentInChildren<SpriteRenderer> ().color = MapManager.elementColors [(int)colour];
+		Color newColour = MapManager.elementColors [(int)colour];
+		newColour.a = 0.5f;
+		GetComponentInChildren<SpriteRenderer> ().color = newColour;
 		parent = newParent;
 		if (!(expands = newExpands))
 			return;
